@@ -22,6 +22,7 @@ public class AuthenticationController {
 //		System.out.println(SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 //		return authHeader;
 //	}
+	
 	@GetMapping("/authenticate")
 	public Map<String, String> authenticate(@RequestHeader("Authorization") String authHeader) {
 		
