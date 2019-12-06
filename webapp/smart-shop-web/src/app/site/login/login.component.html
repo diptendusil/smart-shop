@@ -6,7 +6,7 @@
                  Login
              </div>
              <div class="card-body">
-                <form [formGroup]="login" (ngSubmit)="onSubmit()" >
+                <form [formGroup]="login" (ngSubmit)="loginUser()" >
                     <div class="alert alert-danger" *ngIf="!isLoginValid()">
                         Invalid Username /Password
   
