@@ -46,6 +46,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 	
 	private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
 		String token=request.getHeader("Authorization");
+		System.out.println(token);
 		if(token!=null) {
 			Jws<Claims> jws;
 			try {
@@ -53,6 +54,8 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 				String user=jws.getBody().getSubject();
 				ArrayList<SimpleGrantedAuthority> auths = new ArrayList<>();
 				auths.add(new SimpleGrantedAuthority((String)jws.getBody().get("role")));
+				System.out.println("User : " + user);
+				System.out.println("Roles : " + auths);
 				if(user!=null) {
 					return new UsernamePasswordAuthenticationToken(user, null, auths);
 				}
