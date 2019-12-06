@@ -1,4 +1,4 @@
-package com.cognizant.zuulgatewayapi;
+package com.cognizant.userauthenticationservice.security;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
-
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
@@ -31,8 +31,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 			throws IOException, ServletException {
 		
 		String header=request.getHeader("Authorization");
-
-		
+		System.out.println("Authorization header : " + header);
 		if(header==null||!header.startsWith("Bearer ")) {
 
 			chain.doFilter(request, response);
@@ -52,9 +51,10 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 			try {
 				jws=Jwts.parser().setSigningKey("secretkey").parseClaimsJws(token.replace("Bearer ", ""));
 				String user=jws.getBody().getSubject();
-
+				ArrayList<SimpleGrantedAuthority> auths = new ArrayList<>();
+				auths.add(new SimpleGrantedAuthority((String)jws.getBody().get("role")));
 				if(user!=null) {
-					return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
+					return new UsernamePasswordAuthenticationToken(user, null, auths);
 				}
 			}catch(JwtException ex) {
 				return null;
