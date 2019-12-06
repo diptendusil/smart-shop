@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.cognizant</groupId>
-	<artifactId>user-authentication-service</artifactId>
+	<artifactId>zuul-gateway-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>user-authentication-service</name>
 	<description>Project Smart Shop</description>
