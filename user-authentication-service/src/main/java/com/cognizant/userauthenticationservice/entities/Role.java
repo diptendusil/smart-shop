@@ -8,6 +8,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Role {
 	@Id
@@ -15,6 +17,7 @@ public class Role {
 	private String roleId;
 	@Column(name="ro_name")
 	private String name;
+	@JsonIgnore
 	@OneToMany(mappedBy="role", fetch=FetchType.EAGER)
 	private List<User> users;
 	public Role() {
