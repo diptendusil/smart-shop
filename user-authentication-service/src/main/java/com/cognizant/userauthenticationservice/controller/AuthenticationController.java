@@ -28,7 +28,7 @@ public class AuthenticationController {
 		String user = getUser(authHeader);
 		String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0].toString();
 		Map<String, String> auth = new HashMap<String, String>();
-		auth.put("token", generateJwt(user));
+		auth.put("token", generateJwt(user, role));
 		auth.put("role", role);
 		return auth;
 	}
@@ -39,9 +39,10 @@ public class AuthenticationController {
 		return authStr.split(":")[0];
 	}
 
-	private String generateJwt(String user) {
+	private String generateJwt(String user, String role) {
 		JwtBuilder builder = Jwts.builder();
 		builder.setSubject(user);
+		builder.claim("role", role);
 		builder.setIssuedAt(new Date());
 		builder.setExpiration(new Date(new Date().getTime() + 1200000));
 		builder.signWith(SignatureAlgorithm.HS256, "secretkey");
