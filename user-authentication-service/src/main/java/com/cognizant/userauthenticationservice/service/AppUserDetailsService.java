@@ -135,4 +135,7 @@ public class AppUserDetailsService implements UserDetailsService {
 	public User getUser(String userId) {
 		return userRepository.findById(userId).get();
 	}
+	public boolean userExists(String username) {
+		return userRepository.findById(username).isPresent();
+	}
 }
