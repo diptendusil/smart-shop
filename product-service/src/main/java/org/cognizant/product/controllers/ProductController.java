@@ -1,7 +1,12 @@
 package org.cognizant.product.controllers;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.cognizant.product.dto.CategoryDto;
+import org.cognizant.product.dto.ProductDto;
 import org.cognizant.product.entities.Product;
 import org.cognizant.product.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/products")
@@ -18,17 +24,37 @@ public class ProductController {
 	private ProductService productService;
 	
 	@GetMapping
-	public List<Product> getAllProducts(){
-		return productService.getAllProducts();
+	public List<ProductDto> getAllProducts(){
+		return convertProductsToProductDtos(productService.getAllProducts());
 	}
 	
 	@GetMapping("/{code}")
-	public Product getProductById(@PathVariable String code){
-		return productService.getProductById(code);
+	public ProductDto getProductById(@PathVariable String code){
+		return convertProductToProductDto(productService.getProductById(code));
 	}
 	
 	@GetMapping("/category/{id}")
-	public List<Product> getProductsByCategory(@PathVariable int id) {
-		return productService.getProductsByCategory(id);
+	public List<ProductDto> getProductsByCategory(@PathVariable int id) {
+		return convertProductsToProductDtos(productService.getProductsByCategory(id));
+	}
+	
+	public List<ProductDto> convertProductsToProductDtos(List<Product> products){
+		List<ProductDto> productList=new ArrayList<ProductDto>();
+		for(Product product:products) {
+			ProductDto productDto=convertProductToProductDto(product);
+			productList.add(productDto);
+		}
+		return productList;
+	}
+	
+	public ProductDto convertProductToProductDto(Product product) {
+		ProductDto productDto=new ProductDto(product.getProductCode(), product.getProductName(), product.getBrand(), product.getRate(),
+				product.getStockCount(),product.getAddDate(),product.getAisle(),product.getShelf(),product.getDateOfManufacture(),product.getDateOfExpiry(),
+				product.getImage(),null);
+		if(product.getQuantityType()!=null)
+			productDto.setQuantityType(product.getQuantityType());
+		CategoryDto categoryDto=new CategoryDto(product.getCategory().getCategoryId(), product.getCategory().getCategoryName(),null);
+		productDto.setCategory(categoryDto);
+		return productDto;
 	}
 }
