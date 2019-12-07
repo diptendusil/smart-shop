@@ -23,7 +23,7 @@ public class User {
 	private String gender;
 	@Column(name="us_contact")
 	private int contact;
-	@JsonIgnore
+
 	@Column(name="us_password")
 	private String password;
 	@Column(name="us_status")

@@ -1,6 +1,7 @@
 package com.cognizant.userauthenticationservice.service;
 
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
@@ -62,11 +63,12 @@ public class AppUserDetailsService implements UserDetailsService {
 	public void signupUser(User user) throws UserAlreadyExistsException {
 		Role role = null;
 		try {
-			User oldU = userRepository.findById(user.getUserId()).get();
+			Optional<User> testUser = userRepository.findById(user.getUserId());
 			role = roleRepository.findById("U").get();
-			if(oldU == null) {
+			if(!testUser.isPresent()) {
 				user.setRole(role);
 				user.setStatus("A");
+				System.out.println(user.getUserId()+":"+ user.getPassword());
 				user.setPassword(passwordEncoder.encode(user.getPassword()));
 				userRepository.save(user);
 			}

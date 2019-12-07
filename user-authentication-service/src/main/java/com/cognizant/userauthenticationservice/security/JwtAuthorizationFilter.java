@@ -2,7 +2,6 @@ package com.cognizant.userauthenticationservice.security;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Base64;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -35,12 +34,7 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		String header=request.getHeader("Authorization");
 		System.out.println("Authorization header : " + header);
 		if(header==null||!header.startsWith("Bearer ")) {
-			
-			String userId = getUser(header);
-			System.out.println(userId);
-			
 			chain.doFilter(request, response);
-			
 			return;
 		}
 		UsernamePasswordAuthenticationToken authentication=getAuthentication(request);
@@ -73,14 +67,6 @@ public class JwtAuthorizationFilter extends BasicAuthenticationFilter {
 		}
 		return null;
 	}
-	
-	
-	
-	
-	private String getUser(String authHeader) {
-		byte[] auth = Base64.getDecoder().decode(authHeader.split(" ")[1]);
-		String authStr = new String(auth);
-		return authStr.split(":")[0];
-	}
+
 
 }

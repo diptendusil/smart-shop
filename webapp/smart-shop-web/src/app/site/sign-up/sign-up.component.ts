@@ -5,6 +5,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from '../user';
 import {switchMap, map} from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -27,8 +28,12 @@ export class SignUpComponent implements OnInit {
     secretAnswer2: ['', [Validators.required]],
     secretAnswer3: ['', [Validators.required]]
   });
-
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private authService: AuthService) {
+  signUpError = false;
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private authService: AuthService,
+    private router: Router) {
 
   }
   ngOnInit() {
@@ -106,10 +111,18 @@ export class SignUpComponent implements OnInit {
       }
       this.userService.addUser(newUser).pipe( 
         switchMap(user => this.authService.login(user.userId, this.password.value))
-
         ).subscribe((res: HttpResponse<any>) => {
-
-        });
+          this.authService.setToken(res.body['token']);
+        },
+        () => {
+          this.signUpError = true;
+          console.log('here');
+        },
+        () => this.userService.getUser(this.username.value).subscribe(
+          user => {
+            this.authService.loggedInUser.next(user);
+            this.router.navigate(['/']);
+          }));
     }
     console.log(this.signUpForm.value);
     

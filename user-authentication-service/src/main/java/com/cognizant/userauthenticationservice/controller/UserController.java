@@ -1,5 +1,7 @@
 package com.cognizant.userauthenticationservice.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,7 +26,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/users")
-	public void signupUser(@RequestBody User user) throws UserAlreadyExistsException {
+	public void signupUser(@RequestBody @Valid User user) throws UserAlreadyExistsException {
 		appUserDetailsService.signupUser(user);
 	}
 	

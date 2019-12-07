@@ -3,6 +3,7 @@ package com.cognizant.userauthenticationservice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -32,9 +33,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.and()
 		.authorizeRequests()
 		.antMatchers("/authenticate").permitAll()
-		.antMatchers("/users/**").permitAll()
-		.antMatchers("/managers").permitAll()
-		.antMatchers("/admins").permitAll()
+		.antMatchers(HttpMethod.POST,"/users").anonymous()
+		.antMatchers("/managers").hasRole("ADMIN")
+		.antMatchers("/admins").hasRole("SUPER_USER")
 		.and()
 		.addFilter(new JwtAuthorizationFilter(authenticationManager()))
 		.logout().logoutUrl("/logout");
