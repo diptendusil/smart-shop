@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from "../site/user"
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpResponse } from "@angular/common/http";
+import { HttpClient, HttpResponse, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,22 +9,32 @@ import { Observable } from 'rxjs';
 })
 export class UserService {
 
-  user: User;
-  baseUrl = environment.baseUrl;
+  baseUrl = `${environment.baseUrl}/user-authentication-service`;
 
 
 
   constructor(private httpClient: HttpClient) { }
 
   authenticate(username: string, password: string): Observable<HttpResponse<any>> {
-    return null;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Authorization': 'Basic ' + btoa(`${username}:${password}`)
+      }),
+    };
+    return this.httpClient.get(`${this.baseUrl}/authenticate`, {
+      headers: httpOptions.headers,
+      observe: 'response'
+    });
   }
 
-  addUser() {
-
+  addUser(user: User): Observable<User> {
+    return this.httpClient.post<User>(`${this.baseUrl}/users`, user)
   }
-  getUser() {
-
+  userExists(username: string): Observable<boolean> {
+    return this.httpClient.get<boolean>(`${this.baseUrl}/users?username=${username}`);
+  }
+  getUser(username: string): Observable<User> {
+    return this.httpClient.get<User>(`${this.baseUrl}/users/${username}`);
   }
 
 

@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
+import { User } from '../user';
+import {switchMap, map} from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -24,7 +28,7 @@ export class SignUpComponent implements OnInit {
     secretAnswer3: ['', [Validators.required]]
   });
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private authService: AuthService) {
 
   }
   ngOnInit() {
@@ -84,6 +88,29 @@ export class SignUpComponent implements OnInit {
   }
 
   submit() {
+    if(this.signUpForm.valid) {
+      const newUser: User = {
+        userId: this.username.value,
+        firstName: this.firstName.value,
+        lastName: this.lastName.value,
+        age: this.age.value,
+        contact: this.contact.value,
+        gender: this.gender.value,
+        password: this.password.value,
+        secretQuestion1: this.secretQuestion1.value,
+        secretQuestion2: this.secretQuestion2.value,
+        secretQuestion3: this.secretQuestion3.value,
+        secretAnswer1: this.secretAnswer1.value,
+        secretAnswer2: this.secretAnswer2.value,
+        secretAnswer3: this.secretAnswer3.value,
+      }
+      this.userService.addUser(newUser).pipe( 
+        switchMap(user => this.authService.login(user.userId, this.password.value))
+
+        ).subscribe((res: HttpResponse<any>) => {
+
+        });
+    }
     console.log(this.signUpForm.value);
     
   }
