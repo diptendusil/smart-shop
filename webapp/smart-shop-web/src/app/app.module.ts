@@ -7,7 +7,9 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './site/header/header.component';
 import { LoginComponent } from './site/login/login.component';
 import { SignUpComponent } from './site/sign-up/sign-up.component';
-import { UserService } from './site/user.service';
+import { UserService } from './services/user.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpInterceptorService } from './services/http-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,7 @@ import { UserService } from './site/user.service';
     ReactiveFormsModule
     
   ],
-  providers: [UserService],
+  providers: [UserService, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
