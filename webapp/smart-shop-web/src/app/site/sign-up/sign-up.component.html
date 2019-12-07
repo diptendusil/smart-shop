@@ -5,7 +5,7 @@
         <h3>Sign Up</h3>
         <div class="alert alert-success" *ngIf="signUpSuccess">Signed Up Successfully</div>
         <div class="alert alert-danger" *ngIf="signUpError">Error Signing Up</div>
-        <form [formGroup]="signUpForm" (ngSubmit)="submit()">
+        <form [formGroup]="signUpForm" (ngSubmit)="submit()" *ngIf="formLoaded">
           <div class="form-row">
             <div class="col-12 col-lg-6">
               <label for="username">Username</label>
@@ -17,7 +17,9 @@
                 Username must be minimum 2 characters and maximum 20 characters in length</div>
               <div class="validation-error" *ngIf="username.hasError('pattern')">Username cannot contain special
                 characters</div>
-              <div class="text-success">
+              <div class="validation-error" *ngIf="username.hasError('userNameTaken')">
+                Username is taken</div>
+              <div class="text-success" *ngIf="username.touched && !username.hasError('userNameTaken')">
                 Username is available</div>
             </div>
           </div>
@@ -107,9 +109,7 @@
               <label for="secret-question1">Secret Question 1</label>
               <select formControlName="secretQuestion1" name="secret-question1" id="secret-question1" class="form-control">
                   <option value="" selected>Select</option>
-                <option value="q1">Question 1</option>
-                <option value="q2">Question 2</option>
-                <option value="q3">Question 3</option>
+                <option *ngFor="let question of secretQuestions" [value]="question['question']">{{question['question']}}</option>
               </select>
               <div class="validation-error" *ngIf="secretQuestion1.hasError('required') && secretQuestion1.touched">
                 Secret Question is required
@@ -126,11 +126,9 @@
           <div class="form-row mt-3">
             <div class="col-12 col-md-6">
               <label for="secret-question2">Secret Question 2</label>
-              <select formControlName="secretQuestion2" name="secret-question2" id="secret-question2" class="form-control" required>
+              <select formControlName="secretQuestion2" name="secret-question2" id="secret-question2" class="form-control" >
                 <option value="" selected>Select</option>
-                <option value="q1">Question 1</option>
-                <option value="q2">Question 2</option>
-                <option value="q3">Question 3</option>
+                <option *ngFor="let question of secretQuestions" [value]="question['question']">{{question['question']}}</option>
               </select>
               <div class="validation-error" *ngIf="secretQuestion2.hasError('required') && secretQuestion2.touched">
                 Secret Question is required
@@ -149,9 +147,7 @@
               <label for="secret-question3">Secret Question 3</label>
               <select formControlName="secretQuestion3" name="secret-question3" id="secret-question3" class="form-control" required>
                 <option value="" selected>Select</option>
-                <option value="q1">Question 1</option>
-                <option value="q2">Question 2</option>
-                <option value="q3">Question 3</option>
+                <option *ngFor="let question of secretQuestions" [value]="question['question']">{{question['question']}}</option>
               </select>
               <div class="validation-error" *ngIf="secretQuestion3.hasError('required') && secretQuestion3.touched">
                   Secret Question is required

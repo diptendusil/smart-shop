@@ -1,5 +1,7 @@
 package com.cognizant.userauthenticationservice.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cognizant.userauthenticationservice.entities.SecretQuestion;
 import com.cognizant.userauthenticationservice.entities.User;
 import com.cognizant.userauthenticationservice.exception.UserAlreadyExistsException;
+import com.cognizant.userauthenticationservice.repositories.SecretQuestionRepository;
 import com.cognizant.userauthenticationservice.service.AppUserDetailsService;
 
 @RestController
@@ -19,6 +23,8 @@ public class UserController {
 	
 	@Autowired
 	private AppUserDetailsService appUserDetailsService;
+	@Autowired
+	private SecretQuestionRepository secretQuestionRepository;
 	
 	@GetMapping("/users/{id}")
 	public User getUser(@PathVariable String id) {
@@ -50,5 +56,9 @@ public class UserController {
 	@GetMapping("/users")
 	public boolean userExists(@RequestParam("username") String username) {
 		return this.appUserDetailsService.userExists(username);
+	}
+	@GetMapping("/secret-questions")
+	public List<SecretQuestion> getAllSecretQuestions() {
+		return this.secretQuestionRepository.findAll();
 	}
 }

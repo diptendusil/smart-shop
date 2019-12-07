@@ -36,6 +36,8 @@ export class UserService {
   getUser(username: string): Observable<User> {
     return this.httpClient.get<User>(`${this.baseUrl}/users/${username}`);
   }
-
+  getAllSecretQuestions(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/secret-questions`);
+  }
 
 }

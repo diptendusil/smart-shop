@@ -18,5 +18,11 @@ INSERT INTO `smart-shop`.`category` (`ca_id`, `ca_name`) VALUES ('2', 'Household
 INSERT INTO `smart-shop`.`category` (`ca_id`, `ca_name`) VALUES ('3', 'Utensils');
 INSERT INTO `smart-shop`.`category` (`ca_id`, `ca_name`) VALUES ('4', 'Grocery');
 
+INSERT INTO `smart-shop`.`secret_question` (`id`, `sq_question`) VALUES ('1', 'What is the name of your first school?');
+INSERT INTO `smart-shop`.`secret_question` (`id`, `sq_question`) VALUES ('2', 'What is the name of your first pet?');
+INSERT INTO `smart-shop`.`secret_question` (`id`, `sq_question`) VALUES ('3', 'What is the maiden name of your mother?');
+INSERT INTO `smart-shop`.`secret_question` (`id`, `sq_question`) VALUES ('4', 'Who is your favorite teacher?');
+INSERT INTO `smart-shop`.`secret_question` (`id`, `sq_question`) VALUES ('5', 'What is the name of your hometown');
+
 
 

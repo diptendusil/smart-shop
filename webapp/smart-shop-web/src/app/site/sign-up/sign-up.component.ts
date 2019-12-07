@@ -3,9 +3,10 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from '../user';
-import {switchMap, map} from 'rxjs/operators';
+import { switchMap, map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -13,12 +14,12 @@ import { Router } from '@angular/router';
 })
 export class SignUpComponent implements OnInit {
   signUpForm: FormGroup = this.formBuilder.group({
-    username: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(15), Validators.pattern('[A-Za-z0-9]*')]],
+    username: ['', { validators: [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]*')], asyncValidators: [this.isUsernameTaken.bind(this)] }],
     firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern('[A-Za-z ]*')]],
-    lastName: ['', [Validators.required,  Validators.minLength(2), Validators.maxLength(50), Validators.pattern('[A-Za-z ]*')]],
+    lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern('[A-Za-z ]*')]],
     age: ['', [Validators.required, Validators.min(15)]],
     contact: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-    gender: ['Male', [Validators.required]],
+    gender: ['M', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(8)]],
     confirmPassword: ['', [Validators.required, Validators.minLength(8), this.matchConfirmPassword.bind(this)]],
     secretQuestion1: ['', Validators.required],
@@ -30,6 +31,8 @@ export class SignUpComponent implements OnInit {
   });
   signUpError = false;
   signUpSuccess = false;
+  secretQuestions = [];
+  formLoaded = false;
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -38,6 +41,10 @@ export class SignUpComponent implements OnInit {
 
   }
   ngOnInit() {
+    this.userService.getAllSecretQuestions().subscribe(questions => {
+      this.secretQuestions = questions
+      this.formLoaded = true;
+    });
   }
   matchConfirmPassword(formControl: FormControl): { [s: string]: boolean } {
     if (this.signUpForm) {
@@ -71,7 +78,7 @@ export class SignUpComponent implements OnInit {
   get password() {
     return this.formControls['password'];
   }
-  get confirmPassword(){
+  get confirmPassword() {
     return this.formControls['confirmPassword']
   }
   get secretQuestion1() {
@@ -92,9 +99,8 @@ export class SignUpComponent implements OnInit {
   get secretAnswer3() {
     return this.formControls['secretAnswer3'];
   }
-
   submit() {
-    if(this.signUpForm.valid) {
+    if (this.signUpForm.valid) {
       const newUser: User = {
         userId: this.username.value,
         firstName: this.firstName.value,
@@ -110,27 +116,29 @@ export class SignUpComponent implements OnInit {
         secretAnswer2: this.secretAnswer2.value,
         secretAnswer3: this.secretAnswer3.value,
       }
-      this.userService.addUser(newUser).pipe( 
+      this.userService.addUser(newUser).pipe(
         switchMap(user => this.authService.login(user.userId, this.password.value))
-        ).subscribe((res: HttpResponse<any>) => {
-          console.log(res);
-          
-          this.authService.setToken(res.body['token']);
-          this.signUpSuccess = true;
-        },
+      ).subscribe((res: HttpResponse<any>) => {
+        console.log(res);
+
+        this.authService.setToken(res.body['token']);
+        this.signUpSuccess = true;
+      },
         () => {
           console.log('here');
-          
+
           this.signUpError = true;
         },
         () => this.userService.getUser(this.username.value).subscribe(
           user => {
             this.authService.loggedInUser.next(user);
-            setTimeout(() => this.router.navigate(['/']), 2000)
-            ;
+            setTimeout(() => this.router.navigate(['/']), 2000);
           }));
     }
-    console.log(this.signUpForm.value);
-    
+  }
+  isUsernameTaken(userName: FormControl): Promise<any> | Observable<any> {
+    return this.userService.userExists(userName.value)
+      .pipe(
+        map(value => value ? new Object({ 'userNameTaken': value }) : null));
   }
 }
