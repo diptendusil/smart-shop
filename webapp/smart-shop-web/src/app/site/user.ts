@@ -16,9 +16,15 @@
    secretAnswer3: string,
    role?: Role
 }
+export enum RoleName{
+   ROLE_USER = 'ROLE_USER',
+   ROLE_MANAGER = 'ROLE_MANAGER',
+   ROLE_ADMIN = 'ROLE_ADMIN',
+   ROLE_SUPER_USER = 'ROLE_SUPER_USER'
+}
 export interface Role {
    roleId: string;
-   name: string
+   name: RoleName
 }
 
 
