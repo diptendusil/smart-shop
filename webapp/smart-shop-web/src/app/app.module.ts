@@ -11,6 +11,10 @@ import { UserService } from './services/user.service';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './services/http-interceptor.service';
 import { ItemInfoComponent } from './product/item-info/item-info.component';
+import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
+import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
+import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
+import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboard/super-admin-dashboard.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { ItemInfoComponent } from './product/item-info/item-info.component';
     HeaderComponent,
     LoginComponent,
     SignUpComponent,
-    ItemInfoComponent
+    ItemInfoComponent,
+    UserDashboardComponent,
+    AdminDashboardComponent,
+    ShopManagerDashboardComponent,
+    SuperAdminDashboardComponent
   ],
   imports: [
     BrowserModule,
