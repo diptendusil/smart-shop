@@ -29,6 +29,7 @@ export class SignUpComponent implements OnInit {
     secretAnswer3: ['', [Validators.required]]
   });
   signUpError = false;
+  signUpSuccess = false;
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -112,16 +113,21 @@ export class SignUpComponent implements OnInit {
       this.userService.addUser(newUser).pipe( 
         switchMap(user => this.authService.login(user.userId, this.password.value))
         ).subscribe((res: HttpResponse<any>) => {
+          console.log(res);
+          
           this.authService.setToken(res.body['token']);
+          this.signUpSuccess = true;
         },
         () => {
-          this.signUpError = true;
           console.log('here');
+          
+          this.signUpError = true;
         },
         () => this.userService.getUser(this.username.value).subscribe(
           user => {
             this.authService.loggedInUser.next(user);
-            this.router.navigate(['/']);
+            setTimeout(() => this.router.navigate(['/']), 2000)
+            ;
           }));
     }
     console.log(this.signUpForm.value);
