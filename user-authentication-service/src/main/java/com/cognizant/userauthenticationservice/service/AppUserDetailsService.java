@@ -86,7 +86,7 @@ public class AppUserDetailsService implements UserDetailsService {
 	}
 	
 	@Transactional
-	public void signupManager(User user) throws UserAlreadyExistsException {
+	public User signupManager(User user) throws UserAlreadyExistsException {
 		Role role = null;
 		try {
 			Optional<User> testUser = userRepository.findById(user.getUserId());
@@ -95,7 +95,7 @@ public class AppUserDetailsService implements UserDetailsService {
 				user.setRole(role);
 				user.setStatus("P");
 				user.setPassword(passwordEncoder.encode(user.getPassword()));
-				userRepository.save(user);
+				return userRepository.save(user);
 			}
 			else {
 				throw new UserAlreadyExistsException();
@@ -106,12 +106,12 @@ public class AppUserDetailsService implements UserDetailsService {
 			user.setRole(role);
 			user.setStatus("P");
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			userRepository.save(user);
+			return userRepository.save(user);
 		}
 	}
 	
 	@Transactional
-	public void signupAdmin(User user) throws UserAlreadyExistsException {
+	public User signupAdmin(User user) throws UserAlreadyExistsException {
 		Role role = null;
 		try {
 			Optional<User> testUser = userRepository.findById(user.getUserId());
@@ -120,7 +120,7 @@ public class AppUserDetailsService implements UserDetailsService {
 				user.setRole(role);
 				user.setStatus("A");
 				user.setPassword(passwordEncoder.encode(user.getPassword()));
-				userRepository.save(user);
+				return userRepository.save(user);
 			}
 			else {
 				throw new UserAlreadyExistsException();
@@ -131,7 +131,7 @@ public class AppUserDetailsService implements UserDetailsService {
 			user.setRole(role);
 			user.setStatus("A");
 			user.setPassword(passwordEncoder.encode(user.getPassword()));
-			userRepository.save(user);
+			return userRepository.save(user);
 		}
 	}
 	

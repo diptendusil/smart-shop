@@ -33,14 +33,20 @@ public class UserController {
 	}
 	
 	@PostMapping("/managers")
-	public void signupManager(@RequestBody User user) throws UserAlreadyExistsException {
-		appUserDetailsService.signupManager(user);
+	public User signupManager(@RequestBody User user) throws UserAlreadyExistsException {
+		User u = appUserDetailsService.signupManager(user);
+		System.out.println(u.getUserId());
+		return u;
 	}
 	
 	@PostMapping("/admins")
-	public void signupAdmin(@RequestBody User user) throws UserAlreadyExistsException {
-		appUserDetailsService.signupAdmin(user);
+	public User signupAdmin(@RequestBody User user) throws UserAlreadyExistsException {
+		User u = appUserDetailsService.signupAdmin(user);
+		System.out.println(u.getUserId());
+		return u;
 	}
+	
+	
 	@GetMapping("/users")
 	public boolean userExists(@RequestParam("username") String username) {
 		return this.appUserDetailsService.userExists(username);
