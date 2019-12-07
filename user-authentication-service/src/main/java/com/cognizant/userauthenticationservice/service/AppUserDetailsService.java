@@ -89,9 +89,9 @@ public class AppUserDetailsService implements UserDetailsService {
 	public void signupManager(User user) throws UserAlreadyExistsException {
 		Role role = null;
 		try {
-			User oldU = userRepository.findById(user.getUserId()).get();
+			Optional<User> testUser = userRepository.findById(user.getUserId());
 			role = roleRepository.findById("M").get();
-			if(oldU == null) {
+			if(!testUser.isPresent()) {
 				user.setRole(role);
 				user.setStatus("P");
 				user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -114,9 +114,9 @@ public class AppUserDetailsService implements UserDetailsService {
 	public void signupAdmin(User user) throws UserAlreadyExistsException {
 		Role role = null;
 		try {
-			User oldU = userRepository.findById(user.getUserId()).get();
+			Optional<User> testUser = userRepository.findById(user.getUserId());
 			role = roleRepository.findById("A").get();
-			if(oldU == null) {
+			if(!testUser.isPresent()) {
 				user.setRole(role);
 				user.setStatus("A");
 				user.setPassword(passwordEncoder.encode(user.getPassword()));
