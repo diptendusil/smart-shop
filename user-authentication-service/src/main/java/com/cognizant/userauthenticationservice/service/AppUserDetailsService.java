@@ -2,6 +2,8 @@ package com.cognizant.userauthenticationservice.service;
 
 import java.util.NoSuchElementException;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -56,7 +58,7 @@ public class AppUserDetailsService implements UserDetailsService {
 		return appUser;
 	}
 	
-	
+	@Transactional
 	public void signupUser(User user) throws UserAlreadyExistsException {
 		Role role = null;
 		try {
@@ -81,7 +83,7 @@ public class AppUserDetailsService implements UserDetailsService {
 		}
 	}
 	
-	
+	@Transactional
 	public void signupManager(User user) throws UserAlreadyExistsException {
 		Role role = null;
 		try {
@@ -106,7 +108,7 @@ public class AppUserDetailsService implements UserDetailsService {
 		}
 	}
 	
-	
+	@Transactional
 	public void signupAdmin(User user) throws UserAlreadyExistsException {
 		Role role = null;
 		try {
@@ -131,7 +133,7 @@ public class AppUserDetailsService implements UserDetailsService {
 		}
 	}
 	
-	
+	@Transactional
 	public User getUser(String userId) {
 		return userRepository.findById(userId).get();
 	}
