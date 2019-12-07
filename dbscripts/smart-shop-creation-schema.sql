@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `smart-shop`.`user` (
   `us_age` INT NOT NULL,
   `us_gender` VARCHAR(1) NOT NULL,
   `us_contact` INT(10) NOT NULL,
-  `us_password` VARCHAR(15) NOT NULL,
+  `us_password` VARCHAR(255) NOT NULL,
   `us_status` VARCHAR(1) NOT NULL,
   `us_secret_question_1` VARCHAR(50) NOT NULL,
   `us_secret_answer_1` VARCHAR(50) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS `smart-shop`.`user` (
   `us_secret_answer_3` VARCHAR(50) NOT NULL,
   `us_ro_id` VARCHAR(1) NOT NULL,
   PRIMARY KEY (`us_id`),
-  INDEX `fk_user_role_idx` (`us_ro_id` ASC) VISIBLE,
+  INDEX `fk_user_role_idx` (`us_ro_id` ASC),
   CONSTRAINT `fk_user_role`
     FOREIGN KEY (`us_ro_id`)
     REFERENCES `smart-shop`.`role` (`ro_id`)
@@ -85,7 +85,7 @@ CREATE TABLE IF NOT EXISTS `smart-shop`.`product` (
   `pr_image` VARCHAR(255) NOT NULL,
   `pr_ca_id` INT NOT NULL,
   PRIMARY KEY (`pr_code`),
-  INDEX `fk_product_category1_idx` (`pr_ca_id` ASC) VISIBLE,
+  INDEX `fk_product_category1_idx` (`pr_ca_id` ASC),
   CONSTRAINT `fk_product_category1`
     FOREIGN KEY (`pr_ca_id`)
     REFERENCES `smart-shop`.`category` (`ca_id`)
@@ -104,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `smart-shop`.`offer` (
   `of_offer` VARCHAR(50) NOT NULL,
   `of_pr_code` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`of_id`),
-  INDEX `fk_offer_product1_idx` (`of_pr_code` ASC) VISIBLE,
+  INDEX `fk_offer_product1_idx` (`of_pr_code` ASC),
   CONSTRAINT `fk_offer_product1`
     FOREIGN KEY (`of_pr_code`)
     REFERENCES `smart-shop`.`product` (`pr_code`)
@@ -150,8 +150,8 @@ CREATE TABLE IF NOT EXISTS `smart-shop`.`user_feedback` (
   `uf_us_id` VARCHAR(15) NOT NULL,
   `uf_id` INT NOT NULL,
   `uf_date` DATE NOT NULL,
-  INDEX `fk_user_feedback_feedback1_idx` (`uf_fe_id` ASC) VISIBLE,
-  INDEX `fk_user_feedback_user1_idx` (`uf_us_id` ASC) VISIBLE,
+  INDEX `fk_user_feedback_feedback1_idx` (`uf_fe_id` ASC) ,
+  INDEX `fk_user_feedback_user1_idx` (`uf_us_id` ASC) ,
   PRIMARY KEY (`uf_id`),
   CONSTRAINT `fk_user_feedback_feedback1`
     FOREIGN KEY (`uf_fe_id`)
