@@ -139,6 +139,12 @@ public class AppUserDetailsService implements UserDetailsService {
 	public User getUser(String userId) {
 		return userRepository.findById(userId).get();
 	}
+	
+	@Transactional
+	public User modifyUser(User user) {
+		return this.userRepository.save(user);
+	}
+	@Transactional
 	public boolean userExists(String username) {
 		return userRepository.findById(username).isPresent();
 	}

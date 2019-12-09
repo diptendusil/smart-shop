@@ -2,13 +2,16 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './site/login/login.component';
 import { SignUpComponent } from './site/sign-up/sign-up.component';
-import { ItemInfoComponent } from './product/item-info/item-info.component';
 import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboard/super-admin-dashboard.component';
 import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
-import { AuthGardService } from './services/auth-gard.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { RoleName } from './site/user';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+
+import { ProductListComponent } from './product/product-list/product-list.component';
 
 
 const routes: Routes = [
@@ -23,7 +26,7 @@ const routes: Routes = [
   {
     path: 'user/dashboard',
     component: UserDashboardComponent,
-    canActivate: [AuthGardService],
+    canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_USER
     }
@@ -31,7 +34,7 @@ const routes: Routes = [
   {
     path: 'admin/dashboard',
     component: AdminDashboardComponent,
-    canActivate: [AuthGardService],
+    canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_ADMIN
     }
@@ -39,7 +42,7 @@ const routes: Routes = [
   {
     path: 'admin/manager-sign-up',
     component: SignUpComponent,
-    canActivate: [AuthGardService],
+    canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_ADMIN
     }
@@ -47,7 +50,7 @@ const routes: Routes = [
   {
     path: 'super-user/dashboard',
     component: SuperAdminDashboardComponent,
-    canActivate: [AuthGardService],
+    canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_SUPER_USER
     }
@@ -55,12 +58,23 @@ const routes: Routes = [
   {
     path: 'manager/dashboard',
     component: ShopManagerDashboardComponent,
-    canActivate: [AuthGardService],
+    canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_MANAGER
     }
+  },
+  {
+    path: 'account',
+    component: EditProfileComponent
+  },
+  {
+    path: "edit/password",
+    component: ChangePasswordComponent
+  },
+  {
+    path: 'product-list',
+    component: ProductListComponent
   }
-  
 ];
 
 @NgModule({

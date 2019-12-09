@@ -14,7 +14,19 @@
                 <a [routerLink]="['/sign-up']" routerLinkActive="active" class="nav-link">Sign Up</a>
             </li>
             <li class="nav-item" *ngIf="loggedInUser">
-                <a [routerLink]="['/sign-up']" routerLinkActive="active" class="nav-link"> {{loggedInUser.userId}} </a>
+                <div class="dropdown show dropleft">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        {{loggedInUser.userId}}
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                        <a class="dropdown-item" [routerLink]="['/account']" routerLinkActive="active">Personal Details</a>
+                        <a class="dropdown-item" [routerLink]="['/edit/password']" routerLinkActive="active">Change Password</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" (click)="logout()">Logout</a>
+                    </div>
+                </div>
             </li>
         </ul>
 
