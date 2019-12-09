@@ -1,5 +1,11 @@
 .product-card {
     width: 320px;
+    
     margin-right: 20px;
     margin-left: 5px;
+}
+.card-img-top
+{
+    width: 320px;
+    height: 300px;
 }
