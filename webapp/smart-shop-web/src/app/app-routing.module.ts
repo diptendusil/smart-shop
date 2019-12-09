@@ -7,6 +7,8 @@ import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.com
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboard/super-admin-dashboard.component';
 import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 
 
 const routes: Routes = [
@@ -33,6 +35,14 @@ const routes: Routes = [
   {
     path: 'manager/dashboard',
     component: ShopManagerDashboardComponent
+  },
+  {
+    path: 'account',
+    component: EditProfileComponent
+  },
+  {
+    path: 'edit/password',
+    component: ChangePasswordComponent
   }
   
 ];

@@ -36,11 +36,11 @@ public class OfferController {
 	
 	@PutMapping
 	public void modifyOffer(@RequestBody OfferDto offerDto) {
-		offerService.modifyOffer(convertProductDtoToProduct(productDto));
+		//offerService.modifyOffer(convertProductDtoToProduct(productDto));
 	}
 	
 	public Offer convertOfferDtoToOffer(OfferDto offerDto) {
-		
+		return null;
 	}
 	
 	public OfferDto convertOfferToOfferDto(Offer offer) {

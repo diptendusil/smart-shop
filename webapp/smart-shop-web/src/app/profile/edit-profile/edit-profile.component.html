@@ -1,0 +1,176 @@
+<div class="row justify-content-center mt-3 mb-3">
+    <div class="col-12 col-md-10">
+        <div class="card">
+            <div class="card-body">
+
+
+                <div class="alert alert-success" *ngIf="editSuccess">Personal Details updated Successfully</div>
+                <div class="alert alert-danger" *ngIf="editError">Error updating Personal Details</div>
+                <form [formGroup]="signUpForm" (ngSubmit)="submit()">
+                    <div class="row">
+                        <div class="col-7">
+                            <h3>Personal Details</h3>
+                        </div>
+                        <div class="col-5 text-right">
+                            <button type="submit" class="btn btn-primary" (click)="submit()"
+                                [disabled]="disabledButton">
+                                <i class="fas fa-edit" *ngIf="!allowEdit"></i>
+                                <span>{{buttonText}}</span></button>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-12 col-lg-6">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" class="form-control" [readonly]="true"
+                                placeholder="Enter Username" formControlName="username" />
+                        </div>
+                    </div>
+                    <div class="form-row mt-3">
+                        <div class="col-12 col-md-6">
+                            <label for="firstName">First Name</label>
+                            <input type="text" name="firstName" id="firstName" class="form-control"
+                                formControlName="firstName" [readonly]="!allowEdit" placeholder="Enter First Name" />
+                            <div class="validation-error" *ngIf="firstName.touched && firstName.hasError('required')">
+                                First Name is
+                                required</div>
+                            <div class="validation-error"
+                                *ngIf="firstName.hasError('minlength') || firstName.hasError('maxlength')">
+                                First Name must be minimum 2 characters and maximum 20 characters in length</div>
+                            <div class="validation-error" *ngIf="firstName.hasError('pattern')">First Name cannot
+                                contain numbers
+                                special characters or numbers</div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" name="lastName" id="lastName" class="form-control"
+                                formControlName="lastName" [readonly]="!allowEdit" placeholder="Enter Last Name" />
+                            <div class="validation-error" *ngIf="lastName.hasError('required') && lastName.touched">Last
+                                Name is
+                                required</div>
+                            <div class="validation-error"
+                                *ngIf="lastName.hasError('minlength') || lastName.hasError('maxlength')">
+                                Last Name must be minimum 2 characters and maximum 20 characters in length</div>
+                            <div class="validation-error" *ngIf="lastName.hasError('pattern')">Last Name cannot contain
+                                special
+                                characters</div>
+                        </div>
+                    </div>
+                    <div class="form-row mt-3">
+                        <div class="col-12 col-md-4">
+                            <label for="age">Age</label>
+                            <input class="form-control" type="number" name="age" id="age" placeholder="Age"
+                                formControlName="age" [readonly]="!allowEdit" />
+                            <div class="validation-error" *ngIf="age.touched && age.hasError('required')">
+                                Age is required
+                            </div>
+                            <div class="validation-error" *ngIf="age.hasError('min')">
+                                Minimum age to register is 15 years
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <label for="contact">Contact</label>
+                            <input type="number" formControlName="contact" name="contact" id="contact"
+                                class="form-control" [readonly]="!allowEdit" placeholder="Contact" />
+                            <div class="validation-error" *ngIf="contact.hasError('required') && contact.touched">
+                                Contact is required</div>
+                            <div class="validation-error" *ngIf="contact.hasError('pattern')">
+                                Invalid Phone number
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-4">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col">
+                                        Gender
+                                    </div>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" formControlName="gender" name="gender" id="gender1"
+                                        class="form-check-input" value="M" [readonly]="!allowEdit" />
+                                    <label for="gender1" class="form-check-label">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input type="radio" formControlName="gender" name="gender" id="gender2"
+                                        class="form-check-input" value="F" [readonly]="!allowEdit" />
+                                    <label for="gender2" class="form-check-label">Female</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row mt-3">
+                        <div class="col-12 col-md-6">
+                            <label for="secret-question1">Secret Question 1</label>
+                            <select formControlName="secretQuestion1" name="secret-question1" id="secret-question1"
+                                class="form-control" [disabled]="true">
+                                <option value="" selected>Select</option>
+                                <option *ngFor="let question of secretQuestions" [value]="question['question']">
+                                    {{question['question']}}</option>
+                            </select>
+                            <div class="validation-error"
+                                *ngIf="secretQuestion1.hasError('required') && secretQuestion1.touched">
+                                Secret Question is required
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="secret-answer1">Secret Answer 1</label>
+                            <input formControlName="secretAnswer1" type="text" class="form-control" id="secret-answer1"
+                                placeholder="Secret answer 1" [readonly]="!allowEdit" />
+                            <div class="validation-error"
+                                *ngIf="secretAnswer1.hasError('required') && secretAnswer1.touched">
+                                Answer is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row mt-3">
+                        <div class="col-12 col-md-6">
+                            <label for="secret-question2">Secret Question 2</label>
+                            <select formControlName="secretQuestion2" name="secret-question2" id="secret-question2"
+                                class="form-control" [disabled]="!allowEdit">
+                                <option value="" selected>Select</option>
+                                <option *ngFor="let question of secretQuestions" [value]="question['question']">
+                                    {{question['question']}}</option>
+                            </select>
+                            <div class="validation-error"
+                                *ngIf="secretQuestion2.hasError('required') && secretQuestion2.touched">
+                                Secret Question is required
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="secret-answer1">Secret Answer 2</label>
+                            <input formControlName="secretAnswer2" type="text" class="form-control" id="secret-answer2"
+                                placeholder="Secret answer 2" [readonly]="!allowEdit" />
+                            <div class="validation-error"
+                                *ngIf="secretAnswer1.hasError('required') && secretAnswer1.touched">
+                                Answer is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row mt-3">
+                        <div class="col-12 col-md-6">
+                            <label for="secret-question3">Secret Question 3</label>
+                            <select formControlName="secretQuestion3" name="secret-question3" id="secret-question3"
+                                class="form-control" [disabled]="!allowEdit" required>
+                                <option value="" selected>Select</option>
+                                <option *ngFor="let question of secretQuestions" [value]="question['question']">
+                                    {{question['question']}}</option>
+                            </select>
+                            <div class="validation-error"
+                                *ngIf="secretQuestion3.hasError('required') && secretQuestion3.touched">
+                                Secret Question is required
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <label for="secret-answer3">Secret Answer 3</label>
+                            <input formControlName="secretAnswer3" type="text" class="form-control" id="secret-answer3"
+                                placeholder="Secret answer 3" [readonly]="!allowEdit" />
+                            <div class="validation-error"
+                                *ngIf="secretAnswer1.hasError('required') && secretAnswer1.touched">
+                                Answer is required
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

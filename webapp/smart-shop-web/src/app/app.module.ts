@@ -15,6 +15,8 @@ import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.com
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
 import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboard/super-admin-dashboard.component';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboar
     UserDashboardComponent,
     AdminDashboardComponent,
     ShopManagerDashboardComponent,
-    SuperAdminDashboardComponent
+    SuperAdminDashboardComponent,
+    EditProfileComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,
