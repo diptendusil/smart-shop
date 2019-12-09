@@ -33,7 +33,7 @@ public class UserController {
 	}
 	
 	@PostMapping("/users")
-	public User signupUser(@RequestBody @Valid User user) throws UserAlreadyExistsException {
+	public User signupUser(@RequestBody User user) throws UserAlreadyExistsException {
 		User u = appUserDetailsService.signupUser(user);
 		System.out.println(u.getUserId());
 		return u;

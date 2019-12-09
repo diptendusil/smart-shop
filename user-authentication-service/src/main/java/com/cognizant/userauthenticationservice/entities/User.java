@@ -20,7 +20,7 @@ public class User {
 	@Column(name="us_gender")
 	private String gender;
 	@Column(name="us_contact")
-	private int contact;
+	private long contact;
 
 	@Column(name="us_password")
 	private String password;
@@ -44,7 +44,7 @@ public class User {
 	public User() {
 		super();
 	}
-	public User(String userId, String firstName, String lastName, int age, String gender, int contact, String password,
+	public User(String userId, String firstName, String lastName, int age, String gender, long contact, String password,
 			String status, String secretQuestion1, String secretAnswer1, String secretQuestion2, String secretAnswer2,
 			String secretQuestion3, String secretAnswer3, Role role) {
 		super();
@@ -94,10 +94,10 @@ public class User {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	public int getContact() {
+	public long getContact() {
 		return contact;
 	}
-	public void setContact(int contact) {
+	public void setContact(long contact) {
 		this.contact = contact;
 	}
 	public String getPassword() {

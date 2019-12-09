@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `smart-shop`.`user` (
   `us_last_name` VARCHAR(50) NOT NULL,
   `us_age` INT NOT NULL,
   `us_gender` VARCHAR(1) NOT NULL,
-  `us_contact` INT(10) NOT NULL,
+  `us_contact` BIGINT(11) NOT NULL,
   `us_password` VARCHAR(255) NOT NULL,
   `us_status` VARCHAR(1) NOT NULL,
   `us_secret_question_1` VARCHAR(50) NOT NULL,
