@@ -9,7 +9,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ProductListComponent implements OnInit {
   category: string
   constructor(private router: Router) {
-    console.log(this.router.getCurrentNavigation().extras.state);
+    this.category = this.router.getCurrentNavigation().extras.state['category'];
+
    }
 
   ngOnInit() {
