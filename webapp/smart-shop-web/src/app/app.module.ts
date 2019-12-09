@@ -15,11 +15,8 @@ import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.com
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
 import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboard/super-admin-dashboard.component';
-<<<<<<< HEAD
-import { ItemDetailsComponent } from './product/item-details/item-details.component';
-=======
 import { AuthGuardService } from './services/auth-guard.service';
->>>>>>> 13a3718d2adf5545b542d3dc2ca677701389a662
+import { ItemDetailsComponent } from './product/item-details/item-details.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +30,7 @@ import { AuthGuardService } from './services/auth-guard.service';
     ShopManagerDashboardComponent,
     SuperAdminDashboardComponent,
     ItemDetailsComponent
+  
   ],
   imports: [
     BrowserModule,
