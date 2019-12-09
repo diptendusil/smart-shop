@@ -65,4 +65,9 @@ public class UserController {
 	public List<SecretQuestion> getAllSecretQuestions() {
 		return this.secretQuestionRepository.findAll();
 	}
+	
+	@GetMapping("/check/{uid}")
+	public User checkPassword() {
+		return null;
+	}
 }

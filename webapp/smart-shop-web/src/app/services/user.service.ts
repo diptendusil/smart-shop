@@ -48,4 +48,8 @@ export class UserService {
     return this.httpClient.put<User>(`${this.baseUrl}/users`, user)
   }
 
+  checkPassword(userId:string, password:string) {
+    
+  }
+
 }

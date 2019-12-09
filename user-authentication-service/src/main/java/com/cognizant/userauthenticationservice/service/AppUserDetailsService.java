@@ -152,4 +152,9 @@ public class AppUserDetailsService implements UserDetailsService {
 	public boolean userExists(String username) {
 		return userRepository.findById(username).isPresent();
 	}
+	
+	@Transactional
+	public User checkPassword(String userId, String password) {
+		return null;
+	}
 }
