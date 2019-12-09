@@ -23,4 +23,21 @@ public class CategoryService {
 	public Category getCategoryById(int id){
 		return categoryRepository.findById(id).get();
 	}
+
+	@Transactional
+	public void modifyCategory(Category category) {
+		categoryRepository.save(category);
+	}
+	
+	@Transactional
+	public void deleteCategory(int categoryId) {
+		categoryRepository.deleteById(categoryId);
+	}
+	
+	@Transactional
+	public void addCategory(Category category) {
+		Category newCategory=new Category();
+		newCategory.setCategoryName(category.getCategoryName());
+		categoryRepository.save(newCategory);
+	}
 }

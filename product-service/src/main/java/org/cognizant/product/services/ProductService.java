@@ -35,4 +35,14 @@ public class ProductService {
 	public void modifyProduct(Product product) {
 		productRepository.save(product);
 	}
+	
+	@Transactional
+	public void deleteProduct(String productId) {
+		productRepository.deleteById(productId);;
+	}
+	
+	@Transactional
+	public void addProduct(Product product) {
+		productRepository.save(product);
+	}
 }

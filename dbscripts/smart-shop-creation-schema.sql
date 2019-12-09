@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `smart-shop`.`user` (
   `us_last_name` VARCHAR(50) NOT NULL,
   `us_age` INT NOT NULL,
   `us_gender` VARCHAR(1) NOT NULL,
-  `us_contact` INT(10) NOT NULL,
+  `us_contact` BIGINT(11) NOT NULL,
   `us_password` VARCHAR(255) NOT NULL,
   `us_status` VARCHAR(1) NOT NULL,
   `us_secret_question_1` VARCHAR(50) NOT NULL,
@@ -61,10 +61,15 @@ ENGINE = InnoDB;
 -- Table `smart-shop`.`category`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `smart-shop`.`category` (
+<<<<<<< HEAD
+  `ca_id` INT NOT NULL auto_increment,
+=======
   `ca_id` INT NOT NULL AUTO_INCREMENT,
+>>>>>>> e197c753e0f66cc61e85b3e38771d12075b20131
   `ca_name` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`ca_id`))
 ENGINE = InnoDB;
+
 
 
 -- -----------------------------------------------------
