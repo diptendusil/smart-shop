@@ -15,6 +15,7 @@ import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.com
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
 import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboard/super-admin-dashboard.component';
+import { ItemDetailsComponent } from './product/item-details/item-details.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboar
     UserDashboardComponent,
     AdminDashboardComponent,
     ShopManagerDashboardComponent,
-    SuperAdminDashboardComponent
+    SuperAdminDashboardComponent,
+    ItemDetailsComponent
   ],
   imports: [
     BrowserModule,
