@@ -15,6 +15,7 @@ import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.com
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
 import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboard/super-admin-dashboard.component';
+import { AuthGuardService } from './services/auth-guard.service';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 
@@ -40,7 +41,7 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
     HttpClientModule
     
   ],
-  providers: [UserService, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}],
+  providers: [UserService, AuthGuardService, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

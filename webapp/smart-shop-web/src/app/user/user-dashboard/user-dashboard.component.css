@@ -1,0 +1,19 @@
+.carousel {
+    height: 400px;
+    background: grey;
+}
+.recommendations {
+    height: 200px;
+    background: green;
+}
+.category-list {
+    height: 300px;
+    background: red;
+}
+.product-list{
+    min-height: 300px;
+    scroll-snap-type: x proximity;
+}
+.product-item {
+    scroll-snap-align: center;
+}

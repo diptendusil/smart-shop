@@ -68,7 +68,6 @@ export class EditProfileComponent implements OnInit {
     if(this.allowEdit === false) {
       this.allowEdit = !this.allowEdit;
       this.buttonText = "Save";
-      this.disabledButton = this.signUpForm.invalid;
       console.log(this.allowEdit);
     }
     else {

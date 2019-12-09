@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { CanActivate, Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
-import { Role } from '../site/user';
+import { Role, RoleName } from '../site/user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGardService implements CanActivate {
+export class AuthGuardService implements CanActivate {
 
   constructor(private authService: AuthService, private router: Router) { }
   canActivate(
@@ -16,10 +16,12 @@ export class AuthGardService implements CanActivate {
     const role = next.data['role'];
     return this.checkLogin(role);
   }
-  checkLogin(role: Role): boolean {
+  checkLogin(role: RoleName): boolean {
     const loggedInUser = this.authService.loggedInUser.value;
     if (loggedInUser) {
-      if (loggedInUser.role === role) {
+      if (loggedInUser.role.name === role) {
+        console.log('here');
+        
         return true;
       }
       else {
@@ -27,6 +29,8 @@ export class AuthGardService implements CanActivate {
           return true;
         }
         else {
+          console.log('here');
+          
           this.router.navigate(['/unauthorized']);
         }
       }
