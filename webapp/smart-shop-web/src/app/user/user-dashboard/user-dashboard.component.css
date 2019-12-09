@@ -15,5 +15,9 @@
     scroll-snap-type: x proximity;
 }
 .product-item {
-    scroll-snap-align: center;
+    scroll-snap-align: start;
+}
+.card-body {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 }

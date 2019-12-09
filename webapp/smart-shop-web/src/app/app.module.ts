@@ -18,6 +18,7 @@ import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboar
 import { AuthGuardService } from './services/auth-guard.service';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+import { ItemDetailsComponent } from './product/item-details/item-details.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,9 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
     ShopManagerDashboardComponent,
     SuperAdminDashboardComponent,
     EditProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    ItemDetailsComponent
+  
   ],
   imports: [
     BrowserModule,
