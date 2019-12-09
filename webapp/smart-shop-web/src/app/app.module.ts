@@ -16,6 +16,8 @@ import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard
 import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
 import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboard/super-admin-dashboard.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { ItemDetailsComponent } from './product/item-details/item-details.component';
 
 @NgModule({
@@ -29,6 +31,8 @@ import { ItemDetailsComponent } from './product/item-details/item-details.compon
     AdminDashboardComponent,
     ShopManagerDashboardComponent,
     SuperAdminDashboardComponent,
+    EditProfileComponent,
+    ChangePasswordComponent,
     ItemDetailsComponent
   
   ],

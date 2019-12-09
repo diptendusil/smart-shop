@@ -61,7 +61,7 @@ ENGINE = InnoDB;
 -- Table `smart-shop`.`category`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `smart-shop`.`category` (
-  `ca_id` INT NOT NULL,
+  `ca_id` INT NOT NULL AUTO_INCREMENT,
   `ca_name` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`ca_id`))
 ENGINE = InnoDB;

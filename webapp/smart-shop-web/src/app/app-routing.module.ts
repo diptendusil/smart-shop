@@ -2,13 +2,15 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './site/login/login.component';
 import { SignUpComponent } from './site/sign-up/sign-up.component';
-import { ItemInfoComponent } from './product/item-info/item-info.component';
 import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboard/super-admin-dashboard.component';
 import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { RoleName } from './site/user';
+import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
+import { ChangePasswordComponent } from './profile/change-password/change-password.component';
+
 
 
 const routes: Routes = [
@@ -59,6 +61,14 @@ const routes: Routes = [
     data:{
       role:RoleName.ROLE_MANAGER
     }
+  },
+  {
+    path: 'account',
+    component: EditProfileComponent
+  },
+  {
+    path: "edit/password",
+    component: ChangePasswordComponent
   }
   
 ];
