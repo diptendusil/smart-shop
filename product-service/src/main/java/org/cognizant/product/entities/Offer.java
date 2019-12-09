@@ -2,6 +2,7 @@ package org.cognizant.product.entities;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -19,7 +20,7 @@ public class Offer {
 	private double discountRate;
 	@Column(name="of_offer")
 	private String offerName;
-	@OneToOne
+	@OneToOne(cascade= {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinColumn(name="of_pr_code")
 	private Product product;
 	public Offer() {

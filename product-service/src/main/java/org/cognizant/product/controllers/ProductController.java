@@ -11,8 +11,10 @@ import org.cognizant.product.entities.Category;
 import org.cognizant.product.entities.Product;
 import org.cognizant.product.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +45,16 @@ public class ProductController {
 	@PutMapping
 	public void modifyProduct(@RequestBody ProductDto productDto) {
 		productService.modifyProduct(convertProductDtoToProduct(productDto));
+	}
+	
+	@DeleteMapping("/{id}")
+	public void deleteProduct(@PathVariable String id) {
+		productService.deleteProduct(id);
+	}
+	
+	@PostMapping
+	public void addProduct(@RequestBody ProductDto productDto) {
+		productService.addProduct(convertProductDtoToProduct(productDto));
 	}
 	
 	public Product convertProductDtoToProduct(ProductDto productDto) {

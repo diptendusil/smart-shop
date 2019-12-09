@@ -2,6 +2,7 @@ package org.cognizant.product.entities;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -15,7 +16,7 @@ public class Category {
 	private int categoryId;
 	@Column(name="ca_name")
 	private String categoryName;
-	@OneToMany(mappedBy="category", fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="category",cascade= {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.MERGE,CascadeType.PERSIST}, fetch=FetchType.EAGER)
 	private List<Product> productList;
 	public Category() {
 		super();

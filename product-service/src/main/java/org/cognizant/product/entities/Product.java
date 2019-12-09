@@ -2,6 +2,7 @@ package org.cognizant.product.entities;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class Product {
 	private Date dateOfExpiry;
 	@Column(name="pr_image")
 	private String image;
-	@ManyToOne
+	@ManyToOne(cascade= {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinColumn(name="pr_ca_id")
 	private Category category;
 	public Product() {
