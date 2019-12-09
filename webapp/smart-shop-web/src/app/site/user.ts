@@ -6,7 +6,7 @@
    age:number,
    gender:boolean,
    contact:number,
-   password:string,
+   password?:string,
    status? :string,
    secretQuestion1: string,
    secretQuestion2: string,

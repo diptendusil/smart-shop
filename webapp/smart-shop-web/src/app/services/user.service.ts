@@ -43,4 +43,9 @@ export class UserService {
     return this.httpClient.post<User>(`${this.baseUrl}/managers`, user)
   }
 
+
+  updateUser(user:User):Observable<User> {
+    return this.httpClient.put<User>(`${this.baseUrl}/users`, user)
+  }
+
 }

@@ -3,6 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
+import { User } from 'src/app/site/user';
 
 @Component({
   selector: 'app-edit-profile',
@@ -31,11 +32,11 @@ export class EditProfileComponent implements OnInit {
 
   disabledButton = false;
 
-  genderText = {'M': 'Male', 'F': 'Female'}
+  genderText = { 'M': 'Male', 'F': 'Female' }
 
   buttonText = "";
 
-  constructor( 
+  constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
     private authService: AuthService,
@@ -65,13 +66,44 @@ export class EditProfileComponent implements OnInit {
 
 
   submit() {
-    if(this.allowEdit === false) {
+    if (this.allowEdit === false) {
       this.allowEdit = !this.allowEdit;
       this.buttonText = "Save";
       console.log(this.allowEdit);
     }
     else {
       console.log(this.signUpForm.value);
+
+      if (this.signUpForm.valid) {
+        const newUser: User = {
+          userId: this.username.value,
+          firstName: this.firstName.value,
+          lastName: this.lastName.value,
+          age: this.age.value,
+          contact: this.contact.value,
+          gender: this.gender.value,
+          secretQuestion1: this.secretQuestion1.value,
+          secretQuestion2: this.secretQuestion2.value,
+          secretQuestion3: this.secretQuestion3.value,
+          secretAnswer1: this.secretAnswer1.value,
+          secretAnswer2: this.secretAnswer2.value,
+          secretAnswer3: this.secretAnswer3.value,
+        }
+
+        this.userService.updateUser(newUser).subscribe((user: User) => {
+          console.log(user);
+        },
+          () => {
+            console.log("Error updating details");
+            this.editError = false;
+          },
+          () => {
+            this.editSuccess = true;
+            this.allowEdit = !this.allowEdit;
+            this.buttonText = "";
+          }
+        )
+      }
     }
   }
 
