@@ -12,4 +12,8 @@
 }
 .product-list{
     min-height: 300px;
+    scroll-snap-type: x proximity;
+}
+.product-item {
+    scroll-snap-align: center;
 }

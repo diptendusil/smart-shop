@@ -7,7 +7,7 @@ import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.com
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboard/super-admin-dashboard.component';
 import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
-import { AuthGardService } from './services/auth-gard.service';
+import { AuthGuardService } from './services/auth-guard.service';
 import { RoleName } from './site/user';
 
 
@@ -23,7 +23,7 @@ const routes: Routes = [
   {
     path: 'user/dashboard',
     component: UserDashboardComponent,
-    canActivate: [AuthGardService],
+    canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_USER
     }
@@ -31,7 +31,7 @@ const routes: Routes = [
   {
     path: 'admin/dashboard',
     component: AdminDashboardComponent,
-    canActivate: [AuthGardService],
+    canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_ADMIN
     }
@@ -39,7 +39,7 @@ const routes: Routes = [
   {
     path: 'admin/manager-sign-up',
     component: SignUpComponent,
-    canActivate: [AuthGardService],
+    canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_ADMIN
     }
@@ -47,7 +47,7 @@ const routes: Routes = [
   {
     path: 'super-user/dashboard',
     component: SuperAdminDashboardComponent,
-    canActivate: [AuthGardService],
+    canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_SUPER_USER
     }
@@ -55,7 +55,7 @@ const routes: Routes = [
   {
     path: 'manager/dashboard',
     component: ShopManagerDashboardComponent,
-    canActivate: [AuthGardService],
+    canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_MANAGER
     }
