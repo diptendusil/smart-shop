@@ -27,3 +27,12 @@
   ::-webkit-scrollbar-thumb:hover {
     background: #555; 
   }
+  .font-size-16 {
+    font-size: 16px;
+  }
+  .font-size-24 {
+    font-size: 24px;
+  }
+  .font-weight-500 {
+    font-weight: 600;
+  }
