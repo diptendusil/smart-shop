@@ -132,7 +132,7 @@ export class SignUpComponent implements OnInit {
               },
               () => this.getUser());
             break;
-         default:
+          default:
             this.userService.addUser(newUser).pipe(
               switchMap(user => this.authService.login(user.userId, this.password.value))
             ).subscribe((res: HttpResponse<any>) => {

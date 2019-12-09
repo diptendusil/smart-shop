@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cognizant.product.dto.CategoryDto;
+import org.cognizant.product.dto.OfferDto;
 import org.cognizant.product.entities.Category;
 import org.cognizant.product.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +35,26 @@ public class CategoryController {
 		return convertCategoryToCategoryDto(categoryService.getCategoryById(id));
 	}
 	
+	@PutMapping
+	public void modifyCategory(@RequestBody CategoryDto categoryDto) {
+		categoryService.modifyCategory(convertCategoryDtoToCategory(categoryDto));
+	}
+	
+	@DeleteMapping("/{id}")
+	public void deleteCategory(@PathVariable int id) {
+		categoryService.deleteCategory(id);
+	}
+	
+	@PostMapping
+	public void addCategory(@RequestBody CategoryDto categoryDto) {
+		categoryService.addCategory(convertCategoryDtoToCategory(categoryDto));
+	}
+	
+	private Category convertCategoryDtoToCategory(CategoryDto categoryDto) {
+		Category category=new Category(categoryDto.getCategoryId(), categoryDto.getCategoryName());
+		return category;
+	}
+
 	public CategoryDto convertCategoryToCategoryDto(Category category) {
 		CategoryDto categoryDto=new CategoryDto(category.getCategoryId(), category.getCategoryName(), null);
 		return categoryDto;

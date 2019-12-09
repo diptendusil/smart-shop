@@ -11,6 +11,7 @@ import { RoleName } from './site/user';
 import { EditProfileComponent } from './profile/edit-profile/edit-profile.component';
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 
+import { ProductListComponent } from './product/product-list/product-list.component';
 
 
 const routes: Routes = [
@@ -69,8 +70,11 @@ const routes: Routes = [
   {
     path: "edit/password",
     component: ChangePasswordComponent
+  },
+  {
+    path: 'product-list',
+    component: ProductListComponent
   }
-  
 ];
 
 @NgModule({
