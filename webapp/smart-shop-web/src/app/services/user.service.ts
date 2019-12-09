@@ -39,5 +39,8 @@ export class UserService {
   getAllSecretQuestions(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/secret-questions`);
   }
+  addManager(user:User):Observable<User>{
+    return this.httpClient.post<User>(`${this.baseUrl}/managers`, user)
+  }
 
 }

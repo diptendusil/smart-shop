@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from '../user';
+import { User, RoleName } from '../user';
 import { switchMap, map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { dashboardUrl } from '../user-navigation-handler';
 @Component({
@@ -38,7 +38,8 @@ export class SignUpComponent implements OnInit {
     private formBuilder: FormBuilder,
     private userService: UserService,
     private authService: AuthService,
-    private router: Router) {
+    private router: Router,
+    private activatedRoute: ActivatedRoute) {
 
   }
   ngOnInit() {
@@ -117,26 +118,49 @@ export class SignUpComponent implements OnInit {
         secretAnswer2: this.secretAnswer2.value,
         secretAnswer3: this.secretAnswer3.value,
       }
-      this.userService.addUser(newUser).pipe(
-        switchMap(user => this.authService.login(user.userId, this.password.value))
-      ).subscribe((res: HttpResponse<any>) => {
-        console.log(res);
+      this.activatedRoute.data.subscribe(data => {
+        switch (data['role']) {
+          case RoleName.ROLE_ADMIN:
+            this.userService.addManager(newUser).pipe(
+              switchMap(user => this.authService.login(user.userId, this.password.value))
+            ).subscribe((res: HttpResponse<any>) => {
+              this.authService.setToken(res.body['token']);
+              this.signUpSuccess = true;
+            },
+              () => {
+                this.signUpError = true;
+              },
+              () => this.getUser());
+            break;
+          case RoleName.ROLE_USER:
+            this.userService.addUser(newUser).pipe(
+              switchMap(user => this.authService.login(user.userId, this.password.value))
+            ).subscribe((res: HttpResponse<any>) => {
+              console.log(res);
 
-        this.authService.setToken(res.body['token']);
-        this.signUpSuccess = true;
-      },
-        () => {
-          console.log('here');
+              this.authService.setToken(res.body['token']);
+              this.signUpSuccess = true;
+            },
+              () => {
+                console.log('here');
 
-          this.signUpError = true;
-        },
-        () => this.userService.getUser(this.username.value).subscribe(
-          user => {
-            this.authService.loggedInUser.next(user);
-            const redirectUrl = dashboardUrl(user);
-            setTimeout(() => this.router.navigate(redirectUrl), 2000);
-          }));
+                this.signUpError = true;
+              },
+              () => this.getUser());
+            break;
+          default:
+            break;
+        }
+      })
     }
+  }
+  getUser() {
+    this.userService.getUser(this.username.value).subscribe(
+      user => {
+        this.authService.loggedInUser.next(user);
+        const redirectUrl = dashboardUrl(user);
+        setTimeout(() => this.router.navigate(redirectUrl), 2000);
+      });
   }
   isUsernameTaken(userName: FormControl): Promise<any> | Observable<any> {
     return this.userService.userExists(userName.value)

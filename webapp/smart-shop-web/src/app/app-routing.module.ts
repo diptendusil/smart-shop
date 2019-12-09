@@ -7,6 +7,8 @@ import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.com
 import { AdminDashboardComponent } from './admin/admin-dashboard/admin-dashboard.component';
 import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboard/super-admin-dashboard.component';
 import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
+import { AuthGardService } from './services/auth-gard.service';
+import { RoleName } from './site/user';
 
 
 const routes: Routes = [
@@ -20,19 +22,43 @@ const routes: Routes = [
   },
   {
     path: 'user/dashboard',
-    component: UserDashboardComponent
+    component: UserDashboardComponent,
+    canActivate: [AuthGardService],
+    data:{
+      role:RoleName.ROLE_USER
+    }
   },
   {
     path: 'admin/dashboard',
     component: AdminDashboardComponent,
+    canActivate: [AuthGardService],
+    data:{
+      role:RoleName.ROLE_ADMIN
+    }
+  },
+  {
+    path: 'admin/manager-sign-up',
+    component: SignUpComponent,
+    canActivate: [AuthGardService],
+    data:{
+      role:RoleName.ROLE_ADMIN
+    }
   },
   {
     path: 'super-user/dashboard',
-    component: SuperAdminDashboardComponent
+    component: SuperAdminDashboardComponent,
+    canActivate: [AuthGardService],
+    data:{
+      role:RoleName.ROLE_SUPER_USER
+    }
   },
   {
     path: 'manager/dashboard',
-    component: ShopManagerDashboardComponent
+    component: ShopManagerDashboardComponent,
+    canActivate: [AuthGardService],
+    data:{
+      role:RoleName.ROLE_MANAGER
+    }
   }
   
 ];
