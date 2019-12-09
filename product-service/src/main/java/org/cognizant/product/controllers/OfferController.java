@@ -12,6 +12,8 @@ import org.cognizant.product.services.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -30,6 +32,15 @@ public class OfferController {
 	@GetMapping("/{code}")
 	public OfferDto getOfferByProduct(@PathVariable String code) {
 		return convertOfferToOfferDto(offerService.getOfferByProduct(code));
+	}
+	
+	@PutMapping
+	public void modifyOffer(@RequestBody OfferDto offerDto) {
+		offerService.modifyOffer(convertProductDtoToProduct(productDto));
+	}
+	
+	public Offer convertOfferDtoToOffer(OfferDto offerDto) {
+		
 	}
 	
 	public OfferDto convertOfferToOfferDto(Offer offer) {

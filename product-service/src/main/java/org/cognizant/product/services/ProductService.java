@@ -30,4 +30,9 @@ public class ProductService {
 	public List<Product> getProductsByCategory(int id) {
 		return productRepository.findProductsByCategory(id);
 	}
+	
+	@Transactional
+	public void modifyProduct(Product product) {
+		productRepository.save(product);
+	}
 }

@@ -7,14 +7,16 @@ import java.util.Set;
 
 import org.cognizant.product.dto.CategoryDto;
 import org.cognizant.product.dto.ProductDto;
+import org.cognizant.product.entities.Category;
 import org.cognizant.product.entities.Product;
 import org.cognizant.product.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 
 @RestController
 @RequestMapping("/products")
@@ -36,6 +38,17 @@ public class ProductController {
 	@GetMapping("/category/{id}")
 	public List<ProductDto> getProductsByCategory(@PathVariable int id) {
 		return convertProductsToProductDtos(productService.getProductsByCategory(id));
+	}
+	
+	@PutMapping
+	public void modifyProduct(@RequestBody ProductDto productDto) {
+		productService.modifyProduct(convertProductDtoToProduct(productDto));
+	}
+	
+	public Product convertProductDtoToProduct(ProductDto productDto) {
+		Category category=new Category(productDto.getCategory().getCategoryId(), productDto.getCategory().getCategoryName());
+		Product product=new Product(productDto.getProductCode(), productDto.getProductName(), productDto.getBrand(), productDto.getRate(), productDto.getStockCount(), productDto.getAddDate(), productDto.getAisle(), productDto.getShelf(), productDto.getDateOfManufacture(), productDto.getDateOfExpiry(), productDto.getImage(), category);
+		return product;
 	}
 	
 	public List<ProductDto> convertProductsToProductDtos(List<Product> products){
