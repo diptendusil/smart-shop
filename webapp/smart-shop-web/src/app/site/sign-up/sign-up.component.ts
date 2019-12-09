@@ -7,6 +7,7 @@ import { switchMap, map } from 'rxjs/operators';
 import { HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { dashboardUrl } from '../user-navigation-handler';
 @Component({
   selector: 'app-sign-up',
   templateUrl: './sign-up.component.html',
@@ -132,7 +133,8 @@ export class SignUpComponent implements OnInit {
         () => this.userService.getUser(this.username.value).subscribe(
           user => {
             this.authService.loggedInUser.next(user);
-            setTimeout(() => this.router.navigate(['/']), 2000);
+            const redirectUrl = dashboardUrl(user);
+            setTimeout(() => this.router.navigate(redirectUrl), 2000);
           }));
     }
   }

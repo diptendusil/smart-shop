@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
 import { Router } from '@angular/router';
+import { dashboardUrl } from '../user-navigation-handler';
 
 @Component({
   selector: 'app-login',
@@ -51,7 +52,8 @@ export class LoginComponent implements OnInit {
         () => {
           this.userService.getUser(this.username.value).subscribe(user => {
             this.authService.loggedInUser.next(user);
-            this.router.navigate(['/'])
+            const redirectUrl = dashboardUrl(user);
+            this.router.navigate(redirectUrl);
           })
         }
       )
