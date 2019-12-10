@@ -1,5 +1,6 @@
 package com.cognizant.userauthenticationservice.service;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -152,5 +153,11 @@ public class AppUserDetailsService implements UserDetailsService {
 	@Transactional
 	public User checkPassword(String userId, String password) {
 		return null;
+	}
+	
+	
+	@Transactional
+	public List<User> getManagers() {
+		return userRepository.getAllManagers();
 	}
 }

@@ -84,4 +84,10 @@ public class UserController {
 			return null;
 		}
 	}
+	
+	
+	@GetMapping("/managers")
+	public List<User> getManagers() {
+		return appUserDetailsService.getManagers();
+	}
 }
