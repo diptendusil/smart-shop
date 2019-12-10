@@ -12,6 +12,7 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 
 import { ProductListComponent } from './product/product-list/product-list.component';
+import { InventoryComponent } from './shop-manager/inventory/inventory.component';
 
 
 const routes: Routes = [
@@ -58,6 +59,14 @@ const routes: Routes = [
   {
     path: 'manager/dashboard',
     component: ShopManagerDashboardComponent,
+    canActivate: [AuthGuardService],
+    data:{
+      role:RoleName.ROLE_MANAGER
+    }
+  },
+  {
+    path: 'manager/dashboard/inventory',
+    component: InventoryComponent,
     canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_MANAGER
