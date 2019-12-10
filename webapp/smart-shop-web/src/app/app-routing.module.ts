@@ -13,9 +13,15 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
 
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { InventoryComponent } from './shop-manager/inventory/inventory.component';
+import { ItemDetailsComponent } from './product/item-details/item-details.component';
 
 
 const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
   {
     path: 'login',
     component: LoginComponent
@@ -83,6 +89,10 @@ const routes: Routes = [
   {
     path: 'product-list',
     component: ProductListComponent
+  },
+  {
+    path: 'product-list/details/:id',
+    component: ItemDetailsComponent
   }
 ];
 
