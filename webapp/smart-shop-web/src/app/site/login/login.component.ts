@@ -20,7 +20,10 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-
+    if(this.authService.loggedInUser.value) {
+      const redirectUrl = dashboardUrl(this.authService.loggedInUser.value);
+      this.router.navigate(redirectUrl);
+    }
     this.loginForm = new FormGroup(
       {
         'username': new FormControl(null, [Validators.required, Validators.maxLength(20)]),

@@ -6,7 +6,7 @@ export interface Product {
     rate: number;
     stockCount: number;
     addDate: Date;
-    aise: string;
+    aisle: string;
     shelf: string;
     dateOfManufacture: Date;
     dateOfExpiry: Date;
@@ -16,4 +16,11 @@ export interface Product {
 export interface Category {
     categoryId: number;
     categoryName: string;
+}
+export interface Offer {
+    offerId: number;
+    offerDate: Date;
+    discountRate: number;
+    offerName: string;
+    product: Product;
 }

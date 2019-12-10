@@ -1,0 +1,19 @@
+.manager-head {
+    color: black;
+    text-decoration: none;
+}
+
+.manager-head:hover {
+    color: black;
+    text-decoration: none;
+}
+
+.manager-head:active {
+    color: black;
+    text-decoration: none;
+}
+
+
+.manager-card:hover {
+    background-color: #f2f2f2;
+}

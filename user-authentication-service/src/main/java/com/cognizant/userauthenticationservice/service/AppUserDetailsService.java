@@ -157,7 +157,12 @@ public class AppUserDetailsService implements UserDetailsService {
 	
 	
 	@Transactional
-	public List<User> getManagers() {
-		return userRepository.getAllManagers();
+	public List<User> getApprovedManagers() {
+		return userRepository.getAllApprovedManagers();
+	}
+	
+	@Transactional
+	public void deleteManager(String userId) {
+		userRepository.deleteById(userId);
 	}
 }

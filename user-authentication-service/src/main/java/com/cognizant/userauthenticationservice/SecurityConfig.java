@@ -38,6 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, "/users/**").permitAll()
 		.antMatchers(HttpMethod.POST, "/managers").hasRole("ADMIN")
 		.antMatchers(HttpMethod.GET, "/managers/**").hasRole("ADMIN")
+		.antMatchers(HttpMethod.DELETE, "/managers/**").hasRole("ADMIN")
 		.antMatchers("/admins").hasRole("SUPER_USER")
 		.and()
 		.addFilter(new JwtAuthorizationFilter(authenticationManager()))

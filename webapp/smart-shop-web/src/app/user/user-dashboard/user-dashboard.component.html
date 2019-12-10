@@ -3,17 +3,11 @@
         <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>Deals of the day</h5>
-                <button class="btn btn-primary">View All</button>
+                <a  class="btn btn-primary" [routerLink]="['/product-list']" [state]="{display: 'Deals of the Day'}">View All</a >
             </div>
-            <div class="card-body product-list overflow-auto d-flex">
-                <app-item-info class="product-item"></app-item-info>
-                <app-item-info class="product-item"></app-item-info>
-                <app-item-info class="product-item"></app-item-info>
-                <app-item-info class="product-item"></app-item-info>
-                <app-item-info class="product-item"></app-item-info>
-                <app-item-info class="product-item"></app-item-info>
-                <app-item-info class="product-item"></app-item-info>
-                <app-item-info class="product-item"></app-item-info>
+            <div class="card-body product-list overflow-auto d-flex" *ngIf="offers">
+                <app-item-info class="product-item" *ngFor="let offer of offers" [product]="offer.product"></app-item-info>
+                
             </div>
         </div>
     </div>
@@ -23,7 +17,7 @@
         <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h5>Suggested for you</h5>
-                <a [routerLink]="['/product-list']" [state]="{category: 'Recommendations'}"  class="btn btn-primary">View All</a>
+                <a [routerLink]="['/product-list']" [state]="{display: 'Recommendations'}"  class="btn btn-primary">View All</a>
             </div>
             <div class="card-body product-list overflow-auto d-flex">
                     <app-item-info class="product-item"></app-item-info>
@@ -45,7 +39,7 @@
                 <h5>Categories</h5>
             </div>
             <div class="card-body d-flex">
-                <button class="category-item" *ngFor="let category of categories">{{category.categoryName}}</button>
+                <a class="category-item" *ngFor="let category of categories" [routerLink]="['/product-list']" [state]="{category: category}" routerLinkActive="router-link-active" >{{category.categoryName}}</a>
                 
             </div>
         </div>

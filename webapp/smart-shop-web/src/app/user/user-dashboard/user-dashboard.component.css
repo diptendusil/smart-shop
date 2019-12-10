@@ -30,6 +30,7 @@
     transition: all 0.3s ease-in-out;
     color: #007bff;
     cursor: pointer;
+    text-decoration: none;
 }
 .category-item:hover {
     background: #007bff;
