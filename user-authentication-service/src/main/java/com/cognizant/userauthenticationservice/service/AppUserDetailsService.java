@@ -142,7 +142,6 @@ public class AppUserDetailsService implements UserDetailsService {
 	
 	@Transactional
 	public User modifyUser(User user) {
-		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return this.userRepository.save(user);
 	}
 	@Transactional
