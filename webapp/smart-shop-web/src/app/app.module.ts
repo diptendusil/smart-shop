@@ -20,6 +20,10 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { ItemDetailsComponent } from './product/item-details/item-details.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
+import { InventoryComponent } from './shop-manager/inventory/inventory.component';
+import { SummaryComponent } from './shop-manager/inventory/summary/summary.component';
+import { ManageProductsComponent } from './shop-manager/inventory/manage-products/manage-products.component';
+import { ManageCategoriesComponent } from './shop-manager/inventory/manage-categories/manage-categories.component';
 import { ProductService } from './services/product.service';
 
 @NgModule({
@@ -36,7 +40,7 @@ import { ProductService } from './services/product.service';
     EditProfileComponent,
     ChangePasswordComponent,
     ItemDetailsComponent,  
-    ProductListComponent
+    ProductListComponent, InventoryComponent, SummaryComponent, ManageProductsComponent, ManageCategoriesComponent
   ],
   imports: [
     BrowserModule,
