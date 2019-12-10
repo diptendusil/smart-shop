@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
-import org.cognizant.product.entities.Category;
 import org.cognizant.product.entities.Offer;
 import org.cognizant.product.repositories.OfferRepository;
 import org.cognizant.product.repositories.ProductRepository;
@@ -22,7 +21,7 @@ public class OfferService {
 
 	@Transactional
 	public List<Offer> getAllOffers() {
-		return offerRepository.findAll();
+		return offerRepository.findByDate();
 	}
 
 	@Transactional
