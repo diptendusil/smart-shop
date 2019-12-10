@@ -5,11 +5,13 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,6 +28,8 @@ public class UserController {
 	private AppUserDetailsService appUserDetailsService;
 	@Autowired
 	private SecretQuestionRepository secretQuestionRepository;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 	
 	@GetMapping("/users/{id}")
 	public User getUser(@PathVariable String id) {
@@ -67,7 +71,14 @@ public class UserController {
 	}
 	
 	@GetMapping("/check/{uid}")
-	public User checkPassword() {
-		return null;
+	public User checkPassword(@RequestHeader("PWD") String password, @PathVariable String uid) {
+		System.out.println(password);
+		User us = appUserDetailsService.getUser(uid);
+		if(passwordEncoder.matches(password, us.getPassword())) {
+			return us;
+		}
+		else {
+			return null;
+		}
 	}
 }

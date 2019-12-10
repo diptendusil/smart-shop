@@ -142,10 +142,6 @@ public class AppUserDetailsService implements UserDetailsService {
 	
 	@Transactional
 	public User modifyUser(User user) {
-		User u = getUser(user.getUserId());
-		user.setPassword(u.getPassword());
-		user.setStatus(u.getStatus());
-		user.setRole(u.getRole());
 		return this.userRepository.save(user);
 	}
 	@Transactional
