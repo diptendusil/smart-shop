@@ -2,8 +2,6 @@ package org.cognizant.product.dto;
 
 import java.util.List;
 
-import org.cognizant.product.entities.Category;
-
 public class CategoryDto {
 	
 	private int categoryId;
