@@ -121,16 +121,12 @@ export class SignUpComponent implements OnInit {
       this.activatedRoute.data.subscribe(data => {
         switch (data['role']) {
           case RoleName.ROLE_ADMIN:
-            this.userService.addManager(newUser).pipe(
-              switchMap(user => this.authService.login(user.userId, this.password.value))
-            ).subscribe((res: HttpResponse<any>) => {
-              this.authService.setToken(res.body['token']);
+            this.userService.addManager(newUser).subscribe((res) => {
               this.signUpSuccess = true;
             },
               () => {
                 this.signUpError = true;
-              },
-              () => this.getUser());
+              });
             break;
           default:
             this.userService.addUser(newUser).pipe(
