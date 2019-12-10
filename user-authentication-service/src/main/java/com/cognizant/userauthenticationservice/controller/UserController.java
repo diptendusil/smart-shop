@@ -6,12 +6,12 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -86,8 +86,14 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/managers")
-	public List<User> getManagers() {
-		return appUserDetailsService.getManagers();
+	@GetMapping("/managers/approved")
+	public List<User> getApprovedManagers() {
+		return appUserDetailsService.getApprovedManagers();
+	}
+	
+	@DeleteMapping("/managers/{userId}")
+	public List<User> deleteManager(@PathVariable String userId) {
+		appUserDetailsService.deleteManager(userId);
+		return appUserDetailsService.getApprovedManagers();
 	}
 }
