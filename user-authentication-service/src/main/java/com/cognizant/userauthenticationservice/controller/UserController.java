@@ -6,15 +6,16 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cognizant.userauthenticationservice.entities.PasswordPojo;
 import com.cognizant.userauthenticationservice.entities.SecretQuestion;
 import com.cognizant.userauthenticationservice.entities.User;
 import com.cognizant.userauthenticationservice.exception.UserAlreadyExistsException;
@@ -70,15 +71,29 @@ public class UserController {
 		return this.secretQuestionRepository.findAll();
 	}
 	
-	@GetMapping("/check/{uid}")
-	public User checkPassword(@RequestHeader("PWD") String password, @PathVariable String uid) {
-		System.out.println(password);
+	@PutMapping("/change/{uid}")
+	public User changePassword(@PathVariable String uid, @RequestBody PasswordPojo passwordObj) {
+		System.out.println(passwordObj.getOldPassword());
+		System.out.println(passwordObj.getNewPassword());
 		User us = appUserDetailsService.getUser(uid);
-		if(passwordEncoder.matches(password, us.getPassword())) {
-			return us;
+		if(passwordEncoder.matches(passwordObj.getOldPassword(), us.getPassword())) {
+			us.setPassword(passwordEncoder.encode(passwordObj.getNewPassword()));
+			return appUserDetailsService.modifyUser(us);
 		}
 		else {
 			return null;
 		}
+	}
+	
+	
+	@GetMapping("/managers/approved")
+	public List<User> getApprovedManagers() {
+		return appUserDetailsService.getApprovedManagers();
+	}
+	
+	@DeleteMapping("/managers/{userId}")
+	public List<User> deleteManager(@PathVariable String userId) {
+		appUserDetailsService.deleteManager(userId);
+		return appUserDetailsService.getApprovedManagers();
 	}
 }

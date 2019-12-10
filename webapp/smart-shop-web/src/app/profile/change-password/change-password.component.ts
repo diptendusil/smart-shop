@@ -41,7 +41,28 @@ export class ChangePasswordComponent implements OnInit {
     console.log(this.editForm.value);
     this.newUser = this.authService.loggedInUser.value;
     console.log(this.newUser);
-    this.userService.checkPassword(this.username.value, this.password.value).pipe(
+    this.userService.changePassword(this.username.value, this.password.value, this.newPassword.value).subscribe((user) => {
+      if (user) {
+        this.success = true;
+        this.failure = false;
+        this.error = false;
+        this.newUser = user;
+      }
+      else {
+        this.failure = true;
+        this.success = false;
+        this.error = false;
+      }
+    }, () => {
+      this.error = true;
+      this.success = false;
+      this.failure = false;
+      console.log("Error checking password");
+    }, () => {
+      console.log("Finally finish");
+      this.authService.loggedInUser.next(this.newUser);
+    })
+    /* this.userService.checkPassword(this.username.value, this.password.value).pipe(
       switchMap((user) => {
         console.log(user);
         if (user) {
@@ -73,7 +94,7 @@ export class ChangePasswordComponent implements OnInit {
     }, () => {
       console.log("Finally finish");
       this.authService.loggedInUser.next(this.newUser);
-    })
+    }) */
   }
 
   get username() {
