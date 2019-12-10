@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.cognizant.product.dto.CategoryDto;
-import org.cognizant.product.dto.OfferDto;
 import org.cognizant.product.entities.Category;
 import org.cognizant.product.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,8 +2,6 @@ package org.cognizant.product.dto;
 
 import java.util.Date;
 
-import org.cognizant.product.entities.Product;
-
 
 public class ProductDto {
 	private String productCode;

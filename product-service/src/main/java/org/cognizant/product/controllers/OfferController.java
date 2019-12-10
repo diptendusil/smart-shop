@@ -53,8 +53,6 @@ public class OfferController {
 	}
 	
 	public Offer convertOfferDtoToOffer(OfferDto offerDto) {
-		Product product=convertProductDtoToProduct(offerDto.getProduct());
-		System.out.println(offerDto.getOfferDate());
 		Offer offer=new Offer(offerDto.getOfferId(), offerDto.getOfferDate(), offerDto.getDiscountRate(), offerDto.getOfferName(), convertProductDtoToProduct(offerDto.getProduct()));
 		return offer;
 	}
