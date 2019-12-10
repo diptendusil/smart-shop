@@ -42,7 +42,7 @@ import { ProductService } from './services/product.service';
     ChangePasswordComponent,
     ItemDetailsComponent,  
     ProductListComponent, BillingComponent
-    ProductListComponent, InventoryComponent, SummaryComponent, ManageProductsComponent, ManageCategoriesComponent
+   , InventoryComponent, SummaryComponent, ManageProductsComponent, ManageCategoriesComponent
   ],
   imports: [
     BrowserModule,
