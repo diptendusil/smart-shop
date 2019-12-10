@@ -1,54 +1,15 @@
-
-<div class="col-6">
-
-        <div class="card mx-2 " style="width: 300px;"> 
-            <div class="card-header">
-               <h3>BILLING</h3> 
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <span class="size">
-                        Total Purchesed Per Day: 51
-                    </span>
-                </div>
-                <div class="row">
-                        <span class="size">
-                            Total Ammount Per Day:5100
-                        </span>
-                    </div>
-            </div>
-            
-          <div class="card-footer">
-              <div class="row">
-                  <div class="col-6">
-                        <a href="" class="btn btn-primary ">
-                                New Bill
-                            </a>
-                  </div>
-                  <div class="col-6 d-flex justify content end">
-                        <a href="" class="btn btn-primary  ">
-                                Total Bill
-                            </a>
-                  </div>
-              </div>
-            
-             
-          </div>
-        </div>
-        </div>
-        
 <div class="row mb-2">
     <div class="col-6">
         <div class="card shadow-sm">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5>Inventory</h5>
+                <h5>INVENTORY</h5>
+                <a class="btn btn-primary" [routerLink]="['/manager/dashboard/inventory']">Manage</a>
             </div>
             <div class="card-body">
                 <div class="row">
                     <div class="col-12">
                         <span class="text-muted"><b>Total Products :</b></span>
                         <span class="text-info"> 500</span>
-
                     </div>
                 </div>
                 <div class="row">
@@ -58,8 +19,63 @@
                     </div>
                 </div>
             </div>
-            <div class="card-footer">
-                <a class="btn btn-primary" [routerLink]="['/manager/dashboard/inventory']">Manage</a>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="card shadow-sm ">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-4">
+                        <h5>BILLING</h5>
+                    </div>
+                    <div class="col-8 justify-content-end d-flex">
+                        <a href="" class="btn btn-primary  d-flex mr-3">
+                            New Bill
+                        </a>
+                        <a href="" class="btn btn-primary   ">
+                            Total Bill
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <span class="size text-info">
+                            Total Purchesed Today: 51
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="size">
+                            Total Ammount Today:5100
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row ">
+    <div class="col-12">
+        <div class="card shadow-sm">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-8">
+                        <h5>Offers</h5>
+
+                    </div>
+                    <div class="col-4 d-flex justify-content-end">
+                        <a href="" class="btn btn-primary">Mannage Offer</a>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5>Todays Offers</h5>
+                <ul *ngIf="offers" class="list-group">
+                    <li *ngFor="let offer of offers" class="list-group-item">{{offer|json}}</li>
+                </ul>
             </div>
         </div>
     </div>
