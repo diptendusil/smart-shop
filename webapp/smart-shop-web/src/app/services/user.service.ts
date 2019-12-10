@@ -53,4 +53,12 @@ export class UserService {
     return this.httpClient.put(`${this.baseUrl}/change/${userId}`, {"oldPassword": oldPassword, "newPassword": newPassword});
   }
 
+
+  getApprovedManagers(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/managers/approved`);
+  }
+
+  deleteManager(userId: string): Observable<any> {
+    return this.httpClient.delete(`${this.baseUrl}/managers/${userId}`);
+  }
 }

@@ -4,7 +4,7 @@
    firstName:string,
    lastName:string,
    age:number,
-   gender:boolean,
+   gender:string,
    contact:number,
    password?:string,
    status? :string,

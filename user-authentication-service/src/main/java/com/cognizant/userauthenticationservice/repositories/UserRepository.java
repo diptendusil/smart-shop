@@ -9,7 +9,6 @@ import com.cognizant.userauthenticationservice.entities.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
 	
-	/*
-	 * @Query("") public List<User> getAllManagers();
-	 */
+	@Query(value = "select * from user where us_ro_id = 'M' and us_status = 'A'", nativeQuery=true)
+	public List<User> getAllApprovedManagers();
 }
