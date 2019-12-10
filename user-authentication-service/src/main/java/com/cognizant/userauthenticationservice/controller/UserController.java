@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cognizant.userauthenticationservice.entities.PasswordPojo;
 import com.cognizant.userauthenticationservice.entities.SecretQuestion;
 import com.cognizant.userauthenticationservice.entities.User;
 import com.cognizant.userauthenticationservice.exception.UserAlreadyExistsException;
@@ -70,12 +71,14 @@ public class UserController {
 		return this.secretQuestionRepository.findAll();
 	}
 	
-	@GetMapping("/check/{uid}")
-	public User checkPassword(@RequestHeader("PWD") String password, @PathVariable String uid) {
-		System.out.println(password);
+	@PutMapping("/change/{uid}")
+	public User changePassword(@PathVariable String uid, @RequestBody PasswordPojo passwordObj) {
+		System.out.println(passwordObj.getOldPassword());
+		System.out.println(passwordObj.getNewPassword());
 		User us = appUserDetailsService.getUser(uid);
-		if(passwordEncoder.matches(password, us.getPassword())) {
-			return us;
+		if(passwordEncoder.matches(passwordObj.getOldPassword(), us.getPassword())) {
+			us.setPassword(passwordEncoder.encode(passwordObj.getNewPassword()));
+			return appUserDetailsService.modifyUser(us);
 		}
 		else {
 			return null;

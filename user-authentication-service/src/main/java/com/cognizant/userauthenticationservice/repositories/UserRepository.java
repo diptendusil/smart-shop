@@ -9,6 +9,7 @@ import com.cognizant.userauthenticationservice.entities.User;
 
 public interface UserRepository extends JpaRepository<User, String> {
 	
-	@Query("")
-	public List<User> getAllManagers();
+	/*
+	 * @Query("") public List<User> getAllManagers();
+	 */
 }
