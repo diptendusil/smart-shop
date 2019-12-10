@@ -17,7 +17,20 @@
 .product-item {
     scroll-snap-align: start;
 }
-.card-body {
+.card-body.product-list{
     padding-left: 0 !important;
     padding-right: 0 !important;
+}
+.category-item {
+    border: 1px solid #007bff;
+    background: transparent;
+    border-radius: 10px;
+    padding: 3px;
+    margin-right: 10px;
+    transition: all 0.3s ease-in-out;
+    color: #007bff;
+}
+.category-item:hover {
+    background: #007bff;
+    color: white;
 }

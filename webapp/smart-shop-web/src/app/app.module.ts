@@ -20,6 +20,7 @@ import { EditProfileComponent } from './profile/edit-profile/edit-profile.compon
 import { ChangePasswordComponent } from './profile/change-password/change-password.component';
 import { ItemDetailsComponent } from './product/item-details/item-details.component';
 import { ProductListComponent } from './product/product-list/product-list.component';
+import { ProductService } from './services/product.service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { ProductListComponent } from './product/product-list/product-list.compon
     HttpClientModule
     
   ],
-  providers: [UserService, AuthGuardService, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}],
+  providers: [UserService, ProductService, AuthGuardService, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
