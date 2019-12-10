@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { User } from 'src/app/site/user';
+import { User, Role } from 'src/app/site/user';
 
 @Component({
   selector: 'app-edit-profile',
@@ -11,30 +11,83 @@ import { User } from 'src/app/site/user';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
-  signUpForm: FormGroup = this.formBuilder.group({
-    username: ['', { validators: [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]*')] }],
-    firstName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern('[A-Za-z ]*')]],
-    lastName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern('[A-Za-z ]*')]],
-    age: ['', [Validators.required, Validators.min(15)]],
-    contact: ['', [Validators.required, Validators.pattern('[0-9]{10}')]],
-    gender: ['M', [Validators.required]],
-    secretQuestion1: ['', Validators.required],
-    secretQuestion2: ['', [Validators.required]],
-    secretQuestion3: ['', [Validators.required]],
-    secretAnswer1: ['', [Validators.required]],
-    secretAnswer2: ['', [Validators.required]],
-    secretAnswer3: ['', [Validators.required]]
-  });
   editError = false;
   editSuccess = false;
   allowEdit = false;
   secretQuestions = [];
 
   disabledButton = false;
+  signUpForm: FormGroup = this.formBuilder.group({
+    username: [{
+      value: '',
+      disabled: !this.allowEdit,
+      validators: [Validators.required, Validators.minLength(2), Validators.maxLength(20), Validators.pattern('[a-zA-Z0-9]*')] 
+    }],
+    firstName: [{
+      value:'',
+      disabled: !this.allowEdit,
+      validators: [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern('[A-Za-z ]*')]
+    }],
+    lastName: [{
+      value: '',
+      disabled: !this.allowEdit,
+      validators: [Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern('[A-Za-z ]*')]
+    }],
+    age: [{
+      value:'',
+      disabled: !this.allowEdit,
+      validators: [Validators.required, Validators.min(15)]
+    }],
+    contact: [{
+      value: '',
+      disabled: !this.allowEdit,
+      validators: [Validators.required, Validators.pattern('[0-9]{10}')]
+    }],
+    gender: [{
+      value: 'M',
+      disabled: !this.allowEdit,
+      validators: [Validators.required]
+    }],
+    secretQuestion1: [{
+      value: '',
+      
+      validators: Validators.required, 
+      disabled: !this.allowEdit
+    }],
+    secretQuestion2: [{
+      value:'',
+      disabled: !this.allowEdit,
+      validators: [Validators.required]
+    }],
+    secretQuestion3: [{
+      value:'',
+      disabled: !this.allowEdit,
+      validators: [Validators.required]
+    }],
+    secretAnswer1: [{
+      value: '',
+      validators: [Validators.required]
+    }],
+    secretAnswer2: [{
+      value: '', 
+      disabled: !this.allowEdit,
+      validators: [Validators.required]
+    }],
+    secretAnswer3: [{
+      value: '',
+      disabled: !this.allowEdit,
+      validators: [Validators.required]
+    }]
+  });
+  
 
   genderText = { 'M': 'Male', 'F': 'Female' }
 
   buttonText = "";
+
+  role: Role;
+  status: string;
+  pwd: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -61,6 +114,10 @@ export class EditProfileComponent implements OnInit {
       this.secretAnswer2.setValue(user.secretAnswer2);
       this.secretQuestion3.setValue(user.secretQuestion3);
       this.secretAnswer3.setValue(user.secretAnswer3);
+
+      this.role = user.role;
+      this.status = user.status;
+      this.pwd = user.password
     })
   }
 
@@ -88,6 +145,10 @@ export class EditProfileComponent implements OnInit {
           secretAnswer1: this.secretAnswer1.value,
           secretAnswer2: this.secretAnswer2.value,
           secretAnswer3: this.secretAnswer3.value,
+          
+          role: this.role,
+          status: this.status,
+          password: this.pwd
         }
 
         this.userService.updateUser(newUser).subscribe((user: User) => {
@@ -101,6 +162,8 @@ export class EditProfileComponent implements OnInit {
             this.editSuccess = true;
             this.allowEdit = !this.allowEdit;
             this.buttonText = "";
+            
+            this.authService.loggedInUser.next(newUser);
           }
         )
       }

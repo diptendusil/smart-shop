@@ -24,6 +24,7 @@ import { InventoryComponent } from './shop-manager/inventory/inventory.component
 import { SummaryComponent } from './shop-manager/inventory/summary/summary.component';
 import { ManageProductsComponent } from './shop-manager/inventory/manage-products/manage-products.component';
 import { ManageCategoriesComponent } from './shop-manager/inventory/manage-categories/manage-categories.component';
+import { ProductService } from './services/product.service';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,7 @@ import { ManageCategoriesComponent } from './shop-manager/inventory/manage-categ
     HttpClientModule
     
   ],
-  providers: [UserService, AuthGuardService, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}],
+  providers: [UserService, ProductService, AuthGuardService, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

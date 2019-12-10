@@ -48,8 +48,14 @@ export class UserService {
     return this.httpClient.put<User>(`${this.baseUrl}/users`, user)
   }
 
-  checkPassword(userId:string, password:string) {
-    
+  checkPassword(userId:string, password:string): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'PWD': `${password}`
+      }),
+    };
+
+    return this.httpClient.get(`${this.baseUrl}/check/${userId}`, httpOptions);
   }
 
 }

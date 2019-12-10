@@ -21,7 +21,7 @@
                     <div class="form-row">
                         <div class="col-12 col-lg-6">
                             <label for="username">Username</label>
-                            <input type="text" name="username" id="username" class="form-control" [readonly]="true"
+                            <input type="text" name="username" id="username" class="form-control"
                                 placeholder="Enter Username" formControlName="username" />
                         </div>
                     </div>
@@ -86,12 +86,12 @@
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input type="radio" formControlName="gender" name="gender" id="gender1"
-                                        class="form-check-input" value="M" [readonly]="!allowEdit" />
+                                        class="form-check-input" value="M" [attr.disabled]="!allowEdit? '': null" />
                                     <label for="gender1" class="form-check-label">Male</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input type="radio" formControlName="gender" name="gender" id="gender2"
-                                        class="form-check-input" value="F" [readonly]="!allowEdit" />
+                                        class="form-check-input" value="F" [attr.disabled]="!allowEdit? '': null" />
                                     <label for="gender2" class="form-check-label">Female</label>
                                 </div>
                             </div>
@@ -101,7 +101,7 @@
                         <div class="col-12 col-md-6">
                             <label for="secret-question1">Secret Question 1</label>
                             <select formControlName="secretQuestion1" name="secret-question1" id="secret-question1"
-                                class="form-control" [disabled]="true">
+                                class="form-control" [attr.disabled]="!allowEdit? '': null" >
                                 <option value="" selected>Select</option>
                                 <option *ngFor="let question of secretQuestions" [value]="question['question']">
                                     {{question['question']}}</option>
@@ -125,7 +125,7 @@
                         <div class="col-12 col-md-6">
                             <label for="secret-question2">Secret Question 2</label>
                             <select formControlName="secretQuestion2" name="secret-question2" id="secret-question2"
-                                class="form-control" [disabled]="!allowEdit">
+                                class="form-control" [attr.disabled]="!allowEdit? '': null" >
                                 <option value="" selected>Select</option>
                                 <option *ngFor="let question of secretQuestions" [value]="question['question']">
                                     {{question['question']}}</option>
@@ -149,7 +149,7 @@
                         <div class="col-12 col-md-6">
                             <label for="secret-question3">Secret Question 3</label>
                             <select formControlName="secretQuestion3" name="secret-question3" id="secret-question3"
-                                class="form-control" [disabled]="!allowEdit" required>
+                                class="form-control" [attr.disabled]="!allowEdit? '': null">
                                 <option value="" selected>Select</option>
                                 <option *ngFor="let question of secretQuestions" [value]="question['question']">
                                     {{question['question']}}</option>
