@@ -3,7 +3,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
-import { User } from 'src/app/site/user';
+import { User, Role } from 'src/app/site/user';
 
 @Component({
   selector: 'app-edit-profile',
@@ -36,6 +36,10 @@ export class EditProfileComponent implements OnInit {
 
   buttonText = "";
 
+  role: Role;
+  status: string;
+  pwd: string;
+
   constructor(
     private formBuilder: FormBuilder,
     private userService: UserService,
@@ -61,6 +65,10 @@ export class EditProfileComponent implements OnInit {
       this.secretAnswer2.setValue(user.secretAnswer2);
       this.secretQuestion3.setValue(user.secretQuestion3);
       this.secretAnswer3.setValue(user.secretAnswer3);
+
+      this.role = user.role;
+      this.status = user.status;
+      this.pwd = user.password
     })
   }
 
@@ -88,6 +96,10 @@ export class EditProfileComponent implements OnInit {
           secretAnswer1: this.secretAnswer1.value,
           secretAnswer2: this.secretAnswer2.value,
           secretAnswer3: this.secretAnswer3.value,
+          
+          role: this.role,
+          status: this.status,
+          password: this.pwd
         }
 
         this.userService.updateUser(newUser).subscribe((user: User) => {
@@ -101,6 +113,8 @@ export class EditProfileComponent implements OnInit {
             this.editSuccess = true;
             this.allowEdit = !this.allowEdit;
             this.buttonText = "";
+            
+            this.authService.loggedInUser.next(newUser);
           }
         )
       }
