@@ -43,7 +43,7 @@ import { ProductService } from './services/product.service';
     ItemDetailsComponent,  
    BillingComponent
    , InventoryComponent, SummaryComponent, ManageProductsComponent, ManageCategoriesComponent,
-  SummaryComponent, ManageProductsComponent, ManageCategoriesComponent
+  SummaryComponent, ManageProductsComponent, ProductListComponent
   ],
   imports: [
     BrowserModule,
