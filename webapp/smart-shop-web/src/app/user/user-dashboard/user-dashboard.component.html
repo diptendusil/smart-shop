@@ -45,11 +45,8 @@
                 <h5>Categories</h5>
             </div>
             <div class="card-body d-flex">
-                <div class="category-item">Electronics</div>
-                <div class="category-item">Electronics</div>
-                <div class="category-item">Electronics</div>
-                <div class="category-item">Electronics</div>
-                <div class="category-item">Electronics</div>
+                <button class="category-item" *ngFor="let category of categories">{{category.categoryName}}</button>
+                
             </div>
         </div>
     </div>

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Category } from 'src/app/product/product.model';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -6,10 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user-dashboard.component.css']
 })
 export class UserDashboardComponent implements OnInit {
-
-  constructor() { }
+  categories: Category[];
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
+    this.productService.getAllCategories().subscribe(categories => this.categories = categories);
   }
 
 }
