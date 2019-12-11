@@ -12,4 +12,6 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 	
 	@Query(value="select * from product where pr_ca_id=?1", nativeQuery=true)
 	public List<Product> findProductsByCategory(int id);
+	
+	public List<Product> findByStockCountGreaterThan(int stockCount);
 }

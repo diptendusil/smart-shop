@@ -26,6 +26,8 @@ export class ProductListComponent implements OnInit {
           
           this.productList = this.offerList.map(offer => offer.product);
         });
+      } else if(this.displayString === 'All Products') {
+        this.productService.getAllProductsInStock().subscribe(products => this.productList = products);
       }
     }
     else {

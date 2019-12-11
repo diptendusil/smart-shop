@@ -13,6 +13,9 @@ export class ProductService {
   getAllProducts(): Observable<Product[]> {
     return this.http.get<Product[]>(`${this._baseUrl}/products`);
   }
+  getAllProductsInStock(): Observable<Product[]> {
+    return this.http.get<Product[]>(`${this._baseUrl}/products/in-stock`);
+  }
   getAllCategories(): Observable<Category[]> {
     return this.http.get<Category[]>(`${this._baseUrl}/categories`);
   }

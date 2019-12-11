@@ -29,7 +29,10 @@ public class ProductController {
 	public List<ProductDto> getAllProducts(){
 		return convertProductsToProductDtos(productService.getAllProducts());
 	}
-	
+	@GetMapping("/in-stock")
+	public List<ProductDto> getAllProductsInStock() {
+		return convertProductsToProductDtos(productService.getAllInStockProducts());
+	}
 	@GetMapping("/{code}")
 	public ProductDto getProductById(@PathVariable String code){
 		return convertProductToProductDto(productService.getProductById(code));
