@@ -158,7 +158,7 @@ public class AppUserDetailsService implements UserDetailsService {
 	
 	@Transactional
 	public List<User> getApprovedManagers() {
-		return userRepository.getAllApprovedManagers();
+		return userRepository.getAllManagers();
 	}
 	
 	@Transactional

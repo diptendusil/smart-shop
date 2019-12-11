@@ -30,18 +30,22 @@
         <div class="card manager-card">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-6 col-md-5">
+                    <div class="col-6 col-md-4">
                         <div><b>User Id</b></div>
                         <div>{{manager.userId}}</div>
                     </div>
-                    <div class="col-6 col-md-5">
+                    <div class="col-6 col-md-4">
                         <div><b>Full Name</b></div>
                         <div>{{manager.firstName}} {{manager.lastName}}</div>
                     </div>
-                    <div class="col-6 col-md-2">
+                    <div class="col-6 col-md-4">
                         <div>
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-6">
+                                    <span class="badge badge-success" *ngIf="manager.status === 'A'">Approved</span>
+                                    <span class="badge badge-warning" *ngIf="manager.status === 'P'">Pending</span>
+                                </div>
+                                <div class="col-6">
                                     <a class="btn btn-danger text-light" (click)="deleteManager(manager.userId)">
                                         <i class="fas fa-trash"></i>
                                     </a>
