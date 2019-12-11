@@ -22,4 +22,8 @@ export class ProductService {
   getAllProductsByCategory(categoryId: number): Observable<Product[]> {
     return this.http.get<Product[]>(`${this._baseUrl}/products/category/${categoryId}`);
   }
+  getProductById(productCode:string):Observable<Product> 
+  {
+    return this.http.get<Product>(`${this._baseUrl}/products/${productCode}`);
+  }
 }
