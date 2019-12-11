@@ -10,51 +10,35 @@ import { ActivatedRoute, Params } from '@angular/router';
   styleUrls: ['./manage-categories.component.css']
 })
 export class ManageCategoriesComponent implements OnInit {
-  addCategoryForm: FormGroup;
   categories: Category[];
-  updatedItem:Category;
-  id:number;
-
+  categoryControls: FormControl[] = [];
+  newCategoryControl: FormControl = new FormControl('', Validators.required);
   constructor(private productService:ProductService, private route:ActivatedRoute) { }
 
   ngOnInit() {
-    this.addCategoryForm = new FormGroup(
-      {
-        'categoryName': new FormControl(null, [Validators.required, Validators.maxLength(20)])
-      }
-    )
-    this.productService.getAllCategories().subscribe(categories=>this.categories=categories)
-    this.route.params.subscribe((params:Params)=>{
-      const categoryId=params['id']
-      this.productService.getCategoryById(categoryId).subscribe((category:Category)=>{
-        if(category)
-        {
-          this.id=category.categoryId
-          this.addCategoryForm.patchValue({
-            categoryName:category.categoryName
-          })
-        }
-      })
+    
+    this.productService.getAllCategories().subscribe(categories=> {
+      this.categories=categories;
+      this.categories.forEach(category => {
+        this.categoryControls.push(new FormControl(category.categoryName, Validators.required));
+      });
     })
+
   }
 
   onDelete(categoryId:number){
     this.productService.deleteCategoryById(categoryId).subscribe();
   }
 
-  onUpdate(){
-    this.updatedItem={
-      categoryId:this.id,
-      categoryName:this.addCategoryForm.value.categoryName
-    }
-    this.productService.updateCategory(this.updatedItem).subscribe();
+  onUpdate(updatedCategory: Category){
+    const index = this.categories.findIndex(category => category===updatedCategory);
+    updatedCategory.categoryName = this.categoryControls[index].value;
+    console.log(updatedCategory);
+    
+    this.productService.updateCategory(updatedCategory).subscribe();
   }
 
   onAdd(){
 
   }
-  get categoryName() {
-    return this.addCategoryForm.get('categoryName');
-  }
-
 }
