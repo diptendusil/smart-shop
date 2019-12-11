@@ -42,7 +42,9 @@ import { ManageOffersComponent } from './shop-manager/manage-offers/manage-offer
     EditProfileComponent,
     ChangePasswordComponent,
     ItemDetailsComponent,  
-    ProductListComponent, InventoryComponent, SummaryComponent, ManageProductsComponent, ManageCategoriesComponent, ManageOffersComponent
+   BillingComponent
+   , InventoryComponent, SummaryComponent, ManageProductsComponent, ManageCategoriesComponent,
+  SummaryComponent, ManageProductsComponent, ProductListComponent
   ],
   imports: [
     BrowserModule,
