@@ -80,11 +80,13 @@ const routes: Routes = [
   },
   {
     path: 'account',
-    component: EditProfileComponent
+    component: EditProfileComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: "edit/password",
-    component: ChangePasswordComponent
+    component: ChangePasswordComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'product-list',

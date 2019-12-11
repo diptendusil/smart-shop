@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../user';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { dashboardUrl } from '../user-navigation-handler';
 
 @Component({
   selector: 'app-header',
@@ -20,4 +21,13 @@ export class HeaderComponent implements OnInit {
     this.authService.logout();
   }
 
+  home() {
+    if(this.authService.loggedInUser.value) {
+      const redirectUrl = dashboardUrl(this.authService.loggedInUser.value);
+      this.router.navigate(redirectUrl);
+    }
+    else {
+      this.router.navigate(["/"]);
+    }
+  }
 }
