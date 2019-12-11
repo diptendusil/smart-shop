@@ -3,75 +3,106 @@
     <div class="card-header">
         Product Edit
     </div>
-    <div class="card-body">
-     <form action="">
-            <div class="row">
-                    <div class="col-12 col-lg-12">
-                        <label>Product Code</label>
-                        <input type="text" class="productCode" id="ProductCode" formControlName="proCode" name="proCode">
+    
+     <form [formGroup]="editProduct">
+         <div class="form-group">
+         <label for="productCode">Product Code</label>
+      <input type="text" class="form-control" id="ProductCode" formControlName="proCode" name="proCode">
+        </div>
+           
+             
+            <div class="form-group">
+                   
+                        <label for="Productname">Product Name</label>
+                        <input type="text" class="form-control" id="Productname" formControlName="proName" name="proName">
+                        
+                    
+             </div>
+             
+           
+             
+            <div class=" form-group form-row mt-2">
+                   <div class="col-12 col-md-4">
+                        <label for="brand">Brand</label>
+                        <input type="text" class="form-control" id="ProductBrand" formControlName="proBrand" name="proBarand">
 
-                    </div>
-             </div>
-             
-            <div class="row">
-                    <div class="col-12 col-lg-12">
-                        <label>Product Name</label>
-                        <input type="text" class="productName
-                        " id="Productname" formControlName="proName" name="proName">
-                        
-                    </div>
-             </div>
-             
-            <div class="row">
-                    <div class="col-12 col-lg-12">
-                        <label>Product Code</label>
-                        <input type="text" class="productCode" id="ProductCode" formControlName="proCode" name="proCode">
-                        
-                    </div>
-             </div>
-             
-            <div class="row">
-                    <div class="col-12 col-lg-12">
-                        <label>Brand</label>
-                        <input type="text" class="productBrand" id="ProductBrand" formControlName="proBrand" name="proBarand">
-                        
-                    </div>
-             </div>
-             
-            <div class="row">
-                    <div class="col-12 col-lg-12">
-                        <label>QuantityType</label>
-                        <input type="text" class="Quantity" id="quantity" formControlName="quantityType" name="quantityType">
-                        
-                    </div>
-             </div>
-             
-            <div class="row">
-                    <div class="col-12 col-lg-12">
-                        <label>Rate</label>
-                        <input type="text" class="productRate" id="ProductRate" formControlName="proRate" name="proRate">
-                        
-                    </div>
-             </div>
-             <div class="row">
-                    <div class="col-12 col-lg-12">
-                        <label>Stock Count</label>
-                        <input type="text" class="stockCount" id="StockCount" formControlName="Stock" name="Stock">
-                        
-                    </div>
-             </div>
-             <div class="row">
-                    <div class="col-12 col-lg-12">
-                        <label>Stock Count</label>
-                        <input type="text" class="stockCount" id="StockCount" formControlName="Stock" name="Stock">
-                        
-                    </div>
-             </div>
+                   </div>
+                   <div class="col-12 col-md-4">
+                        <label for="quantity">QuantityType</label>
+                        <input type="text" class="form-control" id="quantity" formControlName="quantityType" name="quantityType">
 
+                   </div>
+                   <div class="col-12 col-md-4">
+                        <label for="rate">Rate</label>
+                        <input type="text" class="form-control" id="ProductRate" formControlName="proRate" name="proRate">
+
+                   </div>
+                        
+                        
+                 
+             </div>
+             
+            <div class="form-row">
+                    <div class="col-12 col-md-3">
+                            <label for="stock">Stock Count</label>
+                            <input type="text" class="form-control" id="stockCount" formControlName="Stock" name="Stock">
+    
+                       </div>
+                       <div class="col-12 col-md-3">
+                            <label for="adddate">Add Date</label>
+                            <input type="text" class="form-control" id="adddate" formControlName="addDate" name="addDate">
+    
+                       </div>
+                       <div class="col-12 col-md-3">
+                            <label for="aisle">Aisle</label>
+                            <input type="text" class="form-control" id="ProductAisle" formControlName="proAisle" name="proAsile">
+    
+                       </div>
+                       <div class="col-12 col-md-3">
+                            <label for="shelf">Shelf</label>
+                            <input type="text" class="form-control" id="ProductShelf" formControlName="proShelf" name="proShelf">
+    
+                       </div>
+                   
+             </div>
+             
+            <div class="form-row">
+                 <div class="col-12 col-md-3">
+                            <label for="stock">Date  Of Manufacture</label>
+                            <input type="text" class="form-control" id="dateofM" formControlName="dom" name="dom">
+    
+                       </div>
+                       <div class="col-12 col-md-3">
+                            <label for="adddate"> Date of Expiry</label>
+                            <input type="text" class="form-control" id="dateOfExp" formControlName="doe" name="doe">
+    
+                       </div>
+                       <div class="col-12 col-md-3">
+                            <label for="image">Image </label>
+                            <input type="text" class="form-control" id="ProductImage" formControlName="proImage" name="proImage">
+    
+                       </div>
+                       <div class="col-12 col-md-3">
+                            <label for="shelf">Category</label>
+                            <input type="text" class="form-control" id="ProductCategory" formControlName="proCategory" name="proCategory">
+    
+                       </div>
+                   
+                   
+                       
+                        
+                   
+             </div>
+             <div class=" row mt-2 mb-2  d-flex justify-content-end  ">
+                 <div class="col-12">
+                        <button class="btn btn-primary  mx-2">Save</button>
+                 </div>
+            </div>
+             
+            
 
      </form>
-       
-     </div>
+
 
     </div>
 
