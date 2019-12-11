@@ -27,6 +27,7 @@ import { ManageProductsComponent } from './shop-manager/inventory/manage-product
 import { ManageCategoriesComponent } from './shop-manager/inventory/manage-categories/manage-categories.component';
 import { ProductService } from './services/product.service';
 import { ManageOffersComponent } from './shop-manager/manage-offers/manage-offers.component';
+import { ItemEditComponent } from './product/item-edit/item-edit.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,7 @@ import { ManageOffersComponent } from './shop-manager/manage-offers/manage-offer
     ItemDetailsComponent,  
    BillingComponent
    , InventoryComponent, SummaryComponent, ManageProductsComponent, ManageCategoriesComponent,
-  SummaryComponent, ManageProductsComponent, ProductListComponent
+  SummaryComponent, ManageProductsComponent, ProductListComponent, ItemEditComponent
   ],
   imports: [
     BrowserModule,
