@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Category } from 'src/app/product/product.model';
+import { ProductService } from 'src/app/services/product.service';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-manage-categories',
@@ -7,19 +10,35 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./manage-categories.component.css']
 })
 export class ManageCategoriesComponent implements OnInit {
-  addCategoryForm: FormGroup;
-
-  constructor() { }
+  categories: Category[];
+  categoryControls: FormControl[] = [];
+  newCategoryControl: FormControl = new FormControl('', Validators.required);
+  constructor(private productService:ProductService, private route:ActivatedRoute) { }
 
   ngOnInit() {
-    this.addCategoryForm = new FormGroup(
-      {
-        'categoryName': new FormControl(null, [Validators.required, Validators.maxLength(20)])
-      }
-    )
-  }
-  get categoryName() {
-    return this.addCategoryForm.get('categoryName');
+    
+    this.productService.getAllCategories().subscribe(categories=> {
+      this.categories=categories;
+      this.categories.forEach(category => {
+        this.categoryControls.push(new FormControl(category.categoryName, Validators.required));
+      });
+    })
+
   }
 
+  onDelete(categoryId:number){
+    this.productService.deleteCategoryById(categoryId).subscribe();
+  }
+
+  onUpdate(updatedCategory: Category){
+    const index = this.categories.findIndex(category => category===updatedCategory);
+    updatedCategory.categoryName = this.categoryControls[index].value;
+    console.log(updatedCategory);
+    
+    this.productService.updateCategory(updatedCategory).subscribe();
+  }
+
+  onAdd(){
+
+  }
 }

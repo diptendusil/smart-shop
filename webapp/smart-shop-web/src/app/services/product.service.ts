@@ -26,6 +26,18 @@ export class ProductService {
   {
     return this.http.get<Product>(`${this._baseUrl}/products/${productCode}`);
   }
+  getCategoryById(categoryId:number):Observable<Category>{
+    return this.http.get<Category>(`${this._baseUrl}/categories/${categoryId}`);
+  }
+  deleteCategoryById(categoryId:number): Observable<any>{
+    return this.http.delete<void>(`${this._baseUrl}/categories/${categoryId}`);
+  }
+  addCategory(category:Category):Observable<any>{
+    return this.http.post<void>(`${this._baseUrl}/categories`, category);
+  }
+  updateCategory(category:Category):Observable<any>{
+    return this.http.put<void>(`${this._baseUrl}/categories`, category);
+  }
   deleteProduct(productCode: string) {
     return this.http.delete(`${this._baseUrl}/products/${productCode}`);
   }
