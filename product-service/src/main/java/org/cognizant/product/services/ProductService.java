@@ -20,7 +20,10 @@ public class ProductService {
 	public List<Product> getAllProducts(){
 		return productRepository.findAll();
 	}
-	
+	@Transactional
+	public List<Product> getAllInStockProducts() {
+		return productRepository.findByStockCountGreaterThan(0);
+	}
 	@Transactional
 	public Product getProductById(@PathVariable String code){
 		return productRepository.findById(code).get();
