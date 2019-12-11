@@ -18,5 +18,8 @@ export class ManageCategoriesComponent implements OnInit {
       }
     )
   }
+  get categoryName() {
+    return this.addCategoryForm.get('categoryName');
+  }
 
 }
