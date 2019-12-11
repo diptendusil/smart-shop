@@ -53,5 +53,8 @@ export class ManageCategoriesComponent implements OnInit {
   onAdd(){
 
   }
+  get categoryName() {
+    return this.addCategoryForm.get('categoryName');
+  }
 
 }

@@ -38,4 +38,7 @@ export class ProductService {
   updateCategory(category:Category):Observable<any>{
     return this.http.put<void>(`${this._baseUrl}/categories`, category);
   }
+  deleteProduct(productCode: string) {
+    return this.http.delete(`${this._baseUrl}/products/${productCode}`);
+  }
 }

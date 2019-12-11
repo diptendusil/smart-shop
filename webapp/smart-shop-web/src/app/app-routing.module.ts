@@ -14,6 +14,7 @@ import { ChangePasswordComponent } from './profile/change-password/change-passwo
 import { ProductListComponent } from './product/product-list/product-list.component';
 import { InventoryComponent } from './shop-manager/inventory/inventory.component';
 import { ItemDetailsComponent } from './product/item-details/item-details.component';
+import { ItemEditComponent } from './product/item-edit/item-edit.component';
 
 
 const routes: Routes = [
@@ -95,6 +96,11 @@ const routes: Routes = [
   {
     path: 'product-list/details/:id',
     component: ItemDetailsComponent
+  },
+  {
+    path:'product/:id/edit',
+    component:ItemEditComponent
+
   }
 ];
 
