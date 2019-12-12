@@ -14,7 +14,7 @@ export interface Product {
     category: Category;
 }
 export interface Category {
-    categoryId: number;
+    categoryId?: number;
     categoryName: string;
 }
 export interface Offer {

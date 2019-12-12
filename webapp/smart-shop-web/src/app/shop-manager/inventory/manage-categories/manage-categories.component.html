@@ -10,79 +10,68 @@
             </a>
         </span>
     </div>
-    <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
+    <div class="accordion md-accordion" id="accordionEx1" aria-multiselectable="true">
         <div class="card">
-            <div id="collapseTwo2" class="collapse" role="tabpanel" aria-labelledby="headingTwo1"
+            <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo1"
                 data-parent="#accordionEx1">
-                <div class="card-header" role="tab" id="headingTwo1">
+                <div class="card-header" id="headingTwo1">
                     <span><h5>Add New Category</h5></span>
                 </div>
                 <div class="card-body">
-                    <form [formGroup]="addCategoryForm">
-                        <div class="alert alert-danger" *ngIf="loginFailed">
-                            Invalid Username /Password
-
-                        </div>
-
+                    
                         <div class="form-group">
                             <label for="CategoryName">Category Name</label>
                             <input class="form-control" type="text" placeholder="Enter Category Name" name="cname"
-                                formControlName="categoryName">
-                            <!--<span class="validation-error" *ngIf="categoryName.touched && categoryName.hasError('required')">
+                                [formControl]="newCategoryControl">
+                            <span class="validation-error" *ngIf="newCategoryControl.touched && newCategoryControl.hasError('required')">
                                 *Category Name required</span>
-                            <div class="validation-error" *ngIf="categoryName.touched && categoryName.hasError('maxlength')">
+                            <div class="validation-error" *ngIf="newCategoryControl.touched && newCategoryControl.hasError('maxlength')">
                                 **Category Name cannot exceed 20 characters
 
-                            </div>-->
+                            </div>
                         </div>
 
                         <div class="row">
                             <div class="col-sm-6 col-md-6 col-lg-6 ">
-                                <button type="submit" class="btn btn-primary">
-                                    Update
+                                <button type="submit" class="btn btn-primary" [disabled]="newCategoryControl.invalid" (click)="onAdd()">
+                                    Add
                                 </button>
                             </div>
                         </div>
-                    </form>
+
                 </div>
             </div>
         </div>
     </div>
-    <div class="accordion md-accordion" id="accordionEx1" role="tablist" aria-multiselectable="true">
-        <div class="card">
-            <div class="card-header" role="tab" id="headingTwo1">
+    <div id="accordion">
+        <div class="card" *ngFor="let category of categories; let i=index">
+            <div class="card-header" id="headingTwo1">
 
-                <span>Coconut Oil</span>
+                <span>{{category.categoryName}}</span>
                 <span class="float-right ml-auto">
                     <a href="#" class="float-right mr-2">
                         <i class="material-icons">delete_forever</i>
                     </a>
                 </span>
                 <span class="float-right ml-auto mr-2">
-                    <a class="collapsed" data-toggle="collapse" data-parent="#accordionEx1" href="#collapseTwo1"
-                        aria-expanded="false" aria-controls="collapseTwo1">
+                        
+                    <button class="btn btn-link font-weight-500" data-toggle="collapse" [attr.data-target]="'#category'+category.categoryId">
                         <i class="material-icons">edit</i>
-                    </a>
+                    </button>
                 </span>
             </div>
-            <div id="collapseTwo1" class="collapse" role="tabpanel" aria-labelledby="headingTwo1"
-                data-parent="#accordionEx1">
+            <div [id]="'category'+category.categoryId" class="collapse" role="tabpanel"
+                data-parent="#accordion">
                 <div class="card-body">
-                    <form [formGroup]="addCategoryForm">
-                        <div class="alert alert-danger" *ngIf="loginFailed">
-                            Invalid Username /Password
-
-                        </div>
-
                         <div class="form-group">
                             <label for="CategoryName">Category Name</label>
-                            <input class="form-control" type="text" placeholder="Enter Category Name" name="cname"
-                                formControlName="categoryName">
+                            <input class="form-control" type="text" name="categoryName"
+                                [formControl]="categoryControls[i]">
                             <span class="validation-error"
-                                *ngIf="categoryName.touched && categoryName.hasError('required')">
+                                *ngIf="categoryControls[i].touched && categoryControls[i].hasError('required')">
                                 *Category Name required</span>
                             <div class="validation-error"
-                                *ngIf="categoryName.touched && categoryName.hasError('maxlength')">
+                                *ngIf="categoryControls[i].touched && categoryControls[i].hasError('maxlength')">
                                 **Category Name cannot exceed 20 characters
 
                             </div>
@@ -90,83 +79,15 @@
 
                         <div class="row">
                             <div class="col-sm-6 col-md-6 col-lg-6 ">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary" [disabled]="categoryControls[i].invalid" (click)="onUpdate(category)">
                                     Update
                                 </button>
                             </div>
                         </div>
-                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Accordion wrapper -->
-    <!--<ul class="list-group">
-            <li class="list-group-item">
-                <span>Coconut Oil</span>
-                <span class="float-right ml-auto">
-                    <a href="#" class="float-right mr-2">
-                        <i class="material-icons">delete_forever</i>
-                    </a>
-                </span>
-                <span class="float-right ml-auto mr-2">
-                    <a href="#" class="float-right">
-                        <i class="material-icons">edit</i>
-                    </a>
-                </span>
-            </li>
-            <li class="list-group-item">
-                <span>Coconut Oil</span>
-                <span class="float-right ml-auto">
-                    <a href="#" class="float-right mr-2">
-                        <i class="material-icons">delete_forever</i>
-                    </a>
-                </span>
-                <span class="float-right ml-auto mr-2">
-                    <a href="#" class="float-right">
-                        <i class="material-icons">edit</i>
-                    </a>
-                </span>
-            </li>
-            <li class="list-group-item">
-                <span>Coconut Oil</span>
-                <span class="float-right ml-auto">
-                    <a href="#" class="float-right mr-2">
-                        <i class="material-icons">delete_forever</i>
-                    </a>
-                </span>
-                <span class="float-right ml-auto mr-2">
-                    <a href="#" class="float-right">
-                        <i class="material-icons">edit</i>
-                    </a>
-                </span>
-            </li>
-            <li class="list-group-item">
-                <span>Coconut Oil</span>
-                <span class="float-right ml-auto">
-                    <a href="#" class="float-right mr-2">
-                        <i class="material-icons">delete_forever</i>
-                    </a>
-                </span>
-                <span class="float-right ml-auto mr-2">
-                    <a href="#" class="float-right">
-                        <i class="material-icons">edit</i>
-                    </a>
-                </span>
-            </li>
-            <li class="list-group-item">
-                <span>Coconut Oil</span>
-                <span class="float-right ml-auto">
-                    <a href="#" class="float-right mr-2">
-                        <i class="material-icons">delete_forever</i>
-                    </a>
-                </span>
-                <span class="float-right ml-auto mr-2">
-                    <a href="#" class="float-right">
-                        <i class="material-icons">edit</i>
-                    </a>
-                </span>
-            </li>
-        </ul>-->
+   
 
 </div>

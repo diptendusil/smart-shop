@@ -45,8 +45,8 @@ public class CategoryController {
 	}
 	
 	@PostMapping
-	public void addCategory(@RequestBody CategoryDto categoryDto) {
-		categoryService.addCategory(convertCategoryDtoToCategory(categoryDto));
+	public Category addCategory(@RequestBody CategoryDto categoryDto) {
+		return categoryService.addCategory(convertCategoryDtoToCategory(categoryDto));
 	}
 	
 	private Category convertCategoryDtoToCategory(CategoryDto categoryDto) {
