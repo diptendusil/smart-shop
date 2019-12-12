@@ -39,6 +39,15 @@ export class ManageCategoriesComponent implements OnInit {
   }
 
   onAdd(){
+    
+    const category: Category = {categoryName: this.newCategoryControl.value};
+    //console.log(category);
+    this.productService.addCategory(category).subscribe((category: Category) => {
+      console.log("Saved : " + JSON.stringify(category));
 
+      this.categories.push(category);
+      this.newCategoryControl.reset();
+      this.categoryControls.push(new FormControl(category.categoryName,Validators.required));
+    });
   }
 }

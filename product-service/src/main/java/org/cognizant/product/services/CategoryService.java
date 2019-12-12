@@ -35,9 +35,9 @@ public class CategoryService {
 	}
 	
 	@Transactional
-	public void addCategory(Category category) {
+	public Category addCategory(Category category) {
 		Category newCategory=new Category();
 		newCategory.setCategoryName(category.getCategoryName());
-		categoryRepository.save(newCategory);
+		return categoryRepository.save(newCategory);
 	}
 }
