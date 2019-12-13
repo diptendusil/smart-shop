@@ -14,7 +14,8 @@ INSERT INTO `smart-shop`.`user` (`us_id`, `us_first_name`, `us_last_name`, `us_a
 VALUES ('mgr', 'Shop', 'Manager', '20', 'F', '1234567890', '$2y$10$rtKgYrFaR22GMGtNbmNI8eUwmWzWi/KBNysNA9hDbNB8tHct5eHgm', 'A', 'What is the name of your first school?', 'A', 'Who is your favorite teacher?', 'B', 'What is the name of your hometown', 'C', 'M');
 INSERT INTO `smart-shop`.`user` (`us_id`, `us_first_name`, `us_last_name`, `us_age`, `us_gender`, `us_contact`, `us_password`, `us_status`, `us_secret_question_1`, `us_secret_answer_1`, `us_secret_question_2`, `us_secret_answer_2`, `us_secret_question_3`, `us_secret_answer_3`, `us_ro_id`)
 VALUES ('adm', 'Admin', 'Test', '20', 'F', '1234567890', '$2y$10$rtKgYrFaR22GMGtNbmNI8eUwmWzWi/KBNysNA9hDbNB8tHct5eHgm', 'A', 'What is the name of your first school?', 'A', 'Who is your favorite teacher?', 'B', 'What is the name of your hometown', 'C', 'A');
-
+INSERT INTO `smart-shop`.`user` (`us_id`, `us_first_name`, `us_last_name`, `us_age`, `us_gender`, `us_contact`, `us_password`, `us_status`, `us_secret_question_1`, `us_secret_answer_1`, `us_secret_question_2`, `us_secret_answer_2`, `us_secret_question_3`, `us_secret_answer_3`, `us_ro_id`)
+VALUES ('usr', 'Super', 'User', '20', 'M', '1234567890', '$2y$10$rtKgYrFaR22GMGtNbmNI8eUwmWzWi/KBNysNA9hDbNB8tHct5eHgm', 'A', 'What is the name of your first school?', 'A', 'Who is your favorite teacher?', 'B', 'What is the name of your hometown', 'C', 'U');
 
 -- category table
 INSERT INTO `smart-shop`.`category` (`ca_id`, `ca_name`) VALUES ('1', 'Electronics');

@@ -5,6 +5,8 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
@@ -12,6 +14,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class Offer {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="of_id")
 	private int offerId;
 	@Column(name="of_date")
@@ -20,7 +23,7 @@ public class Offer {
 	private double discountRate;
 	@Column(name="of_offer")
 	private String offerName;
-	@OneToOne(cascade= {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.MERGE,CascadeType.PERSIST})
+	@OneToOne(cascade= {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.PERSIST})
 	@JoinColumn(name="of_pr_code")
 	private Product product;
 	public Offer() {

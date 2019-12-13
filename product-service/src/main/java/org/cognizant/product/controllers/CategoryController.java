@@ -40,13 +40,17 @@ public class CategoryController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteCategory(@PathVariable int id) {
+	public String deleteCategory(@PathVariable int id) {
 		categoryService.deleteCategory(id);
+		
+		return "{\"status\":\"Success\"}";
 	}
 	
 	@PostMapping
-	public void addCategory(@RequestBody CategoryDto categoryDto) {
-		categoryService.addCategory(convertCategoryDtoToCategory(categoryDto));
+	public CategoryDto addCategory(@RequestBody Category category) {
+		Category category2=categoryService.addCategory(category);
+		System.out.println(category2.getCategoryId());
+		return convertCategoryToCategoryDto(category2);
 	}
 	
 	private Category convertCategoryDtoToCategory(CategoryDto categoryDto) {
