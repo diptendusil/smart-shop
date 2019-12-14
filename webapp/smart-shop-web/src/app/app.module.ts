@@ -29,6 +29,7 @@ import { ProductService } from './services/product.service';
 import { ManageOffersComponent } from './shop-manager/manage-offers/manage-offers.component';
 import { ItemEditComponent } from './product/item-edit/item-edit.component';
 import { AddItemComponent } from './product/add-item/add-item.component';
+import { NewBillComponent } from './shop-manager/new-bill/new-bill.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { AddItemComponent } from './product/add-item/add-item.component';
     ItemDetailsComponent,  
    BillingComponent
    , InventoryComponent, SummaryComponent, ManageProductsComponent, ManageCategoriesComponent,
-  SummaryComponent, ManageProductsComponent, ProductListComponent, ItemEditComponent, AddItemComponent
+  SummaryComponent, ManageProductsComponent, ProductListComponent, ItemEditComponent, AddItemComponent, NewBillComponent
   ],
   imports: [
     BrowserModule,
