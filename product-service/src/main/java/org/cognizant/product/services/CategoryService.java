@@ -5,7 +5,9 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.cognizant.product.entities.Category;
+import org.cognizant.product.entities.Product;
 import org.cognizant.product.repositories.CategoryRepository;
+import org.cognizant.product.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Service;
 public class CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
+	@Autowired
+	private ProductRepository productRepository;
 	
 	@Transactional
 	public List<Category> getAllCategories(){
@@ -31,6 +35,12 @@ public class CategoryService {
 	
 	@Transactional
 	public void deleteCategory(int categoryId) {
+//		List<Product> productList=categoryRepository.findById(categoryId).get().getProductList();
+//		for(Product product:productList)
+//		{
+//			product.setCategory(null);
+//			productRepository.save(product);
+//		}
 		categoryRepository.deleteById(categoryId);
 	}
 	

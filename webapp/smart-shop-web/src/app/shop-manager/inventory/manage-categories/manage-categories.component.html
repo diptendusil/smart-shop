@@ -49,9 +49,9 @@
 
                 <span>{{category.categoryName}}</span>
                 <span class="float-right ml-auto">
-                    <a href="#" class="float-right mr-2">
+                    <button (click)="onDelete(category.categoryId, category.categoryName)" class="btn btn-link font-weight-500 float-right mr-2">
                         <i class="material-icons">delete_forever</i>
-                    </a>
+                    </button>
                 </span>
                 <span class="float-right ml-auto mr-2">
                         
@@ -73,7 +73,6 @@
                             <div class="validation-error"
                                 *ngIf="categoryControls[i].touched && categoryControls[i].hasError('maxlength')">
                                 **Category Name cannot exceed 20 characters
-
                             </div>
                         </div>
 

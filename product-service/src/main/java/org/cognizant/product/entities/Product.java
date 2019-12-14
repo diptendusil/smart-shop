@@ -36,7 +36,7 @@ public class Product {
 	private Date dateOfExpiry;
 	@Column(name="pr_image")
 	private String image;
-	@ManyToOne(cascade= {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.MERGE,CascadeType.PERSIST})
+	@ManyToOne(cascade= {CascadeType.REFRESH,CascadeType.MERGE,CascadeType.PERSIST})
 	@JoinColumn(name="pr_ca_id")
 	private Category category;
 	public Product() {

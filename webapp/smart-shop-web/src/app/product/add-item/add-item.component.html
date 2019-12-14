@@ -1,0 +1,90 @@
+<div class="card">
+
+    <div class="card-header">
+         Product Edit
+    </div>
+    <div class="card-body">
+         
+         <div class="alert alert-success" *ngIf="isSuccess">Product Added</div>
+         <div class="alert alert-danger" *ngIf="isError">Error while adding product</div>
+         <form [formGroup]="addProduct">
+              <div class="form-group">
+                   <label for="productCode">Product Code</label>
+                   <input type="text" class="form-control" id="ProductCode" formControlName="proCode" name="proCode">
+              </div>
+              <div class="form-group">
+                   <label for="Productname">Product Name</label>
+                   <input type="text" class="form-control" id="Productname" formControlName="proName" name="proName">
+              </div>
+              <div class=" form-group form-row mt-2">
+                   <div class="col-12 col-md-4">
+                        <label for="brand">Brand</label>
+                        <input type="text" class="form-control" id="ProductBrand" formControlName="proBrand"
+                             name="proBarand">
+                   </div>
+                   <div class="col-12 col-md-4">
+                        <label for="quantity">QuantityType</label>
+                        <input type="text" class="form-control" id="quantity" formControlName="quantityType"
+                             name="quantityType">
+                   </div>
+                   <div class="col-12 col-md-4">
+                        <label for="rate">Rate</label>
+                        <input type="text" class="form-control" id="ProductRate" formControlName="proRate" name="proRate">
+                   </div>
+              </div>
+              <div class="form-row">
+                   <div class="col-12 col-md-3">
+                        <label for="stock">Stock Count</label>
+                        <input type="text" class="form-control" id="stockCount" formControlName="stock" name="stock">
+                   </div>
+                   <div class="col-12 col-md-3">
+                        <label for="aisle">Aisle</label>
+                        <input type="text" class="form-control" id="ProductAisle" formControlName="proAisle"
+                             name="proAsile">
+                   </div>
+                   <div class="col-12 col-md-3">
+                        <label for="shelf">Shelf</label>
+                        <input type="text" class="form-control" id="ProductShelf" formControlName="proShelf"
+                             name="proShelf">
+                   </div>
+                   <div class="col-12 col-md-3">
+                    <label for="dateAdd">Add DAte</label>
+                    <input type="Date" class="form-control" id="dateAdd" formControlName="proAddDate"
+                         name="proAddDate">
+               </div>
+
+
+              </div>
+              <div class="form-row">
+                   <div class="col-12 col-md-3">
+                        <label for="stock">Date Of Manufacture</label>
+                        <input type="date" class="form-control" id="dateofM" formControlName="dom" name="dom">
+    
+                   </div>
+                   <div class="col-12 col-md-3">
+                        <label for="adddate"> Date of Expiry</label>
+                        <input type="date" class="form-control" id="dateOfExp" formControlName="doe" name="doe">
+    
+                   </div>
+                   <div class="col-12 col-md-3">
+                        <label for="image">Image </label>
+                        <input type="text" class="form-control" id="ProductImage" formControlName="proImage"
+                             name="proImage">
+    
+                   </div>
+                   <div class="col-12 col-md-3">
+                        <label for="category">Category Name</label>
+                        <select class="form-control" formControlName="proCategory" id="proCategory">
+                             <option *ngFor="let cat of category" [ngValue]="cat"> {{cat.categoryName}} </option>
+                        </select>
+                   </div>
+              </div>
+              <div class=" row mt-2 mb-2  d-flex justify-content-end  ">
+                   <div class="col-12">
+                        <button class="btn btn-primary  mx-2" [disabled]="!addProduct.valid" type="submit"
+                             (click)="onSubmit()">Save</button>
+                   </div>
+              </div>
+         </form>
+    </div>
+</div>
