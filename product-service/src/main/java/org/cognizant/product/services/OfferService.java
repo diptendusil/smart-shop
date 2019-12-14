@@ -28,6 +28,13 @@ public class OfferService {
 	public Offer getOfferByProduct(String code) {
 		return offerRepository.findByProduct(productRepository.findById(code).get());
 	}
+	
+	@Transactional
+	public Offer getOfferByProductAndToday(String code) {
+		List<Offer> o = offerRepository.findByProductAndOfferDate(code);
+		System.out.println(o.get(0));
+		return o.get(0);
+	}
 
 	@Transactional
 	public void modifyOffer(Offer offer) {

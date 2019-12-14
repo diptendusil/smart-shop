@@ -37,6 +37,16 @@ public class OfferController {
 		return convertOfferToOfferDto(offerService.getOfferByProduct(code));
 	}
 	
+	@GetMapping("/today/{code}")
+	public OfferDto getOfferByProductAndToday(@PathVariable String code) {
+		try {
+			return convertOfferToOfferDto(offerService.getOfferByProductAndToday(code));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 	@PutMapping
 	public void modifyOffer(@RequestBody OfferDto offerDto) {
 		offerService.modifyOffer(convertOfferDtoToOffer(offerDto));

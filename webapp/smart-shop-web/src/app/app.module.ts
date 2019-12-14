@@ -30,6 +30,7 @@ import { ManageOffersComponent } from './shop-manager/manage-offers/manage-offer
 import { ItemEditComponent } from './product/item-edit/item-edit.component';
 import { AddItemComponent } from './product/add-item/add-item.component';
 import { NewBillComponent } from './shop-manager/new-bill/new-bill.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { NewBillComponent } from './shop-manager/new-bill/new-bill.component';
     HttpClientModule
     
   ],
-  providers: [UserService, ProductService, AuthGuardService, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}],
+  providers: [UserService, ProductService, AuthGuardService, DatePipe, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

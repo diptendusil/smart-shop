@@ -15,4 +15,7 @@ public interface OfferRepository extends JpaRepository<Offer, Integer>{
 	
 	@Query(value="SELECT o FROM Offer o WHERE o.offerDate LIKE CURRENT_DATE()")
 	public List<Offer> findByDate();
+	
+	@Query(value="SELECT * from offer o where o.of_pr_code = ?1 and o.of_date like current_date()", nativeQuery=true)
+	public List<Offer> findByProductAndOfferDate(String code);
 }
