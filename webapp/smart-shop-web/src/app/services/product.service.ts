@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, VirtualTimeScheduler } from 'rxjs';
 import { Product, Category } from '../product/product.model';
 
 @Injectable({
@@ -22,20 +22,26 @@ export class ProductService {
   getAllProductsByCategory(categoryId: number): Observable<Product[]> {
     return this.http.get<Product[]>(`${this._baseUrl}/products/category/${categoryId}`);
   }
-  getProductById(productCode:string):Observable<Product> 
-  {
+  getProductById(productCode: string): Observable<Product> {
     return this.http.get<Product>(`${this._baseUrl}/products/${productCode}`);
   }
-  getCategoryById(categoryId:number):Observable<Category>{
+  addProduct(product:Product)
+  {
+    return this.http.post<void>(`${this._baseUrl}/products`,product);
+  }
+  updateProduct(product: Product):Observable<any> {
+    return this.http.put(`${this._baseUrl}/products`,product);
+  }
+  getCategoryById(categoryId: number): Observable<Category> {
     return this.http.get<Category>(`${this._baseUrl}/categories/${categoryId}`);
   }
-  deleteCategoryById(categoryId:number): Observable<any>{
+  deleteCategoryById(categoryId: number): Observable<any> {
     return this.http.delete<void>(`${this._baseUrl}/categories/${categoryId}`);
   }
-  addCategory(category:Category):Observable<any>{
+  addCategory(category: Category): Observable<any> {
     return this.http.post<void>(`${this._baseUrl}/categories`, category);
   }
-  updateCategory(category:Category):Observable<any>{
+  updateCategory(category: Category): Observable<any> {
     return this.http.put<void>(`${this._baseUrl}/categories`, category);
   }
   deleteProduct(productCode: string) {
