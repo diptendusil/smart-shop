@@ -125,7 +125,7 @@ export class NewBillComponent implements OnInit {
         })
     } */
     console.log(pid);
-    this.autoComplete = false;
+    //this.autoComplete = false;
     if (pid !== null && pid.length > 0) {
       this.productsService.getProductById(pid).pipe(
         switchMap((product: Product) => {
