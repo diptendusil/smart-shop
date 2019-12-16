@@ -16,6 +16,8 @@ import { InventoryComponent } from './shop-manager/inventory/inventory.component
 import { ItemDetailsComponent } from './product/item-details/item-details.component';
 import { ItemEditComponent } from './product/item-edit/item-edit.component';
 import { AddItemComponent } from './product/add-item/add-item.component';
+import { BillingComponent } from './shop-manager/billing/billing.component';
+import { NewBillComponent } from './shop-manager/new-bill/new-bill.component';
 
 
 const routes: Routes = [
@@ -77,6 +79,22 @@ const routes: Routes = [
     component: InventoryComponent,
     canActivate: [AuthGuardService],
     data:{
+      role:RoleName.ROLE_MANAGER
+    }
+  },
+  {
+    path: 'manager/bill',
+    component: BillingComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      role:RoleName.ROLE_MANAGER
+    }
+  },
+  {
+    path: 'manager/bill/new',
+    component: NewBillComponent,
+    canActivate: [AuthGuardService],
+    data: {
       role:RoleName.ROLE_MANAGER
     }
   },

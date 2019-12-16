@@ -13,4 +13,12 @@ export class OfferService {
   getAllOffers(): Observable<Offer[]> {
     return this.httpClient.get<Offer[]>(`${this._baseUrl}/product-service/offers`);
   }
+
+  getOfferByProduct(productCode: string): Observable<Offer> {
+    return this.httpClient.get<Offer>(`${this._baseUrl}/product-service/offers/${productCode}`);
+  }
+
+  getOfferByProductToday(productCode: string): Observable<Offer> {
+    return this.httpClient.get<Offer>(`${this._baseUrl}/product-service/offers/today/${productCode}`);
+  }
 }
