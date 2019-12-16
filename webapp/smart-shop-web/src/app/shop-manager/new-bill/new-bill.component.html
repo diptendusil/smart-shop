@@ -37,8 +37,8 @@
                             <h4>Purchased Items</h4>
                         </div>
                         <div class="col-6 d-flex justify-content-end">
-                            <button type="button" class="btn btn-info" title="Add Product"
-                                (click)="addPurchaseItem()" [disabled]="!purchase.valid"><i class="fas fa-plus"></i></button>
+                            <button type="button" class="btn btn-info" title="Add Product" (click)="addPurchaseItem()"
+                                [disabled]="!purchase.valid"><i class="fas fa-plus"></i></button>
                         </div>
                     </div>
 
@@ -50,7 +50,21 @@
                                     <label [for]="'pid'">Product Code</label>
                                     <input class="form-control" type="text" [id]="'pid'"
                                         placeholder="Enter product code" [formControl]="pid"
-                                        (blur)="loadProduct(purchase.get('pid').value)">
+                                        (blur)="loadProduct(purchase.get('pid').value)"
+                                        (input)="autoCompleteProduct()">
+                                    <div class="autocompletebox" *ngIf="autoComplete"
+                                        style="background-color: white;">
+                                        <!-- <select class="form-control" style="z-index: 2; position: absolute;" size="4" (change)="loadVal()">
+                                            <option [ngValue]="product.productCode" *ngFor="let product of allProducts">
+                                                {{product.productCode}} : {{product.productName}}</option>
+                                        </select> -->
+                                        <div class="autocompletebox"
+                                            style="position: absolute; z-index: 2; height: 100px; overflow-y: scroll; background-color: white;">
+                                            <div class="autocomplete" *ngFor="let product of allProducts"
+                                                style="display: block;" (click)="loadVal(product.productCode)">{{product.productCode}} :
+                                                {{product.productName}}</div>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="col-12 col-md-3">
                                     <label [for]="'pname'">Product Name</label>
@@ -72,6 +86,26 @@
                         </div>
                     </div>
 
+                    <div class="table-responsive mt-3" *ngIf="items.length">
+                        <table class="table">
+                            <tr>
+                                <th>Product Code</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Rate</th>
+                                <th>Amount Payable</th>
+                            </tr>
+                            <tr *ngFor="let item of items; let i = index">
+                                <td><a class="del text-danger" (click)="deletePurchaseItem(i)"><i
+                                            class="fas fa-trash"></i></a>&nbsp;&nbsp;&nbsp;{{item.product.productCode}}
+                                </td>
+                                <td>{{item.product.productName}}</td>
+                                <td>{{item.quantity}}</td>
+                                <td>{{item.price}}</td>
+                                <td>{{item.price * item.quantity}}</td>
+                            </tr>
+                        </table>
+                    </div>
 
                     <!-- <div class="card mt-2" *ngFor="let purchaseItem of purchaseItems; let i = index">
                         <div class="card-body">

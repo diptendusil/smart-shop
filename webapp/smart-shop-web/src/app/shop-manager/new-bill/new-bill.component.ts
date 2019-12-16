@@ -16,11 +16,15 @@ import { PurchaseItem, Bill } from 'src/app/bill.model';
 })
 export class NewBillComponent implements OnInit {
   allProducts: Product[];
+  filterProducts: Product[];
+
   billedUser: User;
   wrongUsername: boolean = false;
   bill: Bill;
   items: PurchaseItem[] = [];
   
+  autoComplete: boolean = false;
+
   purchaseItems: FormGroup[] = [];
   
   purchase: FormGroup = new FormGroup({
@@ -64,6 +68,8 @@ export class NewBillComponent implements OnInit {
     this.billDate.setValue(this.datePipe.transform(new Date(), 'yyyy-MM-dd'));
     this.productsService.getAllProducts().subscribe((products: Product[]) => {
       this.allProducts = [...products];
+      this.filterProducts = [...products];
+      //console.log(this.allProducts);
     })
   }
 
@@ -119,7 +125,8 @@ export class NewBillComponent implements OnInit {
         })
     } */
     console.log(pid);
-    if (pid.length > 0) {
+    this.autoComplete = false;
+    if (pid !== null && pid.length > 0) {
       this.productsService.getProductById(pid).pipe(
         switchMap((product: Product) => {
           this.purchase.get('pname').setValue(product.productName);
@@ -178,7 +185,7 @@ export class NewBillComponent implements OnInit {
         product: this.allProducts.find((product:Product) => {
           return product.productCode === this.pid.value;
         }),
-        price: this.price.value,
+        price: +this.price.value,
         quantity: this.quantity.value
       })
       this.updateTotalAndPoints();
@@ -186,7 +193,9 @@ export class NewBillComponent implements OnInit {
   }
 
   deletePurchaseItem(index: number) {
-    this.purchaseItems.splice(index, 1);
+    console.log(index);
+    this.items.splice(index, 1);
+    this.updateTotalAndPoints();
   }
 
   updateTotalAndPoints() {
@@ -218,11 +227,38 @@ export class NewBillComponent implements OnInit {
       }) */
 
       if(!this.purchase.valid) {
+        if(this.purchase.touched) {
+          invalid = true;
+        }
+      }
+
+      if(this.items.length === 0) {
         invalid = true;
       }
     }
 
     return invalid;
+  }
+
+  loadVal(code: string) {
+    this.autoComplete = false;
+    console.log("Hello : " + code);
+    this.pid.setValue(code);
+    this.loadProduct(code);
+  }
+
+  autoCompleteProduct() {
+    let pid: string = this.pid.value;
+    if(pid.length > 0) {
+      const tmp = this.filterProducts.filter((product: Product) => {
+        return (product.productCode + " " + product.productName).toLowerCase().includes(pid.toLowerCase());
+      })
+      this.allProducts = [...tmp];
+      this.autoComplete = true;
+    }
+    else {
+      this.allProducts = [...this.filterProducts];
+    }
   }
 
   submit() {
@@ -238,7 +274,7 @@ export class NewBillComponent implements OnInit {
       rewardPoints: this.points.value
     }
 
-    console.log(JSON.stringify(this.bill));
+    console.log(this.bill);
   }
 
   get username() {
