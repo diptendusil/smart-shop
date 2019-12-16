@@ -10,59 +10,87 @@
           <form [formGroup]="editProduct">
                <div class="form-group">
                     <label for="productCode">Product Code</label>
-                    <input type="text" class="form-control" id="ProductCode" formControlName="proCode" name="proCode">
+                    <input type="text" class="form-control" id="ProductCode" formControlName="proCode" name="proCode" disabled="true">
+                  
                </div>
                <div class="form-group">
                     <label for="Productname">Product Name</label>
                     <input type="text" class="form-control" id="Productname" formControlName="proName" name="proName">
+                    <div class="validation-error" *ngIf="proName.touched && proName.hasError('required')">product Name is required
+                    </div>
+                    <!-- <div class="validation-error" *ngIf="username.hasError('minlength') || username.hasError('maxlength')">
+                      Username must be minimum 2 characters and maximum 20 characters in length</div>
+                    <div class="validation-error" *ngIf="username.hasError('pattern')">Username cannot contain special
+                      characters</div>
+                    <div class="validation-error" *ngIf="username.hasError('userNameTaken')">
+                      Username is taken</div>
+                    <div class="text-success" *ngIf="username.touched && !username.hasError('userNameTaken')">
+                      Username is available</div> -->
                </div>
                <div class=" form-group form-row mt-2">
                     <div class="col-12 col-md-4">
                          <label for="brand">Brand</label>
                          <input type="text" class="form-control" id="ProductBrand" formControlName="proBrand"
-                              name="proBarand">
+                              name="proBrand">
+                              <div class="validation-error" *ngIf="proBrand.touched && proBrand.hasError('required')"> Product Brand is required</div>
                     </div>
                     <div class="col-12 col-md-4">
                          <label for="quantity">QuantityType</label>
                          <input type="text" class="form-control" id="quantity" formControlName="quantityType"
                               name="quantityType">
+                        <div class="validation-error"  *ngIf="quantityType.touched && quantityType.hasError('required')" > QuantityType is required</div>
                     </div>
                     <div class="col-12 col-md-4">
                          <label for="rate">Rate</label>
                          <input type="text" class="form-control" id="ProductRate" formControlName="proRate" name="proRate">
+                         <div class="validation-error" *ngIf="proRate.touched && proRate.hasError('required')"> Rate is required</div>
                     </div>
                </div>
                <div class="form-row">
                     <div class="col-12 col-md-4">
                          <label for="stock">Stock Count</label>
                          <input type="text" class="form-control" id="stockCount" formControlName="Stock" name="Stock">
+                         <div class="validation-error" *ngIf="stock.touched && stock.hasError('required')">
+                              Stock is requried
+
+                         </div>
                     </div>
                     <div class="col-12 col-md-4">
                          <label for="aisle">Aisle</label>
                          <input type="text" class="form-control" id="ProductAisle" formControlName="proAisle"
-                              name="proAsile">
+                              name="proAisle">
+                              <div class="validation-error" *ngIf="proAisle.touched && proAisle">
+                                   Aisle feild cannont be empty
+                              </div>
+                           
                     </div>
                     <div class="col-12 col-md-4">
                          <label for="shelf">Shelf</label>
                          <input type="text" class="form-control" id="ProductShelf" formControlName="proShelf"
                               name="proShelf">
+                              <div class="validation-error" *ngIf="proShelf.touched && proShelf.hasError('requried')">
+                                        Shelf feild cannont be empty
+                              </div>
                     </div>
                </div>
                <div class="form-row">
                     <div class="col-12 col-md-3">
                          <label for="stock">Date Of Manufacture</label>
                          <input type="date" class="form-control" id="dateofM" formControlName="dom" name="dom">
+                         <div class="validation-error" *ngIf="dom.touched && dom.hasError('required')" > Date of Manufacture cannot be empty </div>
      
                     </div>
                     <div class="col-12 col-md-3">
                          <label for="adddate"> Date of Expiry</label>
                          <input type="date" class="form-control" id="dateOfExp" formControlName="doe" name="doe">
+                         <div class="validation-error" *ngIf="doe.touched && doe.hasError('required')" > Date of Expiry cannot be empty </div>
      
                     </div>
                     <div class="col-12 col-md-3">
                          <label for="image">Image </label>
                          <input type="text" class="form-control" id="ProductImage" formControlName="proImage"
                               name="proImage">
+                          <div class="valdation-error" *ngIf="proImage.touched && proImage.hasError('required')"> Image Url cannot be empty</div>
      
                     </div>
                     <div class="col-12 col-md-3">
