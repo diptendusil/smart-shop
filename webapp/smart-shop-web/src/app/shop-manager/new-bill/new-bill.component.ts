@@ -16,7 +16,7 @@ import { PurchaseItem, Bill } from 'src/app/bill.model';
 })
 export class NewBillComponent implements OnInit {
   allProducts: Product[];
-
+  billedUser: User;
   wrongUsername: boolean = false;
   bill: Bill;
   items: PurchaseItem[] = [];
@@ -70,6 +70,7 @@ export class NewBillComponent implements OnInit {
   loadName() {
     if (this.username.value.length > 0) {
       this.userService.getUser(this.username.value).subscribe((user: User) => {
+        this.billedUser = user;
         this.name.setValue(user.firstName + ' ' + user.lastName);
         this.wrongUsername = false;
       }, () => {
@@ -180,7 +181,8 @@ export class NewBillComponent implements OnInit {
         price: this.price.value,
         quantity: this.quantity.value
       })
-    
+      this.updateTotalAndPoints();
+      this.purchase.reset();
   }
 
   deletePurchaseItem(index: number) {
@@ -227,6 +229,16 @@ export class NewBillComponent implements OnInit {
     console.log(this.billForm);
     console.log(this.purchase);
     console.log(this.items);
+
+    this.bill = {
+      user: this.billedUser,
+      dateOfPurchase: this.billDate.value,
+      purchaseItems: this.items,
+      total: this.total.value,
+      rewardPoints: this.points.value
+    }
+
+    console.log(JSON.stringify(this.bill));
   }
 
   get username() {

@@ -120,7 +120,7 @@ ENGINE = InnoDB;
 CREATE TABLE `smart-shop`.`bill` (
   `bi_id` INT NOT NULL,
   `bi_us_id` VARCHAR(50) NOT NULL,
-  `bi_total` INT NOT NULL,
+  `bi_total` double NOT NULL,
   `bi_reward_points` INT NULL,
   `bi_date` DATE NOT NULL,
   PRIMARY KEY (`bi_id`),
