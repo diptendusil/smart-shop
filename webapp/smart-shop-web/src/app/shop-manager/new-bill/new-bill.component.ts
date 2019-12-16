@@ -8,6 +8,7 @@ import { OfferService } from 'src/app/services/offer.service';
 import { switchMap } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { PurchaseItem, Bill } from 'src/app/bill.model';
+import { BillingService } from 'src/app/services/billing.service';
 
 @Component({
   selector: 'app-new-bill',
@@ -16,11 +17,17 @@ import { PurchaseItem, Bill } from 'src/app/bill.model';
 })
 export class NewBillComponent implements OnInit {
   allProducts: Product[];
+  filterProducts: Product[];
+
+  formSubmitted: boolean = false;
+
   billedUser: User;
   wrongUsername: boolean = false;
   bill: Bill;
   items: PurchaseItem[] = [];
   
+  autoComplete: boolean = false;
+
   purchaseItems: FormGroup[] = [];
   
   purchase: FormGroup = new FormGroup({
@@ -58,13 +65,19 @@ export class NewBillComponent implements OnInit {
     }]
   });
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private productsService: ProductService, private offerService: OfferService, private datePipe: DatePipe) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private productsService: ProductService, private offerService: OfferService, private datePipe: DatePipe, private billingService: BillingService) { }
 
   ngOnInit() {
     this.billDate.setValue(this.datePipe.transform(new Date(), 'yyyy-MM-dd'));
     this.productsService.getAllProducts().subscribe((products: Product[]) => {
       this.allProducts = [...products];
+      this.filterProducts = [...products];
+      //console.log(this.allProducts);
     })
+  }
+
+  loadNewForm() {
+    this.formSubmitted = false;
   }
 
   loadName() {
@@ -84,42 +97,9 @@ export class NewBillComponent implements OnInit {
   }
 
   loadProduct(pid) {
-    /* console.log(pid + " : " + i);
-    if (pid.length > 0) {
-      this.productsService.getProductById(pid).pipe(
-        switchMap((product: Product) => {
-          this.purchaseItems[i].get('pname').setValue(product.productName);
-          this.purchaseItems[i].get('price').setValidators([
-            this.purchaseItems[i].get('price').validator,
-            Validators.max(product.rate)
-          ])
-          this.purchaseItems[i].get('price').setValue(product.rate);
-          this.purchaseItems[i].get('quantity').setValidators([
-            this.purchaseItems[i].get('quantity').validator,
-            Validators.max(product.stockCount)
-          ])
-          return this.offerService.getOfferByProductToday(product.productCode)
-        })
-      )
-        .subscribe((offer: Offer) => {
-          console.log(offer)
-          if (offer !== null) {
-            console.log(offer.discountRate);
-            this.purchaseItems[i].get('price').setValidators([
-              this.purchaseItems[i].get('price').validator,
-              Validators.max(offer.discountRate)
-            ])
-            this.purchaseItems[i].get('price').setValue(offer.discountRate);
-          }
-        }, () => {
-          this.purchaseItems[i].get('pname').setValue('');
-          this.purchaseItems[i].get('pid').setErrors(() => {
-            return { "error": "Wrong Product Code" };
-          })
-        })
-    } */
     console.log(pid);
-    if (pid.length > 0) {
+    //this.autoComplete = false;
+    if (pid !== null && pid.length > 0) {
       this.productsService.getProductById(pid).pipe(
         switchMap((product: Product) => {
           this.purchase.get('pname').setValue(product.productName);
@@ -156,29 +136,11 @@ export class NewBillComponent implements OnInit {
   }
 
   addPurchaseItem() {
-    /* this.purchaseItems.push(
-      new FormGroup({
-        pid: new FormControl('', [
-          Validators.required
-        ]),
-        pname: new FormControl('', [
-          Validators.required
-        ]),
-        quantity: new FormControl('', [
-          Validators.required,
-          Validators.min(0)
-        ]),
-        price: new FormControl('', [
-          Validators.required,
-          Validators.min(0)
-        ]),
-      })
-    ); */
       this.items.push({
         product: this.allProducts.find((product:Product) => {
           return product.productCode === this.pid.value;
         }),
-        price: this.price.value,
+        price: +this.price.value,
         quantity: this.quantity.value
       })
       this.updateTotalAndPoints();
@@ -186,15 +148,14 @@ export class NewBillComponent implements OnInit {
   }
 
   deletePurchaseItem(index: number) {
-    this.purchaseItems.splice(index, 1);
+    console.log(index);
+    this.items.splice(index, 1);
+    this.updateTotalAndPoints();
   }
 
   updateTotalAndPoints() {
     let points = 0;
     let total = 0;
-    /* this.purchaseItems.forEach((purchaseItem: FormGroup) => {
-      total += purchaseItem.get('price').value * purchaseItem.get('quantity').value;
-    }) */
     this.items.forEach((purchaseItem: PurchaseItem) => {
       total += purchaseItem.price * purchaseItem.quantity;
     })
@@ -205,24 +166,44 @@ export class NewBillComponent implements OnInit {
   }
 
   checkInvalid(): boolean {
-    //console.log("Hello from the other side");
     let invalid: boolean = false;
     if (!this.billForm.valid) {
       invalid = true;
     }
     else {
-      /* this.purchaseItems.forEach((purchaseItem: FormGroup) => {
-        if (!purchaseItem.valid) {
+      if(!this.purchase.valid) {
+        if(this.purchase.touched) {
           invalid = true;
         }
-      }) */
+      }
 
-      if(!this.purchase.valid) {
+      if(this.items.length === 0) {
         invalid = true;
       }
     }
 
     return invalid;
+  }
+
+  loadVal(code: string) {
+    this.autoComplete = false;
+    console.log("Hello : " + code);
+    this.pid.setValue(code);
+    this.loadProduct(code);
+  }
+
+  autoCompleteProduct() {
+    let pid: string = this.pid.value;
+    if(pid.length > 0) {
+      const tmp = this.filterProducts.filter((product: Product) => {
+        return (product.productCode + " " + product.productName).toLowerCase().includes(pid.toLowerCase());
+      })
+      this.allProducts = [...tmp];
+      this.autoComplete = true;
+    }
+    else {
+      this.allProducts = [...this.filterProducts];
+    }
   }
 
   submit() {
@@ -232,13 +213,22 @@ export class NewBillComponent implements OnInit {
 
     this.bill = {
       user: this.billedUser,
-      dateOfPurchase: this.billDate.value,
+      date: this.billDate.value,
       purchaseItems: this.items,
       total: this.total.value,
       rewardPoints: this.points.value
     }
+    console.log(this.bill);
+    this.billingService.addBill(this.bill).subscribe((bill: Bill) => {
+      console.log(bill);
+      this.formSubmitted = true;
+      this.billForm.reset();
+      this.purchase.reset();
+      this.items = [];
+    })
 
-    console.log(JSON.stringify(this.bill));
+    //console.log(this.bill);
+
   }
 
   get username() {

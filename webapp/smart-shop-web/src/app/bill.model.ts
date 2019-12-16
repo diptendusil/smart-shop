@@ -6,7 +6,7 @@ export interface Bill {
     user: User; //many-one
     total: number;
     rewardPoints?: number;
-    dateOfPurchase: Date;
+    date: Date;
     purchaseItems: PurchaseItem[]; //one-many
 }
 
@@ -15,4 +15,5 @@ export interface PurchaseItem {
     product: Product; //one-one
     quantity: number;
     price: number;
+    bill?: Bill;
 }
