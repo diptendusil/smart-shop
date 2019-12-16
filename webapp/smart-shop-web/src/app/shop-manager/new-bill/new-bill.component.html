@@ -54,10 +54,6 @@
                                         (input)="autoCompleteProduct()">
                                     <div class="autocompletebox" *ngIf="autoComplete"
                                         style="background-color: white;">
-                                        <!-- <select class="form-control" style="z-index: 2; position: absolute;" size="4" (change)="loadVal()">
-                                            <option [ngValue]="product.productCode" *ngFor="let product of allProducts">
-                                                {{product.productCode}} : {{product.productName}}</option>
-                                        </select> -->
                                         <div class="autocompletebox"
                                             style="position: absolute; z-index: 2; height: 100px; overflow-y: scroll; background-color: white;">
                                             <div class="autocomplete" *ngFor="let product of allProducts"
@@ -107,39 +103,7 @@
                         </table>
                     </div>
 
-                    <!-- <div class="card mt-2" *ngFor="let purchaseItem of purchaseItems; let i = index">
-                        <div class="card-body">
-                            <div class="form-row">
-                                <div class="col-12 col-md-1 d-flex justify-content-end align-items-end">
-                                    <button type="button" class="btn btn-danger" title="Delete Product"
-                                        (click)="deletePurchaseItem(i)"><i class="fas fa-trash"></i></button>
-                                </div>
-                                <div class="col-12 col-md-3">
-                                    <label [for]="'pid'+i">Product Code</label>
-                                    <input class="form-control" type="text" [id]="'pid'+i"
-                                        placeholder="Enter product code" [formControl]="purchaseItem.get('pid')"
-                                        (blur)="loadProduct(purchaseItem.get('pid').value, i)">
-                                </div>
-                                <div class="col-12 col-md-3">
-                                    <label [for]="'pname'+i">Product Name</label>
-                                    <input class="form-control" type="text" [id]="'pname'+i" placeholder="Product Name"
-                                        [formControl]="purchaseItem.get('pname')" [readOnly]="'true'">
-                                </div>
-                                <div class="col-12 col-md-2">
-                                    <label [for]="'quantity'+i">Quantity</label>
-                                    <input class="form-control" type="number" [id]="'quantity'+i"
-                                        placeholder="Enter quantity" [formControl]="purchaseItem.get('quantity')"
-                                        (blur)="updateTotalAndPoints()">
-                                </div>
-                                <div class="col-12 col-md-3">
-                                    <label [for]="'price'+i">Price</label>
-                                    <input class="form-control" type="text" [id]="'price'+i" placeholder="Enter price"
-                                        [formControl]="purchaseItem.get('price')" (blur)="updateTotalAndPoints()">
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
-
+                    
                     <div class="form-row mt-3">
                         <div class="col-12 col-lg-6">
                             <label for="total">Total</label>
