@@ -40,12 +40,6 @@ export class ManageCategoriesComponent implements OnInit {
       });
       this.categories.splice(index1, 1);
     });
-    /* this.productService.getAllCategories().subscribe(categories=> {
-      this.categories=categories;
-      this.categories.forEach(category => {
-        this.categoryControls.push(new FormControl(category.categoryName, Validators.required));
-      });
-    }) */
   }
 
   onUpdate(updatedCategory: Category){

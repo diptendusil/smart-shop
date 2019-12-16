@@ -114,6 +114,48 @@ CREATE TABLE IF NOT EXISTS `smart-shop`.`offer` (
 ENGINE = InnoDB;
 
 
+
+
+
+CREATE TABLE `smart-shop`.`bill` (
+  `bi_id` INT NOT NULL,
+  `bi_us_id` VARCHAR(50) NOT NULL,
+  `bi_total` INT NOT NULL,
+  `bi_reward_points` INT NULL,
+  `bi_date` DATE NOT NULL,
+  PRIMARY KEY (`bi_id`),
+  INDEX `bi_us_fk_idx` (`bi_us_id` ASC),
+  CONSTRAINT `bi_us_fk`
+    FOREIGN KEY (`bi_us_id`)
+    REFERENCES `smart-shop`.`user` (`us_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
+
+
+
+
+
+CREATE TABLE `smart-shop`.`purchase_item` (
+  `pi_id` INT NOT NULL,
+  `pi_pr_id` VARCHAR(50) NOT NULL,
+  `pi_quantity` INT NOT NULL,
+  `pi_price` DOUBLE NOT NULL,
+  `pi_bi_id` INT NOT NULL,
+  PRIMARY KEY (`pi_id`),
+  INDEX `pi_pr_fk_idx` (`pi_pr_id` ASC),
+  INDEX `pi_bi_fk_idx` (`pi_bi_id` ASC),
+  CONSTRAINT `pi_pr_fk`
+    FOREIGN KEY (`pi_pr_id`)
+    REFERENCES `smart-shop`.`product` (`pr_code`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `pi_bi_fk`
+    FOREIGN KEY (`pi_bi_id`)
+    REFERENCES `smart-shop`.`bill` (`bi_id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION);
+
 -- -----------------------------------------------------
 -- Table `smart-shop`.`feedback`
 -- -----------------------------------------------------

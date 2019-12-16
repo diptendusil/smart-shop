@@ -1,0 +1,99 @@
+<div class="row justify-content-center mt-3 mb-3">
+    <div class="col-12 col-md-10">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <h3>New Bill</h3>
+                    </div>
+                </div>
+                <div class="row" *ngIf="wrongUsername">
+                    <div class="col">
+                        <div class="alert alert-danger">Invalid username</div>
+                    </div>
+                </div>
+                <form [formGroup]="billForm" (ngSubmit)="submit()">
+                    <div class="form-row">
+                        <div class="col-12 col-lg-6">
+                            <label for="username">Username</label>
+                            <input type="text" name="username" id="username" class="form-control"
+                                placeholder="Enter Username" formControlName="username" (blur)="loadName()" />
+                        </div>
+                    </div>
+                    <div class="form-row mt-3">
+                        <div class="col-12 col-lg-6">
+                            <label for="name">Full Name</label>
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Full Name"
+                                formControlName="name" [readOnly]="'true'" />
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="billDate">Billing Date</label>
+                            <input type="date" name="billDate" id="billDate" class="form-control"
+                                formControlName="billDate" [readOnly]="'true'" >
+                        </div>
+                    </div>
+                    <div class="row mt-3 mb-3 add-item">
+                        <div class="col-6">
+                            <h4>Purchased Items</h4>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end">
+                            <button type="button" class="btn btn-info" title="Add Product" (click)="addPurchaseItem()"><i
+                                    class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                    <div class="card mt-2" *ngFor="let purchaseItem of purchaseItems; let i = index">
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="col-12 col-md-1 d-flex justify-content-end align-items-end">
+                                    <button type="button" class="btn btn-danger" title="Delete Product"
+                                        (click)="deletePurchaseItem(i)"><i class="fas fa-trash"></i></button>
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label [for]="'pid'+i">Product Code</label>
+                                    <input class="form-control" type="text" [id]="'pid'+i"
+                                        placeholder="Enter product code" [formControl]="purchaseItem.get('pid')"
+                                        (blur)="loadProduct(purchaseItem.get('pid').value, i)">
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label [for]="'pname'+i">Product Name</label>
+                                    <input class="form-control" type="text" [id]="'pname'+i" placeholder="Product Name"
+                                        [formControl]="purchaseItem.get('pname')" [readOnly]="'true'">
+                                </div>
+                                <div class="col-12 col-md-2">
+                                    <label [for]="'quantity'+i">Quantity</label>
+                                    <input class="form-control" type="number" [id]="'quantity'+i"
+                                        placeholder="Enter quantity" [formControl]="purchaseItem.get('quantity')"
+                                        (blur)="updateTotalAndPoints()">
+                                </div>
+                                <div class="col-12 col-md-3">
+                                    <label [for]="'price'+i">Price</label>
+                                    <input class="form-control" type="text" [id]="'price'+i" placeholder="Enter price"
+                                        [formControl]="purchaseItem.get('price')" (blur)="updateTotalAndPoints()">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row mt-3">
+                        <div class="col-12 col-lg-6">
+                            <label for="total">Total</label>
+                            <input type="number" name="total" id="total" class="form-control" placeholder="Total"
+                                formControlName="total" [readOnly]="'true'">
+                        </div>
+                        <div class="col-12 col-lg-6">
+                            <label for="points">Reward Points</label>
+                            <input type="number" name="points" id="points" class="form-control"
+                                placeholder="Reward Points" formControlName="points" [readOnly]="'true'">
+                        </div>
+                    </div>
+
+                    <div class="row mt-3">
+                        <div class="col">
+                            <button type="submit" class="btn btn-primary" [disabled]="checkInvalid()">Submit</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

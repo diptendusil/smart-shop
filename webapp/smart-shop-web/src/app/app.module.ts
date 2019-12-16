@@ -29,6 +29,8 @@ import { ProductService } from './services/product.service';
 import { ManageOffersComponent } from './shop-manager/manage-offers/manage-offers.component';
 import { ItemEditComponent } from './product/item-edit/item-edit.component';
 import { AddItemComponent } from './product/add-item/add-item.component';
+import { NewBillComponent } from './shop-manager/new-bill/new-bill.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,7 @@ import { AddItemComponent } from './product/add-item/add-item.component';
     ItemDetailsComponent,  
    BillingComponent
    , InventoryComponent, SummaryComponent, ManageProductsComponent, ManageCategoriesComponent,
-  SummaryComponent, ManageProductsComponent, ProductListComponent, ItemEditComponent, AddItemComponent
+  SummaryComponent, ManageProductsComponent, ProductListComponent, ItemEditComponent, AddItemComponent, NewBillComponent
   ],
   imports: [
     BrowserModule,
@@ -56,7 +58,7 @@ import { AddItemComponent } from './product/add-item/add-item.component';
     HttpClientModule
     
   ],
-  providers: [UserService, ProductService, AuthGuardService, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}],
+  providers: [UserService, ProductService, AuthGuardService, DatePipe, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
