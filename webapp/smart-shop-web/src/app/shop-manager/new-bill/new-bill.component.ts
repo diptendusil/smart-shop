@@ -7,6 +7,7 @@ import { Product, Offer } from 'src/app/product/product.model';
 import { OfferService } from 'src/app/services/offer.service';
 import { switchMap } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
+import { PurchaseItem } from 'src/app/bill.model';
 
 @Component({
   selector: 'app-new-bill',
@@ -16,6 +17,8 @@ import { DatePipe } from '@angular/common';
 export class NewBillComponent implements OnInit {
 
   wrongUsername: boolean = false;
+
+  items: PurchaseItem[] = [];
 
   purchaseItems: FormGroup[] = [];
 
@@ -39,8 +42,8 @@ export class NewBillComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private userService: UserService, private productsService: ProductService, private offerService: OfferService, private datePipe: DatePipe) { }
 
   ngOnInit() {
-    let i: number;
     this.billDate.setValue(this.datePipe.transform(new Date(), 'yyyy-MM-dd'));
+    let i: number;
     for (i = 1; i <= 5; i++) {
       this.purchaseItems.push(
         new FormGroup({
