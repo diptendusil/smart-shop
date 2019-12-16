@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -47,22 +47,39 @@ import { PurchaseItemComponent } from './user/purchase-history/purchase-item/pur
     SuperAdminDashboardComponent,
     EditProfileComponent,
     ChangePasswordComponent,
-    ItemDetailsComponent,  
+    ItemDetailsComponent,
+    BillingComponent,
+    InventoryComponent,
+    SummaryComponent,
+    ManageProductsComponent, 
+    ManageCategoriesComponent,
+    SummaryComponent, 
+    ManageProductsComponent, 
+    ProductListComponent, 
+    ItemEditComponent, 
+    AddItemComponent, 
+    NewBillComponent,
     PurchaseHistoryComponent,
-    PurchaseItemComponent,
-   BillingComponent
-   , InventoryComponent, SummaryComponent, ManageProductsComponent, ManageCategoriesComponent,
-  SummaryComponent, ManageProductsComponent, ProductListComponent, ItemEditComponent, AddItemComponent, NewBillComponent
+    PurchaseItemComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule
-    
+
   ],
-  providers: [UserService, ProductService, AuthGuardService, DatePipe, {provide: HTTP_INTERCEPTORS, useClass: HttpInterceptorService, multi: true}],
+  providers: [
+    UserService, 
+    ProductService, 
+    AuthGuardService, 
+    DatePipe, 
+    { 
+      provide: HTTP_INTERCEPTORS, 
+      useClass: HttpInterceptorService, 
+      multi: true 
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

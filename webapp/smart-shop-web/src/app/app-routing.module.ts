@@ -109,6 +109,14 @@ const routes: Routes = [
     }
   },
   {
+    path: 'purchase-history',
+    component: PurchaseHistoryComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      role: RoleName.ROLE_USER
+    }
+  },
+  {
     path: 'manager/bill/new',
     component: NewBillComponent,
     canActivate: [AuthGuardService],
