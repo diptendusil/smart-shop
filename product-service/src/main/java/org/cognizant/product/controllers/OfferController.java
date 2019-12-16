@@ -42,7 +42,8 @@ public class OfferController {
 		try {
 			return convertOfferToOfferDto(offerService.getOfferByProductAndToday(code));
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.err.println(e);
 			return null;
 		}
 	}
