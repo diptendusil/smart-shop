@@ -129,7 +129,8 @@ CREATE TABLE `smart-shop`.`bill` (
     FOREIGN KEY (`bi_us_id`)
     REFERENCES `smart-shop`.`user` (`us_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 
@@ -137,7 +138,7 @@ CREATE TABLE `smart-shop`.`bill` (
 
 
 CREATE TABLE `smart-shop`.`purchase_item` (
-  `pi_id` INT NOT NULL,
+  `pi_id` INT NOT NULL AUTO_INCREMENT,
   `pi_pr_id` VARCHAR(50) NOT NULL,
   `pi_quantity` INT NOT NULL,
   `pi_price` DOUBLE NOT NULL,
@@ -154,8 +155,8 @@ CREATE TABLE `smart-shop`.`purchase_item` (
     FOREIGN KEY (`pi_bi_id`)
     REFERENCES `smart-shop`.`bill` (`bi_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
-
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `smart-shop`.`feedback`
 -- -----------------------------------------------------

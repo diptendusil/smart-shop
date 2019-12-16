@@ -8,6 +8,7 @@ import { OfferService } from 'src/app/services/offer.service';
 import { switchMap } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { PurchaseItem, Bill } from 'src/app/bill.model';
+import { BillingService } from 'src/app/services/billing.service';
 
 @Component({
   selector: 'app-new-bill',
@@ -17,6 +18,8 @@ import { PurchaseItem, Bill } from 'src/app/bill.model';
 export class NewBillComponent implements OnInit {
   allProducts: Product[];
   filterProducts: Product[];
+
+  formSubmitted: boolean = false;
 
   billedUser: User;
   wrongUsername: boolean = false;
@@ -62,7 +65,7 @@ export class NewBillComponent implements OnInit {
     }]
   });
 
-  constructor(private formBuilder: FormBuilder, private userService: UserService, private productsService: ProductService, private offerService: OfferService, private datePipe: DatePipe) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserService, private productsService: ProductService, private offerService: OfferService, private datePipe: DatePipe, private billingService: BillingService) { }
 
   ngOnInit() {
     this.billDate.setValue(this.datePipe.transform(new Date(), 'yyyy-MM-dd'));
@@ -71,6 +74,10 @@ export class NewBillComponent implements OnInit {
       this.filterProducts = [...products];
       //console.log(this.allProducts);
     })
+  }
+
+  loadNewForm() {
+    this.formSubmitted = false;
   }
 
   loadName() {
@@ -206,13 +213,22 @@ export class NewBillComponent implements OnInit {
 
     this.bill = {
       user: this.billedUser,
-      dateOfPurchase: this.billDate.value,
+      date: this.billDate.value,
       purchaseItems: this.items,
       total: this.total.value,
       rewardPoints: this.points.value
     }
-
     console.log(this.bill);
+    this.billingService.addBill(this.bill).subscribe((bill: Bill) => {
+      console.log(bill);
+      this.formSubmitted = true;
+      this.billForm.reset();
+      this.purchase.reset();
+      this.items = [];
+    })
+
+    //console.log(this.bill);
+
   }
 
   get username() {
