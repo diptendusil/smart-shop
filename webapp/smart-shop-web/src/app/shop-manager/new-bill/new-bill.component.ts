@@ -7,7 +7,7 @@ import { Product, Offer } from 'src/app/product/product.model';
 import { OfferService } from 'src/app/services/offer.service';
 import { switchMap } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
-import { PurchaseItem } from 'src/app/bill.model';
+import { PurchaseItem, Bill } from 'src/app/bill.model';
 
 @Component({
   selector: 'app-new-bill',
@@ -15,12 +15,31 @@ import { PurchaseItem } from 'src/app/bill.model';
   styleUrls: ['./new-bill.component.css']
 })
 export class NewBillComponent implements OnInit {
+  allProducts: Product[];
 
   wrongUsername: boolean = false;
-
+  bill: Bill;
   items: PurchaseItem[] = [];
-
+  
   purchaseItems: FormGroup[] = [];
+  
+  purchase: FormGroup = new FormGroup({
+    pid: new FormControl('', [
+      Validators.required
+    ]),
+    pname: new FormControl('', [
+      Validators.required
+    ]),
+    quantity: new FormControl('', [
+      Validators.required,
+      Validators.min(0)
+    ]),
+    price: new FormControl('', [
+      Validators.required,
+      Validators.min(0)
+    ]),
+  });
+
 
   billForm: FormGroup = this.formBuilder.group({
     username: ['', {
@@ -43,27 +62,9 @@ export class NewBillComponent implements OnInit {
 
   ngOnInit() {
     this.billDate.setValue(this.datePipe.transform(new Date(), 'yyyy-MM-dd'));
-    let i: number;
-    for (i = 1; i <= 5; i++) {
-      this.purchaseItems.push(
-        new FormGroup({
-          pid: new FormControl('', [
-            Validators.required
-          ]),
-          pname: new FormControl('', [
-            Validators.required
-          ]),
-          quantity: new FormControl('', [
-            Validators.required,
-            Validators.min(0)
-          ]),
-          price: new FormControl('', [
-            Validators.required,
-            Validators.min(0)
-          ]),
-        })
-      );
-    }
+    this.productsService.getAllProducts().subscribe((products: Product[]) => {
+      this.allProducts = [...products];
+    })
   }
 
   loadName() {
@@ -81,8 +82,8 @@ export class NewBillComponent implements OnInit {
     }
   }
 
-  loadProduct(pid, i) {
-    console.log(pid + " : " + i);
+  loadProduct(pid) {
+    /* console.log(pid + " : " + i);
     if (pid.length > 0) {
       this.productsService.getProductById(pid).pipe(
         switchMap((product: Product) => {
@@ -115,11 +116,46 @@ export class NewBillComponent implements OnInit {
             return { "error": "Wrong Product Code" };
           })
         })
+    } */
+    console.log(pid);
+    if (pid.length > 0) {
+      this.productsService.getProductById(pid).pipe(
+        switchMap((product: Product) => {
+          this.purchase.get('pname').setValue(product.productName);
+          this.purchase.get('price').setValidators([
+            this.purchase.get('price').validator,
+            Validators.max(product.rate)
+          ])
+          this.purchase.get('price').setValue(product.rate);
+          this.purchase.get('quantity').setValidators([
+            this.purchase.get('quantity').validator,
+            Validators.max(product.stockCount)
+          ])
+          return this.offerService.getOfferByProductToday(product.productCode)
+        })
+      )
+        .subscribe((offer: Offer) => {
+          console.log(offer)
+          if (offer !== null) {
+            console.log(offer.discountRate);
+            this.purchase.get('price').setValidators([
+              this.purchase.get('price').validator,
+              Validators.max(offer.discountRate)
+            ])
+            this.purchase.get('price').setValue(offer.discountRate);
+          }
+        }, () => {
+          this.purchase.get('pname').setValue('');
+          this.purchase.get('pid').setErrors(() => {
+            return { "error": "Wrong Product Code" };
+          })
+        })
     }
+
   }
 
   addPurchaseItem() {
-    this.purchaseItems.push(
+    /* this.purchaseItems.push(
       new FormGroup({
         pid: new FormControl('', [
           Validators.required
@@ -136,7 +172,15 @@ export class NewBillComponent implements OnInit {
           Validators.min(0)
         ]),
       })
-    );
+    ); */
+      this.items.push({
+        product: this.allProducts.find((product:Product) => {
+          return product.productCode === this.pid.value;
+        }),
+        price: this.price.value,
+        quantity: this.quantity.value
+      })
+    
   }
 
   deletePurchaseItem(index: number) {
@@ -146,8 +190,11 @@ export class NewBillComponent implements OnInit {
   updateTotalAndPoints() {
     let points = 0;
     let total = 0;
-    this.purchaseItems.forEach((purchaseItem: FormGroup) => {
+    /* this.purchaseItems.forEach((purchaseItem: FormGroup) => {
       total += purchaseItem.get('price').value * purchaseItem.get('quantity').value;
+    }) */
+    this.items.forEach((purchaseItem: PurchaseItem) => {
+      total += purchaseItem.price * purchaseItem.quantity;
     })
     points = Math.floor(total / 100);
 
@@ -162,11 +209,15 @@ export class NewBillComponent implements OnInit {
       invalid = true;
     }
     else {
-      this.purchaseItems.forEach((purchaseItem: FormGroup) => {
+      /* this.purchaseItems.forEach((purchaseItem: FormGroup) => {
         if (!purchaseItem.valid) {
           invalid = true;
         }
-      })
+      }) */
+
+      if(!this.purchase.valid) {
+        invalid = true;
+      }
     }
 
     return invalid;
@@ -174,7 +225,8 @@ export class NewBillComponent implements OnInit {
 
   submit() {
     console.log(this.billForm);
-    console.log(this.purchaseItems)
+    console.log(this.purchase);
+    console.log(this.items);
   }
 
   get username() {
@@ -195,6 +247,22 @@ export class NewBillComponent implements OnInit {
 
   get billDate() {
     return this.billForm.get('billDate');
+  }
+  // purchase item form group
+  get pid() {
+    return this.purchase.get('pid');
+  }
+
+  get pname() {
+    return this.purchase.get('pname');
+  }
+
+  get quantity() {
+    return this.purchase.get('quantity');
+  }
+
+  get price() {
+    return this.purchase.get('price');
   }
 
 }

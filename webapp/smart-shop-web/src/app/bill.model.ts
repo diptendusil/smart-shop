@@ -2,16 +2,16 @@ import { User } from './site/user';
 import { Product } from './product/product.model';
 
 export interface Bill {
-    billId: number; //add GeneratedValue in java
+    billId?: number; //add GeneratedValue in java
     user: User; //many-one
     total: number;
-    rewardPoints: number;
+    rewardPoints?: number;
     dateOfPurchase: Date;
     purchaseItems: PurchaseItem[]; //one-many
 }
 
 export interface PurchaseItem {
-    purchaseId: number; //add GeneratedValue in java
+    purchaseId?: number; //add GeneratedValue in java
     product: Product; //one-one
     quantity: number;
     price: number;
