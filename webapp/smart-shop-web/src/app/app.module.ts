@@ -31,6 +31,8 @@ import { ItemEditComponent } from './product/item-edit/item-edit.component';
 import { AddItemComponent } from './product/add-item/add-item.component';
 import { NewBillComponent } from './shop-manager/new-bill/new-bill.component';
 import { DatePipe } from '@angular/common';
+import { PurchaseHistoryComponent } from './user/purchase-history/purchase-history.component';
+import { PurchaseItemComponent } from './user/purchase-history/purchase-item/purchase-item.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { DatePipe } from '@angular/common';
     EditProfileComponent,
     ChangePasswordComponent,
     ItemDetailsComponent,  
+    PurchaseHistoryComponent,
+    PurchaseItemComponent,
    BillingComponent
    , InventoryComponent, SummaryComponent, ManageProductsComponent, ManageCategoriesComponent,
   SummaryComponent, ManageProductsComponent, ProductListComponent, ItemEditComponent, AddItemComponent, NewBillComponent

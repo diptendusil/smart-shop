@@ -7,33 +7,33 @@
     </div>
 
     <ul class="list-group">
-        <li class="list-group-item list-group-item-action">
+        <li *ngFor="let bill of bills" class="list-group-item list-group-item-action">
             <div class="row mt-1 ml-3">
                 <div class="col-8">
                     <div><span><strong>Bill ID : </strong></span>
-                        <span>2</span></div>
+                        <span>{{bill.billId}}</span></div>
                     <div>
                         <span>
                             <strong>Total Amount : </strong>
                         </span>
-                        <span>₹ 1234</span>
+                        <span>₹ {{bill.total}}</span>
                     </div>
                     <div>
                         <span>
                             <strong>Purchase Date : </strong>
                         </span>
-                        <span>12/12/2019</span>
+                        <span>{{bill.dateOfPurchase | date: 'dd/MM/yyyy'}}</span>
                     </div>
                     <div>
                         <span>
                             <strong>No. of Items : </strong>
                         </span>
-                        <span>5</span>
+                        <span>{{bill.purchaseItems.length}}</span>
                     </div>
                 </div>
                 <div class="col-4">
                     <span class="float-right ml-auto">
-                        <button class="btn btn-link float-right mr-2" [routerLink]="['/purchase-items']">
+                        <button class="btn btn-link float-right mr-2" [routerLink]="['/user/purchase-history/purchase-items']">
                             View Details
                         </button>
                     </span>
