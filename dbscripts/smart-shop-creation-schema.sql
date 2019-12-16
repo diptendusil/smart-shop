@@ -118,7 +118,7 @@ ENGINE = InnoDB;
 
 
 CREATE TABLE `smart-shop`.`bill` (
-  `bi_id` INT NOT NULL,
+  `bi_id` INT NOT NULL AUTO_INCREMENT,
   `bi_us_id` VARCHAR(50) NOT NULL,
   `bi_total` double NOT NULL,
   `bi_reward_points` INT NULL,
