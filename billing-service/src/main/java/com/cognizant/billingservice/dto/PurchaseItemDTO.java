@@ -7,7 +7,7 @@ public class PurchaseItemDTO {
 	private Double price;
 
 	private ProductDTO product;
-
+	
 	private BillDTO bill;
 
 	public PurchaseItemDTO() {
