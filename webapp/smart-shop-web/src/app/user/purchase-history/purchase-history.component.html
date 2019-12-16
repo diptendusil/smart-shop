@@ -8,6 +8,7 @@
 
     <ul class="list-group">
         <li *ngFor="let bill of bills" class="list-group-item list-group-item-action">
+            <app-purchase-item [bill]="bill"></app-purchase-item>
             <div class="row mt-1 ml-3">
                 <div class="col-8">
                     <div><span><strong>Bill ID : </strong></span>
@@ -33,7 +34,7 @@
                 </div>
                 <div class="col-4">
                     <span class="float-right ml-auto">
-                        <button class="btn btn-link float-right mr-2" [routerLink]="['/user/purchase-history/purchase-items']">
+                        <button class="btn btn-link float-right mr-2" [routerLink]="['/user/purchase-history/purchase-items',bill.billId]">
                             View Details
                         </button>
                     </span>

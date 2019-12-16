@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Bill } from 'src/app/bill.model';
 
 @Component({
   selector: 'app-purchase-item',
@@ -6,10 +7,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./purchase-item.component.css']
 })
 export class PurchaseItemComponent implements OnInit {
-
+  
+  @Input() bill:Bill;
   constructor() { }
 
   ngOnInit() {
+    
   }
 
 }

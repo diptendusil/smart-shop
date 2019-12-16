@@ -53,7 +53,7 @@ const routes: Routes = [
     }
   },
   {
-    path: 'user/purchase-history/purchase-items',
+    path: 'user/purchase-history/purchase-items/:id',
     component: PurchaseItemComponent,
     canActivate: [AuthGuardService],
     data:{
