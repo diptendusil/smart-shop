@@ -18,6 +18,8 @@ import { ItemEditComponent } from './product/item-edit/item-edit.component';
 import { AddItemComponent } from './product/add-item/add-item.component';
 import { BillingComponent } from './shop-manager/billing/billing.component';
 import { NewBillComponent } from './shop-manager/new-bill/new-bill.component';
+import { PurchaseHistoryComponent } from './user/purchase-history/purchase-history.component';
+import { PurchaseItemComponent } from './user/purchase-history/purchase-item/purchase-item.component';
 
 
 const routes: Routes = [
@@ -37,6 +39,22 @@ const routes: Routes = [
   {
     path: 'user/dashboard',
     component: UserDashboardComponent,
+    canActivate: [AuthGuardService],
+    data:{
+      role:RoleName.ROLE_USER
+    }
+  },
+  {
+    path: 'user/purchase-history',
+    component: PurchaseHistoryComponent,
+    canActivate: [AuthGuardService],
+    data:{
+      role:RoleName.ROLE_USER
+    }
+  },
+  {
+    path: 'user/purchase-history/purchase-items',
+    component: PurchaseItemComponent,
     canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_USER
@@ -88,6 +106,14 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     data: {
       role:RoleName.ROLE_MANAGER
+    }
+  },
+  {
+    path: 'purchase-history',
+    component: PurchaseHistoryComponent,
+    canActivate: [AuthGuardService],
+    data: {
+      role: RoleName.ROLE_USER
     }
   },
   {
