@@ -1,7 +1,5 @@
 package com.cognizant.billingservice.entities;
 
-import java.io.Serializable;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +15,7 @@ public class RewardPoint {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Column(name="rp_id")
 	private Integer id;
 	
 	@OneToOne

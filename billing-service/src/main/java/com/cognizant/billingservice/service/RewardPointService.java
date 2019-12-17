@@ -14,7 +14,7 @@ public class RewardPointService {
 	@Autowired
 	RewardPointRepository rewardPointRepository;
 	public RewardPoint getRewardPointsByUser(User user) {
-		Optional<RewardPoint> rewardPoint =this.rewardPointRepository.findById(user); 
+		Optional<RewardPoint> rewardPoint =this.rewardPointRepository.findByUser(user); 
 		if(rewardPoint.isPresent()) {
 			return rewardPoint.get();
 		} else {
@@ -24,6 +24,9 @@ public class RewardPointService {
 	}
 	public RewardPoint addRewardPoint(RewardPoint rewardPoint) {
 		return this.rewardPointRepository.save(rewardPoint);
+	}
+	public RewardPoint modifyRewardPoint(RewardPoint updatedRewardPoint) {
+		return this.rewardPointRepository.save(updatedRewardPoint);
 	}
 //	public RewardPoint addRewardPointsToUser(User user, int points) {
 //		return this.rewardPointRepository.save(entity)
