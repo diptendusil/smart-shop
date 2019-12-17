@@ -37,8 +37,8 @@ public class OfferService {
 	}
 
 	@Transactional
-	public void modifyOffer(Offer offer) {
-		offerRepository.save(offer);
+	public Offer modifyOffer(Offer offer) {
+		return offerRepository.save(offer);
 	}
 	
 	@Transactional
@@ -47,12 +47,7 @@ public class OfferService {
 	}
 	
 	@Transactional
-	public void addOffer(Offer offer) {
-		Offer newOffer=new Offer();
-		newOffer.setDiscountRate(offer.getDiscountRate());
-		newOffer.setOfferDate(offer.getOfferDate());
-		newOffer.setOfferName(offer.getOfferName());
-		newOffer.setProduct(offer.getProduct());
-		offerRepository.save(newOffer);
+	public Offer addOffer(Offer offer) {
+		return offerRepository.save(offer);
 	}
 }

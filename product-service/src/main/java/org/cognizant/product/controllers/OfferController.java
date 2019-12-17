@@ -49,8 +49,8 @@ public class OfferController {
 	}
 	
 	@PutMapping
-	public void modifyOffer(@RequestBody OfferDto offerDto) {
-		offerService.modifyOffer(convertOfferDtoToOffer(offerDto));
+	public OfferDto modifyOffer(@RequestBody Offer offer) {
+		return convertOfferToOfferDto(offerService.modifyOffer(offer));
 	}
 	
 	@DeleteMapping("/{id}")
@@ -59,8 +59,8 @@ public class OfferController {
 	}
 	
 	@PostMapping
-	public void addOffer(@RequestBody OfferDto offerDto) {
-		offerService.addOffer(convertOfferDtoToOffer(offerDto));
+	public OfferDto addOffer(@RequestBody Offer offer) {
+		return convertOfferToOfferDto(offerService.addOffer(offer));
 	}
 	
 	public Offer convertOfferDtoToOffer(OfferDto offerDto) {
