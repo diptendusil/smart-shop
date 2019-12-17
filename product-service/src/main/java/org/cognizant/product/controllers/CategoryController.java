@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.cognizant.product.dto.CategoryDto;
 import org.cognizant.product.entities.Category;
+import org.cognizant.product.exceptions.CategoryAlreadyExistsException;
+import org.cognizant.product.exceptions.CategoryNotFoundException;
 import org.cognizant.product.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,7 +32,7 @@ public class CategoryController {
 	}
 	
 	@GetMapping("/{id}")
-	public CategoryDto getCategoryById(@PathVariable int id){
+	public CategoryDto getCategoryById(@PathVariable int id) throws CategoryNotFoundException{
 		return convertCategoryToCategoryDto(categoryService.getCategoryById(id));
 	}
 	
@@ -40,14 +42,14 @@ public class CategoryController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public String deleteCategory(@PathVariable int id) {
+	public String deleteCategory(@PathVariable int id) throws CategoryNotFoundException {
 		categoryService.deleteCategory(id);
 		
 		return "{\"status\":\"Success\"}";
 	}
 	
 	@PostMapping
-	public CategoryDto addCategory(@RequestBody Category category) {
+	public CategoryDto addCategory(@RequestBody Category category) throws CategoryAlreadyExistsException {
 		Category category2=categoryService.addCategory(category);
 		System.out.println(category2.getCategoryId());
 		return convertCategoryToCategoryDto(category2);
