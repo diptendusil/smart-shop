@@ -1,31 +1,31 @@
-<div class="container-fluid mt-2 mb-5">
+<div class="container-fluid mt-2 mb-5" *ngIf="bill">
 
     <div class="row">
         <span class="ml-3 mb-2">
-            <h4>Purchase History</h4>
+            <h4>Purchase Summary</h4>
         </span>
     </div>
 
     <ul class="list-group mb-5">
         <li class="list-group-item list-group-item-action">
-            <div class="row mt-1 ml-3">
-                <div class="col-3">
+            <div class="row mt-1">
+                <div class="col-3 text-center">
                     <div><strong>Bill ID</strong></div>
                     <div>{{bill.billId}}</div>
                 </div>
-                <div class="col-3">
+                <div class="col-3 text-center">
                     <div>
-                        <strong>Username</strong>
+                        <strong>Reward Points</strong>
                     </div>
-                    <div>{{bill.user.userId}}</div>
+                    <div>{{bill.rewardPoints}}</div >
                 </div>
-                <div class="col-3">
+                <div class="col-3 text-center">
                     <div>
                         <strong>Purchase Date</strong>
                     </div>
-                    <div>{{bill.dateOfPurchase | date: 'dd/MM/yyyy'}}</div>
+                    <div>{{bill.date | date: 'dd/MM/yyyy'}}</div>
                 </div>
-                <div class="col-3">
+                <div class="col-3 text-center">
                     <div>
                         <strong>No. of Items</strong>
                     </div>
@@ -36,37 +36,37 @@
     </ul>
     <ul class="list-group">
         <li class="list-group-item list-group-item-action">
-            <div class="row ml-3">
+            <div class="row ml-5">
                 <div class="col-4">
                     <strong>Product Name</strong>
                 </div>
-                <div class="col-4">
+                <div class="col-3 text-center">
                     <strong>Quantity</strong>
                 </div>
-                <div class="col-4">
+                <div class="col-4 text-right">
                     <strong>Price</strong>
                 </div>
             </div>
         </li>
-        <li *ngFor="let purchaseItem of purchaseItems" class="list-group-item list-group-item-action">
-            <div class="row ml-3">
+        <li *ngFor="let purchaseItem of bill.purchaseItems" class="list-group-item list-group-item-action">
+            <div class="row ml-5">
                 <div class="col-4">
                     {{purchaseItem.product.productName}}
                 </div>
-                <div class="col-4">
+                <div class="col-3 text-center">
                     {{purchaseItem.quantity}}
                 </div>
-                <div class="col-4">
+                <div class="col-4 text-right">
                     ₹ {{purchaseItem.price}}
                 </div>
             </div>
         </li>
         <li class="list-group-item list-group-item-action">
-            <div class="row ml-3">
-                <div class="col-8">
+            <div class="row ml-5">
+                <div class="col-7">
                     <strong>Total</strong>
                 </div>
-                <div class="col-4">
+                <div class="col-4 text-right">
                     <strong>₹ {{bill.total}}</strong>
                 </div>
             </div>

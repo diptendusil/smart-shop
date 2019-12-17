@@ -21,10 +21,10 @@ export class BillingService {
   }
 
   getBillsByUser(username: string): Observable<Bill[]> {
-    return this.httpClient.get<Bill[]>(`${this._baseUrl}/bill/${username}`)
+    return this.httpClient.get<Bill[]>(`${this._baseUrl}/bill/user/${username}`)
   }
 
   getBillById(billId:number):Observable<Bill>{
-    return this.httpClient.get<Bill>(`${this._baseUrl}/bill/${billId}`)
+    return this.httpClient.get<Bill>(`${this._baseUrl}/bill/id/${billId}`)
   }
 }
