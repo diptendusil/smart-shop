@@ -11,25 +11,25 @@
             <div class="row mt-1 ml-3">
                 <div class="col-3">
                     <div><strong>Bill ID</strong></div>
-                    <div>2</div>
+                    <div>{{bill.billId}}</div>
                 </div>
                 <div class="col-3">
                     <div>
                         <strong>Username</strong>
                     </div>
-                    <div>blah</div>
+                    <div>{{bill.user.userId}}</div>
                 </div>
                 <div class="col-3">
                     <div>
                         <strong>Purchase Date</strong>
                     </div>
-                    <div>12/12/2019</div>
+                    <div>{{bill.dateOfPurchase | date: 'dd/MM/yyyy'}}</div>
                 </div>
                 <div class="col-3">
                     <div>
                         <strong>No. of Items</strong>
                     </div>
-                    <div>5</div>
+                    <div>{{bill.purchaseItems.length}}</div>
                 </div>
             </div>
         </li>
@@ -48,29 +48,16 @@
                 </div>
             </div>
         </li>
-        <li class="list-group-item list-group-item-action">
+        <li *ngFor="let purchaseItem of purchaseItems" class="list-group-item list-group-item-action">
             <div class="row ml-3">
                 <div class="col-4">
-                    p1
+                    {{purchaseItem.product.productName}}
                 </div>
                 <div class="col-4">
-                    1
+                    {{purchaseItem.quantity}}
                 </div>
                 <div class="col-4">
-                    ₹ 100
-                </div>
-            </div>
-        </li>
-        <li class="list-group-item list-group-item-action">
-            <div class="row ml-3">
-                <div class="col-4">
-                    p1
-                </div>
-                <div class="col-4">
-                    1
-                </div>
-                <div class="col-4">
-                    ₹ 100
+                    ₹ {{purchaseItem.price}}
                 </div>
             </div>
         </li>
@@ -80,7 +67,7 @@
                     <strong>Total</strong>
                 </div>
                 <div class="col-4">
-                    <strong>₹ 100</strong>
+                    <strong>₹ {{bill.total}}</strong>
                 </div>
             </div>
         </li>
