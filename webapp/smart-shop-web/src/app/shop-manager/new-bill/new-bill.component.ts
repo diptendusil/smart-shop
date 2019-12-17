@@ -136,13 +136,28 @@ export class NewBillComponent implements OnInit {
   }
 
   addPurchaseItem() {
-      this.items.push({
-        product: this.allProducts.find((product:Product) => {
-          return product.productCode === this.pid.value;
-        }),
-        price: +this.price.value,
-        quantity: this.quantity.value
+      const find: PurchaseItem = this.items.find((item: PurchaseItem) => {
+        return item.product.productCode === this.pid.value;
       })
+
+      if(find === undefined) {
+        this.items.push({
+          product: this.allProducts.find((product:Product) => {
+            return product.productCode === this.pid.value;
+          }),
+          price: +this.price.value,
+          quantity: this.quantity.value
+        })
+      }
+      else {
+        this.items.forEach((item: PurchaseItem) => {
+          if(item.product.productCode === this.pid.value) {
+            console.log(`${item.product.productCode} - ${item.product.stockCount} - ${item.quantity}`);
+            item.quantity = ((item.quantity + this.quantity.value) <= item.product.stockCount) ? (item.quantity + this.quantity.value) : item.product.stockCount;
+          }
+        })
+      }
+
       this.updateTotalAndPoints();
       this.purchase.reset();
   }
