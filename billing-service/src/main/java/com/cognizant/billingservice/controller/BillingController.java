@@ -24,6 +24,7 @@ import com.cognizant.billingservice.entities.Category;
 import com.cognizant.billingservice.entities.Product;
 import com.cognizant.billingservice.entities.PurchaseItem;
 import com.cognizant.billingservice.entities.User;
+import com.cognizant.billingservice.exception.BillNotFoundException;
 import com.cognizant.billingservice.service.BillService;
 
 @RestController
@@ -44,8 +45,11 @@ public class BillingController {
 		return this.billService.getAllBills().stream().map(bill -> convertBillToBillDTO(bill))
 				.collect(Collectors.toList());
 	}
-
-	@GetMapping("/{username}")
+	@GetMapping("/id/{id}")
+	public BillDTO getBillById(@PathVariable("id") Integer id) throws BillNotFoundException {
+		return convertBillToBillDTO(this.billService.getBillById(id));
+	}
+	@GetMapping("/user/{username}")
 	public List<BillDTO> getAllBillsByUser(@PathVariable("username") String username) {
 		User user = getUser(username);
 		return this.billService.getBillsByUser(user).stream().map(bill -> convertBillToBillDTO(bill))
