@@ -33,6 +33,7 @@ import { NewBillComponent } from './shop-manager/new-bill/new-bill.component';
 import { DatePipe } from '@angular/common';
 import { PurchaseHistoryComponent } from './user/purchase-history/purchase-history.component';
 import { PurchaseItemComponent } from './user/purchase-history/purchase-item/purchase-item.component';
+import { UpdateDetailsComponent } from './shop-manager/inventory/update-details/update-details.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { PurchaseItemComponent } from './user/purchase-history/purchase-item/pur
     AddItemComponent, 
     NewBillComponent,
     PurchaseHistoryComponent,
-    PurchaseItemComponent
+    PurchaseItemComponent,
+    UpdateDetailsComponent
   ],
   imports: [
     BrowserModule,

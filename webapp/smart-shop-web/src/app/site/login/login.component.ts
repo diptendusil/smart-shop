@@ -31,9 +31,7 @@ export class LoginComponent implements OnInit {
       }
     )
   }
-  isLoginValid() {
-
-  }
+  
 
   get username() {
     return this.loginForm.get('username');

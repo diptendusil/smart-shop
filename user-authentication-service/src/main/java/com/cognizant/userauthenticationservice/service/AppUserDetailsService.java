@@ -162,7 +162,17 @@ public class AppUserDetailsService implements UserDetailsService {
 	}
 	
 	@Transactional
+	public List<User> getApprovedAdmin()
+	{
+		return userRepository.getAllAdmin();
+	}
+	@Transactional
 	public void deleteManager(String userId) {
+		userRepository.deleteById(userId);
+	}
+	@Transactional
+	public void deleteAdmin(String userId)
+	{
 		userRepository.deleteById(userId);
 	}
 }
