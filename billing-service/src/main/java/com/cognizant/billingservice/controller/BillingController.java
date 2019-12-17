@@ -45,11 +45,11 @@ public class BillingController {
 		return this.billService.getAllBills().stream().map(bill -> convertBillToBillDTO(bill))
 				.collect(Collectors.toList());
 	}
-	@GetMapping("/{id}")
+	@GetMapping("/id/{id}")
 	public BillDTO getBillById(@PathVariable("id") Integer id) throws BillNotFoundException {
 		return convertBillToBillDTO(this.billService.getBillById(id));
 	}
-	@GetMapping("/{username}")
+	@GetMapping("/user/{username}")
 	public List<BillDTO> getAllBillsByUser(@PathVariable("username") String username) {
 		User user = getUser(username);
 		return this.billService.getBillsByUser(user).stream().map(bill -> convertBillToBillDTO(bill))

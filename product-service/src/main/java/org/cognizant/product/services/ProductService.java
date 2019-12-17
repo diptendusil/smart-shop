@@ -1,10 +1,13 @@
 package org.cognizant.product.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.cognizant.product.entities.Product;
+import org.cognizant.product.exceptions.ProductAlreadyExistsException;
+import org.cognizant.product.exceptions.ProductNotFoundException;
 import org.cognizant.product.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,8 +28,16 @@ public class ProductService {
 		return productRepository.findByStockCountGreaterThan(0);
 	}
 	@Transactional
-	public Product getProductById(@PathVariable String code){
-		return productRepository.findById(code).get();
+	public Product getProductById(@PathVariable String code) throws ProductNotFoundException{
+		Optional<Product> product=productRepository.findById(code);
+		if(product.isPresent())
+		{
+			return product.get();
+		}
+		else
+		{
+			throw new ProductNotFoundException("Product with code : "+code+" is not present in datastore");
+		}
 	}
 	
 	@Transactional
@@ -40,12 +51,29 @@ public class ProductService {
 	}
 	
 	@Transactional
-	public void deleteProduct(String productId) {
-		productRepository.deleteById(productId);;
+	public void deleteProduct(String productId) throws ProductNotFoundException {
+		Optional<Product> product=productRepository.findById(productId);
+		if(product.isPresent())
+		{
+			productRepository.deleteById(productId);
+		}
+		else
+		{
+			throw new ProductNotFoundException("Product with code : "+productId+" is not present in datastore");
+		}
+		
 	}
 	
 	@Transactional
-	public void addProduct(Product product) {
-		productRepository.save(product);
+	public void addProduct(Product product) throws ProductAlreadyExistsException {
+		if(productRepository.findById(product.getProductCode()) == null)
+		{
+			productRepository.save(product);
+		}
+		else
+		{
+			throw new ProductAlreadyExistsException("Product with code : "+product.getProductCode()+" is already present");
+		}
+		
 	}
 }

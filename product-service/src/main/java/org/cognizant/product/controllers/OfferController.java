@@ -9,6 +9,8 @@ import org.cognizant.product.dto.ProductDto;
 import org.cognizant.product.entities.Category;
 import org.cognizant.product.entities.Offer;
 import org.cognizant.product.entities.Product;
+import org.cognizant.product.exceptions.OfferAlreadyExistsException;
+import org.cognizant.product.exceptions.OfferNotFoundException;
 import org.cognizant.product.services.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -49,18 +51,18 @@ public class OfferController {
 	}
 	
 	@PutMapping
-	public void modifyOffer(@RequestBody OfferDto offerDto) {
-		offerService.modifyOffer(convertOfferDtoToOffer(offerDto));
+	public OfferDto modifyOffer(@RequestBody Offer offer) {
+		return convertOfferToOfferDto(offerService.modifyOffer(offer));
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteOffer(@PathVariable int id) {
+	public void deleteOffer(@PathVariable int id) throws OfferNotFoundException {
 		offerService.deleteOffer(id);
 	}
 	
 	@PostMapping
-	public void addOffer(@RequestBody OfferDto offerDto) {
-		offerService.addOffer(convertOfferDtoToOffer(offerDto));
+	public OfferDto addOffer(@RequestBody Offer offer) throws OfferAlreadyExistsException {
+		return convertOfferToOfferDto(offerService.addOffer(offer));
 	}
 	
 	public Offer convertOfferDtoToOffer(OfferDto offerDto) {

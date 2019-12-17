@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class BillingService {
-  private _baseUrl = environment.baseUrl;
+  private _baseUrl = `${environment.baseUrl}/billing-service`;
   constructor(private httpClient: HttpClient) { }
 
   addBill(bill: Bill): Observable<Bill> {
@@ -20,7 +20,11 @@ export class BillingService {
 
   }
 
-  getBillsByUser(user: User) {
+  getBillsByUser(username: string): Observable<Bill[]> {
+    return this.httpClient.get<Bill[]>(`${this._baseUrl}/bill/user/${username}`)
+  }
 
+  getBillById(billId:number):Observable<Bill>{
+    return this.httpClient.get<Bill>(`${this._baseUrl}/bill/id/${billId}`)
   }
 }

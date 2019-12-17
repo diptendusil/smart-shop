@@ -1,5 +1,6 @@
 package org.cognizant.product.repositories;
 
+import java.util.Date;
 import java.util.List;
 
 import org.cognizant.product.entities.Offer;
@@ -18,4 +19,7 @@ public interface OfferRepository extends JpaRepository<Offer, Integer>{
 	
 	@Query(value="SELECT * from offer o where o.of_pr_code = ?1 and o.of_date like current_date()", nativeQuery=true)
 	public List<Offer> findByProductAndOfferDate(String code);
+	
+	@Query(value="SELECT * from offer o where o.of_pr_code = ?1 and o.of_date like ?2", nativeQuery=true)
+	public List<Offer> findByProductAndOfferDate(String code,Date date);
 }

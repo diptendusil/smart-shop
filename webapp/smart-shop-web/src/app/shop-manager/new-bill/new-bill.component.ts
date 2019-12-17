@@ -18,18 +18,13 @@ import { BillingService } from 'src/app/services/billing.service';
 export class NewBillComponent implements OnInit {
   allProducts: Product[];
   filterProducts: Product[];
-
   formSubmitted: boolean = false;
-
   billedUser: User;
   wrongUsername: boolean = false;
   bill: Bill;
   items: PurchaseItem[] = [];
-  
   autoComplete: boolean = false;
-
   purchaseItems: FormGroup[] = [];
-  
   purchase: FormGroup = new FormGroup({
     pid: new FormControl('', [
       Validators.required
@@ -46,8 +41,6 @@ export class NewBillComponent implements OnInit {
       Validators.min(0)
     ]),
   });
-
-
   billForm: FormGroup = this.formBuilder.group({
     username: ['', {
       validators: [Validators.required]
@@ -64,9 +57,7 @@ export class NewBillComponent implements OnInit {
       validators: [Validators.required, Validators.min(0)]
     }]
   });
-
   constructor(private formBuilder: FormBuilder, private userService: UserService, private productsService: ProductService, private offerService: OfferService, private datePipe: DatePipe, private billingService: BillingService) { }
-
   ngOnInit() {
     this.billDate.setValue(this.datePipe.transform(new Date(), 'yyyy-MM-dd'));
     this.productsService.getAllProducts().subscribe((products: Product[]) => {
@@ -75,11 +66,9 @@ export class NewBillComponent implements OnInit {
       //console.log(this.allProducts);
     })
   }
-
   loadNewForm() {
     this.formSubmitted = false;
   }
-
   loadName() {
     if (this.username.value.length > 0) {
       this.userService.getUser(this.username.value).subscribe((user: User) => {
@@ -95,10 +84,7 @@ export class NewBillComponent implements OnInit {
       })
     }
   }
-
   loadProduct(pid) {
-    console.log(pid);
-    //this.autoComplete = false;
     if (pid !== null && pid.length > 0) {
       this.productsService.getProductById(pid).pipe(
         switchMap((product: Product) => {
@@ -187,7 +173,6 @@ export class NewBillComponent implements OnInit {
 
   loadVal(code: string) {
     this.autoComplete = false;
-    console.log("Hello : " + code);
     this.pid.setValue(code);
     this.loadProduct(code);
   }
@@ -226,9 +211,6 @@ export class NewBillComponent implements OnInit {
       this.purchase.reset();
       this.items = [];
     })
-
-    //console.log(this.bill);
-
   }
 
   get username() {
@@ -266,5 +248,4 @@ export class NewBillComponent implements OnInit {
   get price() {
     return this.purchase.get('price');
   }
-
 }
