@@ -210,14 +210,17 @@ CREATE TABLE IF NOT EXISTS `smart-shop`.`user_feedback` (
 ENGINE = InnoDB;
 
 CREATE TABLE `smart-shop`.`reward_point` (
+  `rp_id` INT NOT NULL AUTO_INCREMENT,
   `rp_us_id` VARCHAR(50) NOT NULL,
-  `rp_point` INT NOT NULL DEFAULT 0,
-  PRIMARY KEY (`rp_us_id`),
+  `rp_point` INT NULL,
+  PRIMARY KEY (`rp_id`),
+  INDEX `rp_us_fk_idx` (`rp_us_id` ASC),
   CONSTRAINT `rp_us_fk`
     FOREIGN KEY (`rp_us_id`)
     REFERENCES `smart-shop`.`user` (`us_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
