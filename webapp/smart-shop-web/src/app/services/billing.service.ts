@@ -13,7 +13,7 @@ export class BillingService {
   constructor(private httpClient: HttpClient) { }
 
   addBill(bill: Bill): Observable<Bill> {
-    return this.httpClient.post<Bill>(`${this._baseUrl}/billing-service/bill`, bill);
+    return this.httpClient.post<Bill>(`${this._baseUrl}/bill`, bill);
   }
 
   getAllBills() {

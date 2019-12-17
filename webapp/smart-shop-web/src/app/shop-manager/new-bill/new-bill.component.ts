@@ -122,30 +122,30 @@ export class NewBillComponent implements OnInit {
   }
 
   addPurchaseItem() {
-      const find: PurchaseItem = this.items.find((item: PurchaseItem) => {
-        return item.product.productCode === this.pid.value;
+    const find: PurchaseItem = this.items.find((item: PurchaseItem) => {
+      return item.product.productCode === this.pid.value;
+    })
+
+    if (find === undefined) {
+      this.items.push({
+        product: this.allProducts.find((product: Product) => {
+          return product.productCode === this.pid.value;
+        }),
+        price: +this.price.value,
+        quantity: this.quantity.value
       })
+    }
+    else {
+      this.items.forEach((item: PurchaseItem) => {
+        if (item.product.productCode === this.pid.value) {
+          console.log(`${item.product.productCode} - ${item.product.stockCount} - ${item.quantity}`);
+          item.quantity = ((item.quantity + this.quantity.value) <= item.product.stockCount) ? (item.quantity + this.quantity.value) : item.product.stockCount;
+        }
+      })
+    }
 
-      if(find === undefined) {
-        this.items.push({
-          product: this.allProducts.find((product:Product) => {
-            return product.productCode === this.pid.value;
-          }),
-          price: +this.price.value,
-          quantity: this.quantity.value
-        })
-      }
-      else {
-        this.items.forEach((item: PurchaseItem) => {
-          if(item.product.productCode === this.pid.value) {
-            console.log(`${item.product.productCode} - ${item.product.stockCount} - ${item.quantity}`);
-            item.quantity = ((item.quantity + this.quantity.value) <= item.product.stockCount) ? (item.quantity + this.quantity.value) : item.product.stockCount;
-          }
-        })
-      }
-
-      this.updateTotalAndPoints();
-      this.purchase.reset();
+    this.updateTotalAndPoints();
+    this.purchase.reset();
   }
 
   deletePurchaseItem(index: number) {
@@ -172,13 +172,13 @@ export class NewBillComponent implements OnInit {
       invalid = true;
     }
     else {
-      if(!this.purchase.valid) {
-        if(this.purchase.touched) {
+      if (!this.purchase.valid) {
+        if (this.purchase.touched) {
           invalid = true;
         }
       }
 
-      if(this.items.length === 0) {
+      if (this.items.length === 0) {
         invalid = true;
       }
     }
@@ -194,7 +194,7 @@ export class NewBillComponent implements OnInit {
 
   autoCompleteProduct() {
     let pid: string = this.pid.value;
-    if(pid.length > 0) {
+    if (pid.length > 0) {
       const tmp = this.filterProducts.filter((product: Product) => {
         return (product.productCode + " " + product.productName).toLowerCase().includes(pid.toLowerCase());
       })
@@ -224,8 +224,19 @@ export class NewBillComponent implements OnInit {
       this.formSubmitted = true;
       this.billForm.reset();
       this.purchase.reset();
-      this.items = [];
+      //this.items = [];
     })
+
+    this.items.forEach((item: PurchaseItem) => {
+      let product: Product = item.product;
+      product.stockCount -= item.quantity;
+      this.productsService.updateProduct(product).subscribe(() => {
+        console.log(`${product.productCode} - Updated successfully`);
+      }, () => {
+        console.log(`${product.productCode} - Update error`);
+      })
+    })
+
   }
 
   get username() {

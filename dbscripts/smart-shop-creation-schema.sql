@@ -219,7 +219,8 @@ CREATE TABLE `smart-shop`.`reward_point` (
     FOREIGN KEY (`rp_us_id`)
     REFERENCES `smart-shop`.`user` (`us_id`)
     ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;
