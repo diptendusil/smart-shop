@@ -25,75 +25,77 @@
                         <i class="material-icons">edit</i>
                     </button>
                 </span>
-               
+
                 <div [id]="product.productCode" class="collapse row mt-1" data-parent="#accordion">
-                    <div class="col-3">
-                        <div>
-                            <strong>Product Code</strong>
+
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div>
+                                <strong>Product Code</strong>
+                            </div>
+                            <div>{{product.productCode}}</div>
                         </div>
-                        <div>{{product.productCode}}</div>
-                    </div>
-                    <div class="col-3">
-                        <div>
-                            <strong>Brand</strong>
+
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div>
+                                <strong>Brand</strong>
+                            </div>
+                            <div>{{product.brand}}</div>
                         </div>
-                        <div>{{product.brand}}</div>
-                    </div>
-                    <div class="col-3">
-                        <div>
-                            <strong>Quantity Type</strong>
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div>
+                                <strong>Quantity Type</strong>
+                            </div>
+                            <div>{{product.quantityType}}</div>
                         </div>
-                        <div>{{product.quantityType}}</div>
-                    </div>
-                    <div class="col-3">
-                        <div>
-                            <strong>Stock Count</strong>
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div>
+                                <strong>Stock Count</strong>
+                            </div>
+                            <div>{{product.stockCount}}</div>
                         </div>
-                        <div>{{product.stockCount}}</div>
-                    </div>
-                    <div class="col-3">
-                        <div>
-                            <strong>Add Date</strong>
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div>
+                                <strong>Add Date</strong>
+                            </div>
+                            <div>{{product.addDate | date: 'dd/MM/yyyy'}}</div>
                         </div>
-                        <div>{{product.addDate | date: 'dd/MM/yyyy'}}</div>
-                    </div>
-                    <div class="col-3">
-                        <div>
-                            <strong>Aisle</strong>
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div>
+                                <strong>Aisle</strong>
+                            </div>
+                            <div>{{product.aisle}}</div>
                         </div>
-                        <div>{{product.aisle}}</div>
-                    </div>
-                    <div class="col-3">
-                        <div>
-                            <strong>Shelf</strong>
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div>
+                                <strong>Shelf</strong>
+                            </div>
+                            <div>{{product.shelf}}</div>
                         </div>
-                        <div>{{product.shelf}}</div>
-                    </div>
-                    <div class="col-3">
-                        <div>
-                            <strong>Date of Mfg.</strong>
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div>
+                                <strong>Date of Mfg.</strong>
+                            </div>
+                            <div>{{product.dateOfManufacture | date: 'dd/MM/yyyy'}}</div>
                         </div>
-                        <div>{{product.dateOfManufacture | date: 'dd/MM/yyyy'}}</div>
-                    </div>
-                    <div class="col-3">
-                        <div>
-                            <strong>Date of Expiry</strong>
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div>
+                                <strong>Date of Expiry</strong>
+                            </div>
+                            <div>{{product.dateOfExpiry | date: 'dd/MM/yyyy'}}</div>
                         </div>
-                        <div>{{product.dateOfExpiry | date: 'dd/MM/yyyy'}}</div>
-                    </div>
-                    <div class="col-3">
-                        <div>
-                            <strong>Image</strong>
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div>
+                                <strong>Image</strong>
+                            </div>
+                            <div>{{product.image}}</div>
                         </div>
-                        <div>{{product.image}}</div>
-                    </div>
-                    <div class="col-3">
-                        <div>
-                            <strong>Category</strong>
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div>
+                                <strong>Category</strong>
+                            </div>
+                            <div>{{product.category.categoryName}}</div>
                         </div>
-                        <div>{{product.category.categoryName}}</div>
                     </div>
-                </div>
             </li>
         </ul>
     </div>
