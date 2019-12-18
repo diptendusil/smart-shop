@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Bill } from '../bill.model';
 import { User } from '../site/user';
 import { Observable } from 'rxjs';
+import { RewardPoint } from '../reward-point.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class BillingService {
   constructor(private httpClient: HttpClient) { }
 
   addBill(bill: Bill): Observable<Bill> {
-    return this.httpClient.post<Bill>(`${this._baseUrl}/billing-service/bill`, bill);
+    return this.httpClient.post<Bill>(`${this._baseUrl}/bill`, bill);
   }
 
   getAllBills() {
@@ -26,5 +27,14 @@ export class BillingService {
 
   getBillById(billId:number):Observable<Bill>{
     return this.httpClient.get<Bill>(`${this._baseUrl}/bill/id/${billId}`)
+  }
+
+
+  getRewardPoints(userId: string):Observable<RewardPoint> {
+    return this.httpClient.get<RewardPoint>(`${this._baseUrl}/bill/points/${userId}`)
+  }
+
+  addRewardPoints(user:User, points:number) {
+    return this.httpClient.post<RewardPoint>(`${this._baseUrl}/bill/points/${points}`, user);
   }
 }

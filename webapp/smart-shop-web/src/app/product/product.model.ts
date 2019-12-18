@@ -18,9 +18,10 @@ export interface Category {
     categoryName: string;
 }
 export interface Offer {
-    offerId: number;
+    offerId?: number;
     offerDate: Date;
     discountRate: number;
     offerName: string;
-    product: Product;
+    productCode: string;
+    productName?: string;
 }

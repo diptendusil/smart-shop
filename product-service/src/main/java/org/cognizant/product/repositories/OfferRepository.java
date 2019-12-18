@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OfferRepository extends JpaRepository<Offer, Integer>{
 	
-	public Offer findByProduct(Product product);
+	public Offer findByProductAndOfferDate(Product product, Date date);
 	
 	@Query(value="SELECT o FROM Offer o WHERE o.offerDate LIKE CURRENT_DATE()")
 	public List<Offer> findByDate();

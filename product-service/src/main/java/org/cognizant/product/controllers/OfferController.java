@@ -11,7 +11,9 @@ import org.cognizant.product.entities.Offer;
 import org.cognizant.product.entities.Product;
 import org.cognizant.product.exceptions.OfferAlreadyExistsException;
 import org.cognizant.product.exceptions.OfferNotFoundException;
+import org.cognizant.product.exceptions.ProductNotFoundException;
 import org.cognizant.product.services.OfferService;
+import org.cognizant.product.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +30,16 @@ public class OfferController {
 	
 	@Autowired
 	private OfferService offerService;
-	
+	@Autowired
+	private ProductService productService;
 	@GetMapping
 	public List<OfferDto> getAllOffers(){
 		return convertOffersToOfferDtos(offerService.getAllOffers());
 	}
-	
+	@GetMapping("/all")
+	public List<OfferDto> getAllOffersAdmin() {
+		return convertOffersToOfferDtos(offerService.getAllOffersAdmin());
+	}
 	@GetMapping("/{code}")
 	public OfferDto getOfferByProduct(@PathVariable String code) {
 		return convertOfferToOfferDto(offerService.getOfferByProduct(code));
@@ -51,22 +57,23 @@ public class OfferController {
 	}
 	
 	@PutMapping
-	public OfferDto modifyOffer(@RequestBody Offer offer) {
-		return convertOfferToOfferDto(offerService.modifyOffer(offer));
+	public OfferDto modifyOffer(@RequestBody OfferDto offer) throws ProductNotFoundException {
+		return convertOfferToOfferDto(offerService.modifyOffer(convertOfferDtoToOffer(offer)));
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteOffer(@PathVariable int id) throws OfferNotFoundException {
+	public void deleteOffer(@PathVariable("id") int id) throws OfferNotFoundException {
 		offerService.deleteOffer(id);
 	}
 	
 	@PostMapping
-	public OfferDto addOffer(@RequestBody Offer offer) throws OfferAlreadyExistsException {
-		return convertOfferToOfferDto(offerService.addOffer(offer));
+	public OfferDto addOffer(@RequestBody OfferDto offer) throws OfferAlreadyExistsException, ProductNotFoundException {
+		return convertOfferToOfferDto(offerService.addOffer(convertOfferDtoToOffer(offer)));
 	}
 	
-	public Offer convertOfferDtoToOffer(OfferDto offerDto) {
-		Offer offer=new Offer(offerDto.getOfferId(), offerDto.getOfferDate(), offerDto.getDiscountRate(), offerDto.getOfferName(), convertProductDtoToProduct(offerDto.getProduct()));
+	public Offer convertOfferDtoToOffer(OfferDto offerDto) throws ProductNotFoundException {
+		Product product = productService.getProductById(offerDto.getProductCode());
+		Offer offer=new Offer(offerDto.getOfferId(), offerDto.getOfferDate(), offerDto.getDiscountRate(), offerDto.getOfferName(), product);
 		return offer;
 	}
 	
@@ -90,9 +97,7 @@ public class OfferController {
 	}
 	
 	public OfferDto convertOfferToOfferDto(Offer offer) {
-		OfferDto offerDto=new OfferDto(offer.getOfferId(), offer.getOfferDate(), offer.getDiscountRate(), offer.getOfferName(), null);
-		ProductDto productDto=convertProductToProductDto(offer.getProduct());
-		offerDto.setProduct(productDto);
+		OfferDto offerDto=new OfferDto(offer.getOfferId(), offer.getOfferDate(), offer.getDiscountRate(), offer.getOfferName(), offer.getProduct().getProductCode(), offer.getProduct().getProductName());
 		return offerDto;
 	}
 	public List<OfferDto> convertOffersToOfferDtos(List<Offer> offers) {

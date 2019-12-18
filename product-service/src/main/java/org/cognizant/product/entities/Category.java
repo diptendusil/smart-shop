@@ -19,7 +19,7 @@ public class Category {
 	private int categoryId;
 	@Column(name="ca_name")
 	private String categoryName;
-	@OneToMany(mappedBy="category",cascade= {CascadeType.REFRESH,CascadeType.REMOVE,CascadeType.MERGE,CascadeType.PERSIST}, fetch=FetchType.EAGER)
+	@OneToMany(mappedBy="category",cascade= CascadeType.REFRESH, fetch=FetchType.EAGER)
 	private List<Product> productList;
 	public Category() {
 		super();

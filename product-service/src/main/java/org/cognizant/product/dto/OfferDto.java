@@ -8,17 +8,19 @@ public class OfferDto {
 	private Date offerDate;
 	private double discountRate;
 	private String offerName;
-	private ProductDto product;
+	private String productCode;
+	private String productName;
 	public OfferDto() {
 		super();
 	}
-	public OfferDto(int offerId, Date offerDate, double discountRate, String offerName, ProductDto product) {
+	public OfferDto(int offerId, Date offerDate, double discountRate, String offerName, String productCode, String productName) {
 		super();
 		this.offerId = offerId;
 		this.offerDate = offerDate;
 		this.discountRate = discountRate;
 		this.offerName = offerName;
-		this.product = product;
+		this.productCode = productCode;
+		this.productName = productName;
 	}
 	public int getOfferId() {
 		return offerId;
@@ -44,12 +46,19 @@ public class OfferDto {
 	public void setOfferName(String offerName) {
 		this.offerName = offerName;
 	}
-	public ProductDto getProduct() {
-		return product;
+	public String getProductCode() {
+		return productCode;
 	}
-	public void setProduct(ProductDto product) {
-		this.product = product;
+	public void setProductCode(String productCode) {
+		this.productCode = productCode;
 	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+
 	
 	
 }
