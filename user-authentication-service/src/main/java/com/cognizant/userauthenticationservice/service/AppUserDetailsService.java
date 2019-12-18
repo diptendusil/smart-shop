@@ -175,4 +175,11 @@ public class AppUserDetailsService implements UserDetailsService {
 	{
 		userRepository.deleteById(userId);
 	}
+	@Transactional
+	public List<User> modifyStatus(String id)
+	{
+		userRepository.modifystatus(id);
+		
+		return getApprovedManagers();
+	}
 }
