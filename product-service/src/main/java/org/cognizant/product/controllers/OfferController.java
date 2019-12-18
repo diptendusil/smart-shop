@@ -31,7 +31,10 @@ public class OfferController {
 	public List<OfferDto> getAllOffers(){
 		return convertOffersToOfferDtos(offerService.getAllOffers());
 	}
-	
+	@GetMapping("/all")
+	public List<OfferDto> getAllOffersAdmin() {
+		return convertOffersToOfferDtos(offerService.getAllOffersAdmin());
+	}
 	@GetMapping("/{code}")
 	public OfferDto getOfferByProduct(@PathVariable String code) {
 		return convertOfferToOfferDto(offerService.getOfferByProduct(code));

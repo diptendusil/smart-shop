@@ -1,1 +1,101 @@
-<p>manage-offers works!</p>
+<div class="row">
+    <div class="col d-flex justify-content-between">
+        <div class="font-size-24">
+            Offers
+        </div>
+        <button data-target="#addOffer" class="btn btn-link" data-toggle="collapse" title="Add Offer"><i class="material-icons">add_box</i></button>
+    </div>
+</div>
+<div class="row collapse mt-2" id="addOffer">
+    <div class="col-12">
+        <form>
+            <div class="form-row">
+                <div class="col-12 col-md-4 col-lg-3">
+                    <input type="text" placeholder="Offer Name" class="form-control" />
+                </div>
+                <div class="col-12 col-md-4 col-lg-3">
+                    <input type="date" placeholder="Offer Date" class="form-control" [min]="today" />
+                </div>
+                <div class="col-12 col-md-4 col-lg-3">
+                    <input type="text" placeholder="Product Name" class="form-control" />
+                </div>
+                <div class="col-12 col-md-4 col-lg-3">
+                    <input type="number" placeholder="Discounted Rate" class="form-control" />
+                </div>
+            </div>
+            <div class="form-row mt-1">
+                <div class="col-12 d-flex justify-content-end">
+                    <button class="btn btn-primary">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row mt-3">
+    <div class="col-6">
+        <span class="mr-2">Filter By</span>
+        <div class="row">
+            <div class="col-6">
+                <select name="filterBy" id="filterBy" class="form-control" [formControl]="filterBy">
+                    <option value="">All</option>
+                    <option value="date">Offer Date</option>
+                    <option value="code">Product Code</option>
+                    <option value="Product">Product Name</option>
+                    <option value="discount">Discount Rate</option>
+                </select>
+            </div>
+            <div class="col-6">
+                <input [type]="filterBy.value==='date'? 'date': filterBy.value==='discount'?'number': 'text'"
+                    [placeholder]="filterBy.value != 'date'?'Enter value':null" *ngIf="filterBy.value"
+                    class="form-control" name="filter" id="filter">
+            </div>
+        </div>
+
+    </div>
+    <div class="col-6">
+        <span class="mr-2">Sort By</span>
+        <div class="row">
+            <div class="col-6">
+                <select name="filter" id="filter" class="form-control">
+                    <option value="">All</option>
+                    <option value="date">Offer Date</option>
+                    <option value="name">Product Name</option>
+                    <option value="rate">Discount Rate</option>
+                </select>
+            </div>
+            <div class="col-6">
+                <input type="radio" name="sort" id="asc" class="mr-1"> <label for="asc">Ascending</label>
+                <input type="radio" name="sort" id="dsc" class="ml-2 mr-1"> <label for="dsc">Descending</label>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row mt-3 justify-content-center">
+    <div class="col-12 offer-body">
+        <table class="table text-center">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Offer Date</th>
+                    <th scope="col">Product Code</th>
+                    <th scope="col">Product Name</th>
+                    <th scope="col">Discounted Rate</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let offer of allOffers">
+                    <td>{{offer.offerId}}</td>
+                    <td>{{offer.offerDate |  date: 'dd/MM/yyyy'}} </td>
+                    <td>{{offer.product.productCode}} </td>
+                    <td>{{offer.product.productName}}</td>
+                    <td>{{offer.discountRate}}</td>
+                    <td>
+                        <button class="btn btn-link"> <i class="material-icons">edit</i> </button>
+                        <button class="btn btn-link"> <i class="material-icons">delete_forever</i> </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

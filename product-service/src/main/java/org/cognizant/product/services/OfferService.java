@@ -23,7 +23,10 @@ public class OfferService {
 	public List<Offer> getAllOffers() {
 		return offerRepository.findByDate();
 	}
-
+	@Transactional
+	public List<Offer> getAllOffersAdmin() {
+		return offerRepository.findAll();
+	}
 	@Transactional
 	public Offer getOfferByProduct(String code) {
 		return offerRepository.findByProduct(productRepository.findById(code).get());
