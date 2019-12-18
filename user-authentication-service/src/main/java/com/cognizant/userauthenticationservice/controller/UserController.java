@@ -106,6 +106,10 @@ public class UserController {
 		appUserDetailsService.deleteAdmin(userId);
 		return appUserDetailsService.getApprovedAdmin();
 	}
-	
+	  @PutMapping("/managers/{id}")
+	 public List<User> modifyStatus(@PathVariable String id)
+	 {
+		 return appUserDetailsService.modifyStatus(id);
+	 }
 	
 }

@@ -115,7 +115,15 @@ export class ManageOffersComponent implements OnInit {
       };
       this.offerService.addOffer(newOffer).subscribe(offer => {
         this.allOffers.push(offer);
+        console.log(this.filteredOffers);
+        
       })
     }
+  }
+  deleteOffer(offerToDelete: Offer) {
+    this.offerService.deleteOffer(offerToDelete).subscribe(() => {
+      const index = this.allOffers.findIndex(offer => offer.offerId === offerToDelete.offerId);
+      this.allOffers.splice(index,1);
+    });
   }
 }

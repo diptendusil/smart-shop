@@ -48,6 +48,9 @@ export class UserService {
   deleteAdmin(userId:string):Observable<any>{
       return this.httpClient.delete(`${this.baseUrl}/admin/${userId}`);
   }
+  approveManger( userId:string):Observable<any>{
+    return this.httpClient.put(`${this.baseUrl}/managers/${userId}`, null);
+  }
 
 
   updateUser(user:User):Observable<User> {

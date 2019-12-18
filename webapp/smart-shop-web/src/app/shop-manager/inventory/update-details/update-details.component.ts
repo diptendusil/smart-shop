@@ -10,26 +10,29 @@ import { FormControl } from '@angular/forms';
 })
 export class UpdateDetailsComponent implements OnInit {
 
-  constructor( private productService:ProductService) { }
+  constructor(private productService: ProductService) { }
 
-   product:Product[];
-   temProduct:Product[];
-   temp:Category[];
-   original:Category[];
+  allProduct: Product[];
+  filteredProduct: Product[];
+  temp: Category[];
+  original: Category[];
 
 
- status:FormControl;
+  categoryControl: FormControl = new FormControl('');
   ngOnInit() {
-    this.status = new FormControl('');
-    this.productService.getAllCategories().subscribe((category: Category[])=> {this.original=category; this.temp= this.original; });
-    
-    
-  }
-  find( f:string)
-  {
-   
-    
+    this.productService.getAllCategories().subscribe((category: Category[]) => { this.original = category; this.temp = this.original; });
+    this.productService.getAllProducts().subscribe((products: Product[]) => { this.allProduct = products; this.filteredProduct = this.allProduct; })
+    this.categoryControl.valueChanges.subscribe((value) => {
+      this.filterByCategory(value);
+    })
 
+  }
+  filterByCategory(category: string) {
+    if(category) {
+      this.filteredProduct = this.allProduct.filter((product: Product) => product.category.categoryId === +category);
+    } else {
+      this.filteredProduct = this.allProduct;
+    }
   }
 
 }

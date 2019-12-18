@@ -1,5 +1,6 @@
 package org.cognizant.product.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +33,7 @@ public class OfferService {
 	}
 	@Transactional
 	public Offer getOfferByProduct(String code) {
-		return offerRepository.findByProduct(productRepository.findById(code).get());
+		return offerRepository.findByProductAndOfferDate(productRepository.findById(code).get(), new Date());
 	}
 	
 	@Transactional

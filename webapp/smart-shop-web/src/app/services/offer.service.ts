@@ -29,4 +29,7 @@ export class OfferService {
   modifyOffer(offer: Offer): Observable<Offer> {
     return this.httpClient.put<Offer>(`${this._baseUrl}`, offer);
   }
+  deleteOffer(offer: Offer) {
+    return this.httpClient.delete(`${this._baseUrl}/${offer.offerId}`);
+  }
 }

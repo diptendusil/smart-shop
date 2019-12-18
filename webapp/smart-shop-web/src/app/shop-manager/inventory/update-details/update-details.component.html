@@ -1,26 +1,56 @@
 <div class="row mb-4">
     <div class="col-12">
-            <h3 class="text-mutted">Finds product's by Category</h3>
+        <h3 class="text-mutted">Finds product's by Category</h3>
     </div>
 </div>
-    
-    <div class="row">
-            <div class="col-6 " >
-                    <select class="form-control" [formControl]="status">
-                        <option *ngFor="let cat of original" [ngValue]="cat.categoryId">{{cat.categoryName}}</option>
-                    </select>
-                
-            
-                </div>
-                <div class="col-6">
-                        <button class="btn btn-primary"(click)="find(this.status.value)"> Find </button>
 
-                </div>
+<div class="row">
+    <div class="col-6 ">
+        <select class="form-control" [formControl]="categoryControl">
+            <option value="">All</option>
+            <option *ngFor="let cat of original" [ngValue]="cat.categoryId">{{cat.categoryName}}</option>
+        </select>
 
-
-                .
 
     </div>
-   
-    
+</div>
+<div class="row" *ngIf="filteredProduct">
+    <div class="col-3" *ngFor="let product of filteredProduct" >
+        <div class="card product-card mx-auto"
+            [routerLink]="['/product-list/details', product.productCode]" routerLinkActive="router-link-active">
+            <img class="card-img-top mx-auto" src="https://i.ebayimg.com/images/g/U9wAAOSwZGJccVrc/s-l300.png">
 
+            <div class="card-body text-center">
+
+                <span>
+                    <div class="card-title text-muted">{{product.productName}} </div>
+                </span>
+
+                <div class="row">
+                    <div class="col-12">
+                        <span class="font-weight-500">₹{{product.rate}}</span>
+                        <span class="text-muted">&nbsp;<s>₹{{product.rate}}</s></span>&nbsp;&nbsp;<span
+                            class="text-success font-weight-500">10%
+                            off</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <span class="text-muted"><b>Aisle :</b></span>
+                        <span class="text-info"> {{product.aisle}}</span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="text-muted"><b>Shelf :</b></span>
+                        <span class="text-info "> {{product.shelf}}</span>
+
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div>
