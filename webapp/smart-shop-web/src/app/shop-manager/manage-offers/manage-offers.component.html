@@ -3,29 +3,47 @@
         <div class="font-size-24">
             Offers
         </div>
-        <button data-target="#addOffer" class="btn btn-link" data-toggle="collapse" title="Add Offer"><i class="material-icons">add_box</i></button>
+        <button data-target="#addOffer" class="btn btn-link" data-toggle="collapse" title="Add Offer"><i
+                class="material-icons">add_box</i></button>
     </div>
 </div>
 <div class="row collapse mt-2" id="addOffer">
     <div class="col-12">
-        <form>
+        <form *ngIf="allProducts" [formGroup]="addForm" (ngSubmit)="addOffer()">
             <div class="form-row">
                 <div class="col-12 col-md-4 col-lg-3">
-                    <input type="text" placeholder="Offer Name" class="form-control" />
+                    <input type="text" placeholder="Offer Name" class="form-control" formControlName="offerName" />
+                    <div class="validation-error" *ngIf="offerName.touched && offerName.hasError('required')">
+                        Offer Name is required
+                    </div>
                 </div>
                 <div class="col-12 col-md-4 col-lg-3">
-                    <input type="date" placeholder="Offer Date" class="form-control" [min]="today" />
+                    <input formControlName="offerDate" type="date" placeholder="Offer Date" class="form-control"
+                        [min]="today" />
+                    <div class="validation-error" *ngIf="offerDate.touched && offerDate.hasError('required')">
+                        Offer Date is required
+                    </div>
                 </div>
                 <div class="col-12 col-md-4 col-lg-3">
-                    <input type="text" placeholder="Product Name" class="form-control" />
+                    <input formControlName="productCode" type="text" placeholder="Product Code" class="form-control" />
+                    <div class="validation-error" *ngIf="productCode.touched && productCode.hasError('required')">
+                        Product Code is required
+                    </div>
+                    <div class="validation-error" *ngIf="productCode.dirty && productCode.hasError('noMatch')">
+                        Product Code not Found
+                    </div>
                 </div>
                 <div class="col-12 col-md-4 col-lg-3">
-                    <input type="number" placeholder="Discounted Rate" class="form-control" />
+                    <input formControlName="discountRate" type="number" placeholder="Discounted Rate"
+                        class="form-control" />
+                    <div class="validation-error" *ngIf="discountRate.touched && discountRate.hasError('required')">
+                        Discount Rate is required
+                    </div>
                 </div>
             </div>
             <div class="form-row mt-1">
                 <div class="col-12 d-flex justify-content-end">
-                    <button class="btn btn-primary">Add</button>
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </div>
         </form>
@@ -33,19 +51,21 @@
 </div>
 <div class="row mt-3">
     <div class="col-6">
-        <span class="mr-2">Filter By</span>
+        <span class="mr-2">Filter</span>
         <div class="row">
             <div class="col-6">
                 <select name="filterBy" id="filterBy" class="form-control" [formControl]="filterBy">
                     <option value="">All</option>
-                    <option value="date">Offer Date</option>
-                    <option value="code">Product Code</option>
-                    <option value="Product">Product Name</option>
-                    <option value="discount">Discount Rate</option>
+                    <option value="offerName">Offer Name</option>
+                    <option value="offerDate">Offer Date</option>
+                    <option value="productCode">Product Code</option>
+                    <option value="productName">Product Name</option>
+                    <option value="discountRate">Discount Rate</option>
                 </select>
             </div>
             <div class="col-6">
-                <input [type]="filterBy.value==='date'? 'date': filterBy.value==='discount'?'number': 'text'"
+                <input (keydown)="checkDate()" [formControl]="filterValue"
+                    [type]="filterBy.value==='offerDate'? 'date': filterBy.value==='discount'?'number': 'text'"
                     [placeholder]="filterBy.value != 'date'?'Enter value':null" *ngIf="filterBy.value"
                     class="form-control" name="filter" id="filter">
             </div>
@@ -56,16 +76,19 @@
         <span class="mr-2">Sort By</span>
         <div class="row">
             <div class="col-6">
-                <select name="filter" id="filter" class="form-control">
-                    <option value="">All</option>
-                    <option value="date">Offer Date</option>
-                    <option value="name">Product Name</option>
-                    <option value="rate">Discount Rate</option>
+                <select name="filter" id="filter" class="form-control" [formControl]="sortBy">
+                    <option value="offerId">#</option>
+                    <option value="offerDate">Offer Date</option>
+                    <option value="offerName">Offer Name</option>
+                    <option value="product">Product Name</option>
+                    <option value="discountRate">Discount Rate</option>
                 </select>
             </div>
             <div class="col-6">
-                <input type="radio" name="sort" id="asc" class="mr-1"> <label for="asc">Ascending</label>
-                <input type="radio" name="sort" id="dsc" class="ml-2 mr-1"> <label for="dsc">Descending</label>
+                <input type="radio" name="sort" id="asc" class="mr-1" value="asc" [formControl]="sortOrder"> <label
+                    for="asc">Ascending</label>
+                <input type="radio" name="sort" id="dsc" class="ml-2 mr-1" [formControl]="sortOrder" value="dsc"> <label
+                    for="dsc">Descending</label>
             </div>
         </div>
     </div>
@@ -76,6 +99,7 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
+                    <th scope="col">Offer Name</th>
                     <th scope="col">Offer Date</th>
                     <th scope="col">Product Code</th>
                     <th scope="col">Product Name</th>
@@ -84,11 +108,12 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let offer of allOffers">
+                <tr *ngFor="let offer of filteredOffers">
                     <td>{{offer.offerId}}</td>
+                    <td>{{offer.offerName}}</td>
                     <td>{{offer.offerDate |  date: 'dd/MM/yyyy'}} </td>
-                    <td>{{offer.product.productCode}} </td>
-                    <td>{{offer.product.productName}}</td>
+                    <td>{{offer.productCode}} </td>
+                    <td>{{offer.productName}}</td>
                     <td>{{offer.discountRate}}</td>
                     <td>
                         <button class="btn btn-link"> <i class="material-icons">edit</i> </button>
