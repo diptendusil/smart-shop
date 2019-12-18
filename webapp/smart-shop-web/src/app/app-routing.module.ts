@@ -160,6 +160,14 @@ const routes: Routes = [
   path:'product/add',
   component:AddItemComponent
 
+},
+{
+  path: 'super-user/admin-sign-up',
+  component: SignUpComponent,
+  canActivate: [AuthGuardService],
+  data:{
+    role:RoleName.ROLE_SUPER_USER
+  }
 }
   
 ];

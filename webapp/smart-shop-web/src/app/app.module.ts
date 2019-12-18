@@ -33,6 +33,7 @@ import { PurchaseHistoryComponent } from './user/purchase-history/purchase-histo
 import { PurchaseItemComponent } from './user/purchase-history/purchase-item/purchase-item.component';
 import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
 
+import { UpdateDetailsComponent } from './shop-manager/inventory/update-details/update-details.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.com
     NewBillComponent,
     PurchaseHistoryComponent,
     PurchaseItemComponent,
-    ManageOffersComponent
+    ManageOffersComponent,
+    UpdateDetailsComponent
   ],
   imports: [
     BrowserModule,

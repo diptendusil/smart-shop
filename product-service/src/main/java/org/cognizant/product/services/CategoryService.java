@@ -1,13 +1,14 @@
 package org.cognizant.product.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.cognizant.product.entities.Category;
-import org.cognizant.product.entities.Product;
+import org.cognizant.product.exceptions.CategoryAlreadyExistsException;
+import org.cognizant.product.exceptions.CategoryNotFoundException;
 import org.cognizant.product.repositories.CategoryRepository;
-import org.cognizant.product.repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +16,6 @@ import org.springframework.stereotype.Service;
 public class CategoryService {
 	@Autowired
 	private CategoryRepository categoryRepository;
-	@Autowired
-	private ProductRepository productRepository;
 	
 	@Transactional
 	public List<Category> getAllCategories(){
@@ -24,8 +23,16 @@ public class CategoryService {
 	}
 	
 	@Transactional
-	public Category getCategoryById(int id){
-		return categoryRepository.findById(id).get();
+	public Category getCategoryById(int id) throws CategoryNotFoundException{
+		Optional<Category> category=categoryRepository.findById(id);
+		if(category.isPresent())
+		{
+			return category.get();
+		}
+		else
+		{
+			throw new CategoryNotFoundException("Category with id : "+id+" is not present in datastore");
+		}
 	}
 
 	@Transactional
@@ -34,20 +41,27 @@ public class CategoryService {
 	}
 	
 	@Transactional
-	public void deleteCategory(int categoryId) {
-//		List<Product> productList=categoryRepository.findById(categoryId).get().getProductList();
-//		for(Product product:productList)
-//		{
-//			product.setCategory(null);
-//			productRepository.save(product);
-//		}
-		categoryRepository.deleteById(categoryId);
+	public void deleteCategory(int categoryId) throws CategoryNotFoundException{
+		if(categoryRepository.findById(categoryId).isPresent())
+		{
+			categoryRepository.deleteById(categoryId);
+		}
+		else
+		{
+			throw new CategoryNotFoundException("Category with id : "+categoryId+" is not present in datastore");
+		}
 	}
 	
 	@Transactional
-	public Category addCategory(Category category) {
-		Category newCategory=new Category();
-		newCategory.setCategoryName(category.getCategoryName());
-		return categoryRepository.save(newCategory);
+	public Category addCategory(Category category) throws CategoryAlreadyExistsException {
+		if(categoryRepository.findByCategoryName(category.getCategoryName())==null)
+		{
+			return categoryRepository.save(category);
+		}
+		else
+		{
+			throw new CategoryAlreadyExistsException("Category with name : "+category.getCategoryName()+" is already present");
+		}
+		
 	}
 }

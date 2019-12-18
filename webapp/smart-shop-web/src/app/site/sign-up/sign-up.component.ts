@@ -128,6 +128,15 @@ export class SignUpComponent implements OnInit {
                 this.signUpError = true;
               });
             break;
+            case RoleName.ROLE_SUPER_USER:
+              this.userService.addAdmin(newUser).subscribe((res)=>
+              {
+                this.signUpSuccess=true;
+              },()=>
+              {
+                 this.signUpSuccess=false;
+              });
+              break;
           default:
             this.userService.addUser(newUser).pipe(
               switchMap(user => this.authService.login(user.userId, this.password.value))
