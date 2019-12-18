@@ -8,17 +8,25 @@ import { Offer } from '../product/product.model';
   providedIn: 'root'
 })
 export class OfferService {
-  private _baseUrl = environment.baseUrl;
+  private _baseUrl = `${environment.baseUrl}/product-service/offers`;
   constructor(private httpClient: HttpClient) { }
   getAllOffers(): Observable<Offer[]> {
-    return this.httpClient.get<Offer[]>(`${this._baseUrl}/product-service/offers`);
+    return this.httpClient.get<Offer[]>(`${this._baseUrl}`);
   }
-
+  getAllOffersAdmin(): Observable<Offer[]> {
+    return this.httpClient.get<Offer[]>(`${this._baseUrl}/all`);
+  }
   getOfferByProduct(productCode: string): Observable<Offer> {
-    return this.httpClient.get<Offer>(`${this._baseUrl}/product-service/offers/${productCode}`);
+    return this.httpClient.get<Offer>(`${this._baseUrl}/${productCode}`);
   }
 
   getOfferByProductToday(productCode: string): Observable<Offer> {
-    return this.httpClient.get<Offer>(`${this._baseUrl}/product-service/offers/today/${productCode}`);
+    return this.httpClient.get<Offer>(`${this._baseUrl}/today/${productCode}`);
+  }
+  addOffer(offer: Offer): Observable<Offer> {
+    return this.httpClient.post<Offer>(`${this._baseUrl}`, offer);
+  }
+  modifyOffer(offer: Offer): Observable<Offer> {
+    return this.httpClient.put<Offer>(`${this._baseUrl}`, offer);
   }
 }

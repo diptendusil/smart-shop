@@ -47,7 +47,7 @@ export class ItemEditComponent implements OnInit {
             quantityType: product.quantityType,
             proRate: product.rate,
             Stock: product.stockCount,
-            addDate: product.addDate,
+            addDate: product.addDate, 
             proAisle: product.aisle,
             proShelf: product.shelf,
             dom: product.dateOfManufacture.toISOString().slice(0, 10),

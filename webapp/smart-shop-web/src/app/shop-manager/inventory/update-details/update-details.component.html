@@ -1,0 +1,26 @@
+<div class="row mb-4">
+    <div class="col-12">
+            <h3 class="text-mutted">Finds product's by Category</h3>
+    </div>
+</div>
+    
+    <div class="row">
+            <div class="col-6 " >
+                    <select class="form-control" [formControl]="status">
+                        <option *ngFor="let cat of original" [ngValue]="cat.categoryId">{{cat.categoryName}}</option>
+                    </select>
+                
+            
+                </div>
+                <div class="col-6">
+                        <button class="btn btn-primary"(click)="find(this.status.value)"> Find </button>
+
+                </div>
+
+
+                .
+
+    </div>
+   
+    
+

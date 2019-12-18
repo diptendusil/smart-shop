@@ -42,6 +42,12 @@ export class UserService {
   addManager(user:User):Observable<User>{
     return this.httpClient.post<User>(`${this.baseUrl}/managers`, user)
   }
+  addAdmin(user:User):Observable<User>{
+    return this.httpClient.post<User>(`${this.baseUrl}/admins`,user);
+  }
+  deleteAdmin(userId:string):Observable<any>{
+      return this.httpClient.delete(`${this.baseUrl}/admin/${userId}`);
+  }
 
 
   updateUser(user:User):Observable<User> {
@@ -56,6 +62,10 @@ export class UserService {
 
   getApprovedManagers(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/managers/approved`);
+  }
+  getApoorvedAdmin():Observable<any>
+  {
+    return this.httpClient.get(`${this.baseUrl}/admin/approved`)
   }
 
   deleteManager(userId: string): Observable<any> {

@@ -96,4 +96,16 @@ public class UserController {
 		appUserDetailsService.deleteManager(userId);
 		return appUserDetailsService.getApprovedManagers();
 	}
+	@GetMapping("/admin/approved")
+	public List<User> getApprovedAdmins()
+	{
+		return appUserDetailsService.getApprovedAdmin();
+	}
+	@DeleteMapping("/admin/{userId}")
+	public List<User> deleteAdmin(@PathVariable String userId) {
+		appUserDetailsService.deleteAdmin(userId);
+		return appUserDetailsService.getApprovedAdmin();
+	}
+	
+	
 }

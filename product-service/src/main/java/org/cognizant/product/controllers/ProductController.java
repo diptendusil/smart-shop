@@ -7,6 +7,8 @@ import org.cognizant.product.dto.CategoryDto;
 import org.cognizant.product.dto.ProductDto;
 import org.cognizant.product.entities.Category;
 import org.cognizant.product.entities.Product;
+import org.cognizant.product.exceptions.ProductAlreadyExistsException;
+import org.cognizant.product.exceptions.ProductNotFoundException;
 import org.cognizant.product.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,7 +36,7 @@ public class ProductController {
 		return convertProductsToProductDtos(productService.getAllInStockProducts());
 	}
 	@GetMapping("/{code}")
-	public ProductDto getProductById(@PathVariable String code){
+	public ProductDto getProductById(@PathVariable String code) throws ProductNotFoundException{
 		return convertProductToProductDto(productService.getProductById(code));
 	}
 	
@@ -49,12 +51,12 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteProduct(@PathVariable String id) {
+	public void deleteProduct(@PathVariable String id) throws ProductNotFoundException {
 		productService.deleteProduct(id);
 	}
 	
 	@PostMapping
-	public void addProduct(@RequestBody ProductDto productDto) {
+	public void addProduct(@RequestBody ProductDto productDto) throws ProductAlreadyExistsException {
 		productService.addProduct(convertProductDtoToProduct(productDto));
 	}
 	
