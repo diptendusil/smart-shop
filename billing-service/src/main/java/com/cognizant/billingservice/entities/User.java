@@ -162,6 +162,107 @@ public class User {
 				+ secretQuestion2 + ", secretAnswer2=" + secretAnswer2 + ", secretQuestion3=" + secretQuestion3
 				+ ", secretAnswer3=" + secretAnswer3 + ", role=" + role + "]";
 	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + age;
+		result = prime * result + (int) (contact ^ (contact >>> 32));
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((secretAnswer1 == null) ? 0 : secretAnswer1.hashCode());
+		result = prime * result + ((secretAnswer2 == null) ? 0 : secretAnswer2.hashCode());
+		result = prime * result + ((secretAnswer3 == null) ? 0 : secretAnswer3.hashCode());
+		result = prime * result + ((secretQuestion1 == null) ? 0 : secretQuestion1.hashCode());
+		result = prime * result + ((secretQuestion2 == null) ? 0 : secretQuestion2.hashCode());
+		result = prime * result + ((secretQuestion3 == null) ? 0 : secretQuestion3.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (age != other.age)
+			return false;
+		if (contact != other.contact)
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (gender == null) {
+			if (other.gender != null)
+				return false;
+		} else if (!gender.equals(other.gender))
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
+			return false;
+		if (secretAnswer1 == null) {
+			if (other.secretAnswer1 != null)
+				return false;
+		} else if (!secretAnswer1.equals(other.secretAnswer1))
+			return false;
+		if (secretAnswer2 == null) {
+			if (other.secretAnswer2 != null)
+				return false;
+		} else if (!secretAnswer2.equals(other.secretAnswer2))
+			return false;
+		if (secretAnswer3 == null) {
+			if (other.secretAnswer3 != null)
+				return false;
+		} else if (!secretAnswer3.equals(other.secretAnswer3))
+			return false;
+		if (secretQuestion1 == null) {
+			if (other.secretQuestion1 != null)
+				return false;
+		} else if (!secretQuestion1.equals(other.secretQuestion1))
+			return false;
+		if (secretQuestion2 == null) {
+			if (other.secretQuestion2 != null)
+				return false;
+		} else if (!secretQuestion2.equals(other.secretQuestion2))
+			return false;
+		if (secretQuestion3 == null) {
+			if (other.secretQuestion3 != null)
+				return false;
+		} else if (!secretQuestion3.equals(other.secretQuestion3))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
+			return false;
+		if (userId == null) {
+			if (other.userId != null)
+				return false;
+		} else if (!userId.equals(other.userId))
+			return false;
+		return true;
+	}
 	
 	
 }

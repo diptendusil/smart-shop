@@ -10,10 +10,12 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.cognizant.billingservice.entities.Bill;
+import com.cognizant.billingservice.entities.RewardPoint;
 import com.cognizant.billingservice.entities.User;
 import com.cognizant.billingservice.exception.BillNotFoundException;
 import com.cognizant.billingservice.repository.BillRepository;
 import com.cognizant.billingservice.repository.PurchaseItemRepository;
+import com.cognizant.billingservice.repository.RewardPointRepository;
 
 @Service
 public class BillService {
@@ -22,6 +24,10 @@ public class BillService {
 	
 	@Autowired
 	PurchaseItemRepository purchaseItemRepository;
+	
+	@Autowired
+	private RewardPointRepository rewardPointRepository;
+	
 	@Transactional
 	public List<Bill> getAllBills() {
 		return this.billRepository.findAll(Sort.by(Sort.Direction.DESC, "date"));
@@ -52,5 +58,24 @@ public class BillService {
 	@Transactional
 	public void deleteBill(Integer id) {
 		this.billRepository.deleteById(id);
+	}
+	
+	
+	@Transactional
+	public RewardPoint getPointsByUserId(String id) {
+		return this.rewardPointRepository.findByUserUserId(id).orElse(null);
+	}
+	
+	
+	@Transactional
+	public RewardPoint addPoints(User user, int points) {
+		RewardPoint point = this.rewardPointRepository.findByUser(user).orElse(null);
+		if(point == null) {
+			point = new RewardPoint(user, points);
+		}
+		else {
+			point.setPoint(point.getPoint() + points);
+		}
+		return this.rewardPointRepository.save(point);
 	}
 }

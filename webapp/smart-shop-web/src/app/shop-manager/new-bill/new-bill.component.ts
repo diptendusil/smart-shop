@@ -9,6 +9,7 @@ import { switchMap } from 'rxjs/operators';
 import { DatePipe } from '@angular/common';
 import { PurchaseItem, Bill } from 'src/app/bill.model';
 import { BillingService } from 'src/app/services/billing.service';
+import { RewardPoint } from 'src/app/reward-point.model';
 
 @Component({
   selector: 'app-new-bill',
@@ -20,6 +21,10 @@ export class NewBillComponent implements OnInit {
   filterProducts: Product[];
   formSubmitted: boolean = false;
   billedUser: User;
+  userRewardPoints: RewardPoint;
+
+  redeemed: boolean = false;
+
   wrongUsername: boolean = false;
   bill: Bill;
   items: PurchaseItem[] = [];
@@ -50,6 +55,8 @@ export class NewBillComponent implements OnInit {
     billDate: ['', {
       validators: [Validators.required]
     }],
+    reward: ['', {
+    }],
     total: ['', {
       validators: [Validators.required, Validators.min(0)]
     }],
@@ -68,21 +75,42 @@ export class NewBillComponent implements OnInit {
   }
   loadNewForm() {
     this.formSubmitted = false;
+    this.items = [];
+    this.billDate.setValue(this.datePipe.transform(new Date(), 'yyyy-MM-dd'));
   }
   loadName() {
     if (this.username.value.length > 0) {
-      this.userService.getUser(this.username.value).subscribe((user: User) => {
-        this.billedUser = user;
-        this.name.setValue(user.firstName + ' ' + user.lastName);
-        this.wrongUsername = false;
+      this.userService.getUser(this.username.value).pipe(
+        switchMap((user: User) => {
+          if (this.redeemed === true) {
+            this.total.setValue(this.total.value + (this.userRewardPoints.point - this.reward.value));
+          }
+          this.redeemed = false;
+
+          this.billedUser = user;
+          this.name.setValue(user.firstName + ' ' + user.lastName);
+          this.wrongUsername = false;
+          return this.billingService.getRewardPoints(user.userId);
+        })
+      ).subscribe((reward: RewardPoint) => {
+        if (reward !== null) {
+          this.userRewardPoints = reward;
+        }
+        else {
+          this.userRewardPoints = { user: this.billedUser, point: 0 }
+        }
+        this.reward.setValue(this.userRewardPoints.point);
       }, () => {
         this.name.setValue('');
+        this.reward.setValue('');
         this.wrongUsername = true;
         this.username.setErrors(() => {
           return { "error": "Wrong username" };
         });
       })
+
     }
+
   }
   loadProduct(pid) {
     if (pid !== null && pid.length > 0) {
@@ -160,6 +188,15 @@ export class NewBillComponent implements OnInit {
     this.items.forEach((purchaseItem: PurchaseItem) => {
       total += purchaseItem.price * purchaseItem.quantity;
     })
+
+    if(this.redeemed) {
+      total -= (this.userRewardPoints.point - this.reward.value);
+    }
+    if(total < 0) {
+      this.reward.setValue(this.reward.value + Math.abs(total));
+      total = 0;
+    }
+
     points = Math.floor(total / 100);
 
     this.total.setValue(total);
@@ -206,6 +243,33 @@ export class NewBillComponent implements OnInit {
     }
   }
 
+  redeem() {
+    if(!this.redeemed) {
+      let total: number = +this.total.value;
+      let reward: number = +this.reward.value;
+      if(reward > 0) {
+        if (total >= reward) {
+          total -= reward;
+          reward = 0;
+          this.total.setValue(total);
+          this.reward.setValue(reward);
+        }
+        else {
+          reward -= total;
+          total = 0;
+          this.total.setValue(total);
+          this.reward.setValue(reward);
+        }
+        this.redeemed = true;
+      }
+    }
+    else {
+      this.total.setValue(this.total.value + this.userRewardPoints.point - (+this.reward.value) );
+      this.reward.setValue(this.userRewardPoints.point);
+      this.redeemed = false;
+    }
+  }
+
   submit() {
     console.log(this.billForm);
     console.log(this.purchase);
@@ -219,12 +283,19 @@ export class NewBillComponent implements OnInit {
       rewardPoints: this.points.value
     }
     console.log(this.bill);
-    this.billingService.addBill(this.bill).subscribe((bill: Bill) => {
-      console.log(bill);
-      this.formSubmitted = true;
+
+    this.billingService.addBill(this.bill).pipe(
+      switchMap((bill: Bill) => {
+        console.log(bill);
+        this.formSubmitted = true;
+        return this.billingService.addRewardPoints(this.billedUser, (this.points.value - (this.userRewardPoints.point - this.reward.value)));
+      })
+    ).subscribe((rewardPoint: RewardPoint) => {
       this.billForm.reset();
       this.purchase.reset();
       //this.items = [];
+    }, () => {
+      console.log("Error submitting bill");
     })
 
     this.items.forEach((item: PurchaseItem) => {
@@ -236,6 +307,8 @@ export class NewBillComponent implements OnInit {
         console.log(`${product.productCode} - Update error`);
       })
     })
+
+    this.redeemed = false;
 
   }
 
@@ -257,6 +330,10 @@ export class NewBillComponent implements OnInit {
 
   get billDate() {
     return this.billForm.get('billDate');
+  }
+
+  get reward() {
+    return this.billForm.get('reward');
   }
   // purchase item form group
   get pid() {

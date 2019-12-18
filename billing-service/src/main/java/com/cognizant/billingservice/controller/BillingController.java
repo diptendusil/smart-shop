@@ -23,6 +23,7 @@ import com.cognizant.billingservice.entities.Bill;
 import com.cognizant.billingservice.entities.Category;
 import com.cognizant.billingservice.entities.Product;
 import com.cognizant.billingservice.entities.PurchaseItem;
+import com.cognizant.billingservice.entities.RewardPoint;
 import com.cognizant.billingservice.entities.User;
 import com.cognizant.billingservice.exception.BillNotFoundException;
 import com.cognizant.billingservice.service.BillService;
@@ -79,6 +80,25 @@ public class BillingController {
 		this.billService.deleteBill(id);
 	}
 
+	
+	@GetMapping("/points/{userId}")
+	public RewardPoint getPointsByUserId(@PathVariable String userId) {
+		return this.billService.getPointsByUserId(userId);
+	}
+	
+	@PostMapping("/points/{points}")
+	public RewardPoint addRewardPoints(@RequestBody User user, @PathVariable Integer points) {
+		return this.billService.addPoints(user, points);
+	}
+	
+	
+	
+	
+	
+	
+	
+	//DTO methods
+	
 	public Product convertProductDtoToProduct(ProductDTO productDto) {
 		Category category = new Category(productDto.getCategory().getCategoryId(),
 				productDto.getCategory().getCategoryName());
