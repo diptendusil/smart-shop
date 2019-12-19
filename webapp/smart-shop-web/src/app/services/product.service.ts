@@ -25,6 +25,11 @@ export class ProductService {
   getProductById(productCode: string): Observable<Product> {
     return this.http.get<Product>(`${this._baseUrl}/products/${productCode}`);
   }
+
+  getSuggestions(userId:string) {
+    return this.http.get<Product[]>(`${this._baseUrl}/products/suggestion/${userId}`);
+  }
+
   addProduct(product:Product)
   {
     return this.http.post<void>(`${this._baseUrl}/products`,product);
