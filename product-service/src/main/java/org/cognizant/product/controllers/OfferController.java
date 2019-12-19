@@ -62,7 +62,7 @@ public class OfferController {
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deleteOffer(@PathVariable int id) throws OfferNotFoundException {
+	public void deleteOffer(@PathVariable("id") int id) throws OfferNotFoundException {
 		offerService.deleteOffer(id);
 	}
 	

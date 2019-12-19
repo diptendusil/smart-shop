@@ -16,11 +16,12 @@ export class SuperAdminDashboardComponent implements OnInit {
   adminTemp:User[]=[];
   managers: User[] = [];
   managersTmp: User[] = [];
-
+  succ:boolean=false;
   success: boolean = false;
   successAdmin:boolean=false;
-  failuerAdmin:boolean=false;
+  failureAdmin:boolean=false;
   failure: boolean = false;
+  fail:boolean=false;
 
   empty: boolean = false;
   emptyAdmin:boolean=false;
@@ -142,6 +143,21 @@ export class SuperAdminDashboardComponent implements OnInit {
       this.success = false;
     })
   }
+  approveManager(userId:string)
+  {
+    this.userService.approveManger(userId).subscribe((manager:User[])=>
+    {
+      this.succ = true;
+      this.fail = false;
+      this.managers = [...manager];
+      this.managersTmp = [...manager];
+    }, () => {
+      this.fail = true;
+      this.succ = false;
+    }
+    
+
+    )}
   }
 
 

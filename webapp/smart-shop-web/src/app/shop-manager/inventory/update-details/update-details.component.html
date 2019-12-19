@@ -1,26 +1,121 @@
-<div class="row mb-4">
-    <div class="col-12">
-            <h3 class="text-mutted">Finds product's by Category</h3>
+<div class="container-fluid mt-2 mb-5">
+    <div class="row">
+        <span class="ml-3 mb-2">
+            <h4>Find Products by Category</h4>
+        </span>
+    </div>
+    <div class="row">
+        <div class="col-6 ">
+            <select class="form-control" [formControl]="categoryControl">
+                <option value="">All</option>
+                <option *ngFor="let cat of original" [ngValue]="cat.categoryId">{{cat.categoryName}}</option>
+            </select>
+        </div>
+    </div>
+    <div id="accordion" *ngIf="filteredProduct">
+        <ul class="list-group">
+            <li *ngFor="let product of filteredProduct; let i=index" class="list-group-item list-group-item-action">
+                <span class="btn font-weight-500 custom">{{product.productName}}</span>
+                <span class="float-right ml-auto mr-2">
+                    <button class="btn btn-link float-right" data-toggle="collapse"
+                        [attr.data-target]="'#product'+product.productCode">
+                        <i class="material-icons">edit</i>
+                    </button>
+                </span>
+                <div [id]="'product'+product.productCode" class="collapse row mt-1" data-parent="#accordion">
+                    <div class="card-body">
+                        <div class="form-group ml-2">
+                            <label for="Aisle">Aisle</label>
+                            <input class="form-control" type="text" name="categoryName"
+                                [formControl]="categoryControls[i]">
+                            <span class="validation-error"
+                                *ngIf="categoryControls[i].touched && categoryControls[i].hasError('required')">
+                                *Aisle number required</span>
+                            <div class="validation-error"
+                                *ngIf="categoryControls[i].touched && categoryControls[i].hasError('maxlength')">
+                                **Aisle number cannot exceed 20
+                            </div>
+                        </div>
+                        <div class="form-group ml-2">
+                            <label for="Shelf">Shelf</label>
+                            <input class="form-control" type="text" name="categoryName"
+                                [formControl]="categoryControls[i]">
+                            <span class="validation-error"
+                                *ngIf="categoryControls[i].touched && categoryControls[i].hasError('required')">
+                                *Shelf number required</span>
+                            <div class="validation-error"
+                                *ngIf="categoryControls[i].touched && categoryControls[i].hasError('maxlength')">
+                                **Shelf number cannot exceed 20
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6 col-md-6 col-lg-6 ml-2">
+                                <button type="submit" class="btn btn-primary" [disabled]="categoryControls[i].invalid"
+                                    (click)="onUpdate(product)">
+                                    Update
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
     </div>
 </div>
-    
-    <div class="row">
-            <div class="col-6 " >
-                    <select class="form-control" [formControl]="status">
-                        <option *ngFor="let cat of original" [ngValue]="cat.categoryId">{{cat.categoryName}}</option>
-                    </select>
-                
-            
-                </div>
-                <div class="col-6">
-                        <button class="btn btn-primary"(click)="find(this.status.value)"> Find </button>
+<!-- <div class="row mb-4">
+    <div class="col-12">
+        <h3 class="text-mutted">Finds product's by Category</h3>
+    </div>
+</div>
 
-                </div>
+<div class="row">
+    <div class="col-6 ">
+        <select class="form-control" [formControl]="categoryControl">
+            <option value="">All</option>
+            <option *ngFor="let cat of original" [ngValue]="cat.categoryId">{{cat.categoryName}}</option>
+        </select>
 
-
-                .
 
     </div>
-   
-    
+</div>
+<div class="row" *ngIf="filteredProduct">
+    <div class="col-3" *ngFor="let product of filteredProduct" >
+        <div class="card product-card mx-auto"
+            [routerLink]="['/product-list/details', product.productCode]" routerLinkActive="router-link-active">
+            <img class="card-img-top mx-auto" src="https://i.ebayimg.com/images/g/U9wAAOSwZGJccVrc/s-l300.png">
 
+            <div class="card-body text-center">
+
+                <span>
+                    <div class="card-title text-muted">{{product.productName}} </div>
+                </span>
+
+                <div class="row">
+                    <div class="col-12">
+                        <span class="font-weight-500">₹{{product.rate}}</span>
+                        <span class="text-muted">&nbsp;<s>₹{{product.rate}}</s></span>&nbsp;&nbsp;<span
+                            class="text-success font-weight-500">10%
+                            off</span>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <span class="text-muted"><b>Aisle :</b></span>
+                        <span class="text-info"> {{product.aisle}}</span>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <span class="text-muted"><b>Shelf :</b></span>
+                        <span class="text-info "> {{product.shelf}}</span>
+
+                    </div>
+                </div>
+               
+            </div>
+        </div>
+    </div>
+</div> -->
