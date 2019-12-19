@@ -15,6 +15,8 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   loginFailed = false;
+  unauthorized = false;
+  error = false;
 
 
   constructor(private authService: AuthService, private userService: UserService, private router: Router) { }
@@ -48,7 +50,18 @@ export class LoginComponent implements OnInit {
           this.authService.setToken(res.body['token'])
         },
         (res: HttpErrorResponse) => {
-          this.loginFailed = true
+          const statusCode = res.status;
+          console.log(statusCode);
+          if(statusCode === 401) {
+            this.loginFailed = true
+          }
+          else if(statusCode === 403) {
+            this.unauthorized = true;
+          }
+          else {
+            this.error = true;
+          }
+          
         },
         () => {
           this.userService.getUser(this.username.value).subscribe(user => {

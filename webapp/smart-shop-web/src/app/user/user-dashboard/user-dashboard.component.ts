@@ -22,7 +22,7 @@ export class UserDashboardComponent implements OnInit {
     this.productService.getAllProductsInStock().subscribe(products => this.allProducts = products.slice(0,5));
     this.productService.getSuggestions(this.authService.loggedInUser.value.userId).subscribe((suggestions) => {
       this.suggestions = suggestions;
-      console.log(suggestions);
+      //console.log(suggestions);
     });
   }
 

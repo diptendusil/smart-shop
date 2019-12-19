@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Category, Product, Offer } from '../product.model';
 import { ProductService } from 'src/app/services/product.service';
 import { OfferService } from 'src/app/services/offer.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-product-list',
@@ -14,11 +15,12 @@ export class ProductListComponent implements OnInit {
   displayString: string;
   productList: Product[];
   offerList: Offer[];
-  constructor(private router: Router, private productService: ProductService, private offerService: OfferService) {
+  constructor(private router: Router, private productService: ProductService, private offerService: OfferService, private authService: AuthService) {
     this.category = this.router.getCurrentNavigation().extras.state['category'];
     if(!this.category) {
       this.displayString = this.router.getCurrentNavigation().extras.state['display'];
       if(this.displayString === 'Recommendations') {
+        this.productService.getSuggestions(this.authService.loggedInUser.value.userId).subscribe(products => this.productList = products);
       } else if(this.displayString === 'Deals of the Day') {
         this.offerService.getAllOffers().subscribe(offers=> {
           this.offerList = offers
