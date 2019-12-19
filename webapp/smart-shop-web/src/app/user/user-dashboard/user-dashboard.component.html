@@ -30,6 +30,7 @@
                     <app-item-info class="product-item"></app-item-info>
                     <app-item-info class="product-item"></app-item-info>
                     <app-item-info class="product-item"></app-item-info> -->
+                    <app-item-info class="product-item" *ngFor="let suggestion of suggestions" [product]="suggestion"></app-item-info>
                     <div class="d-flex justify-content-center align-items-center" *ngIf="!suggestions || suggestions?.length===0" style="width: 100%;">
                         <div class="text-muted">No suggestions</div>
                     </div>

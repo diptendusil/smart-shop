@@ -23,6 +23,8 @@ export class ProductListComponent implements OnInit {
         this.offerService.getAllOffers().subscribe(offers=> {
           this.offerList = offers
         });
+
+        
       } else if(this.displayString === 'All Products') {
         this.productService.getAllProductsInStock().subscribe(products => this.productList = products);
       }
