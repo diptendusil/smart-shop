@@ -34,6 +34,8 @@ import { PurchaseItemComponent } from './user/purchase-history/purchase-item/pur
 import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
 
 import { UpdateDetailsComponent } from './shop-manager/inventory/update-details/update-details.component';
+import { ForgotPasswordComponent } from './site/forgot-password/forgot-password.component';
+import { ResetComponent } from './site/reset/reset.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { UpdateDetailsComponent } from './shop-manager/inventory/update-details/
     PurchaseHistoryComponent,
     PurchaseItemComponent,
     ManageOffersComponent,
-    UpdateDetailsComponent
+    UpdateDetailsComponent,
+    ForgotPasswordComponent,
+    ResetComponent
   ],
   imports: [
     BrowserModule,

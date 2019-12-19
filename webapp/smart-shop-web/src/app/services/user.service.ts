@@ -51,8 +51,18 @@ export class UserService {
   approveManger( userId:string):Observable<any>{
     return this.httpClient.put(`${this.baseUrl}/managers/${userId}`, null);
   }
-
-
+  resetPassword(userid:string ,password:any)
+  {
+    return this.httpClient.put(`${this.baseUrl}/reset/${userid}`,password);
+  }
+  getUserSecretQuestions(userId: string) {
+    return this.httpClient.get<any>(`${this.baseUrl}/secret-questions/${userId}`, {
+      observe: 'response'
+    });
+  }
+  verifyUserSecretAnswer(answers: any) {
+    return this.httpClient.post<boolean>(`${this.baseUrl}/secret-questions/verify`, answers);
+  }
   updateUser(user:User):Observable<User> {
     return this.httpClient.put<User>(`${this.baseUrl}/users`, user)
   }

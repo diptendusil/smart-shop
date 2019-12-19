@@ -41,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.DELETE, "/managers/**").hasAnyRole("ADMIN", "SUPER_USER")
 		.antMatchers(HttpMethod.PUT, "/managers/**").hasAnyRole("SUPER_USER")
 		.antMatchers("/admins").hasRole("SUPER_USER")
+		.antMatchers(HttpMethod.GET, "/secret-questions/**").permitAll()
 		.and()
 		.addFilter(new JwtAuthorizationFilter(authenticationManager()))
 		.logout().logoutUrl("/logout");
