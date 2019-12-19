@@ -129,9 +129,9 @@ public class ProductService {
 					suggestions[y] = tmp;
 				}
 				if(popularity.get(suggestions[y].getProductCode()) < popularity.get(suggestions[y + 1].getProductCode())) {
-					Product tmp = suggestions[y + 1];
+					Product tmp1 = suggestions[y + 1];
 					suggestions[y + 1] = suggestions[y];
-					suggestions[y] = tmp;
+					suggestions[y] = tmp1;
 				}
 			}
 		}
@@ -143,7 +143,7 @@ public class ProductService {
 			}
 		}
 		
-		System.out.println(categoryMap);
+		System.out.println(popularity);
 		for(int x = 0; x < freq.length; x++) {
 			System.out.println(freq[x]);
 		}
