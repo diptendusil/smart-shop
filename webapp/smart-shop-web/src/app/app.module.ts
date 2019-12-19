@@ -22,6 +22,7 @@ import { InventoryComponent } from './shop-manager/inventory/inventory.component
 import { ManageCategoriesComponent } from './shop-manager/inventory/manage-categories/manage-categories.component';
 import { ManageProductsComponent } from './shop-manager/inventory/manage-products/manage-products.component';
 import { SummaryComponent } from './shop-manager/inventory/summary/summary.component';
+import { UpdateDetailsComponent } from './shop-manager/inventory/update-details/update-details.component';
 import { ManageOffersComponent } from './shop-manager/manage-offers/manage-offers.component';
 import { NewBillComponent } from './shop-manager/new-bill/new-bill.component';
 import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
@@ -32,8 +33,9 @@ import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboar
 import { PurchaseHistoryComponent } from './user/purchase-history/purchase-history.component';
 import { PurchaseItemComponent } from './user/purchase-history/purchase-item/purchase-item.component';
 import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
+import { RelatedProductComponent } from './product/related-product/related-product.component';
 
-import { UpdateDetailsComponent } from './shop-manager/inventory/update-details/update-details.component';
+import { FeedbackComponent } from './user/feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -52,18 +54,20 @@ import { UpdateDetailsComponent } from './shop-manager/inventory/update-details/
     BillingComponent,
     InventoryComponent,
     SummaryComponent,
-    ManageProductsComponent, 
+    ManageProductsComponent,
     ManageCategoriesComponent,
-    SummaryComponent, 
-    ManageProductsComponent, 
-    ProductListComponent, 
-    ItemEditComponent, 
-    AddItemComponent, 
+    SummaryComponent,
+    ManageProductsComponent,
+    ProductListComponent,
+    ItemEditComponent,
+    AddItemComponent,
     NewBillComponent,
     PurchaseHistoryComponent,
     PurchaseItemComponent,
     ManageOffersComponent,
-    UpdateDetailsComponent
+    UpdateDetailsComponent,
+    RelatedProductComponent,
+    FeedbackComponent
   ],
   imports: [
     BrowserModule,
@@ -74,14 +78,14 @@ import { UpdateDetailsComponent } from './shop-manager/inventory/update-details/
 
   ],
   providers: [
-    UserService, 
-    ProductService, 
-    AuthGuardService, 
-    DatePipe, 
-    { 
-      provide: HTTP_INTERCEPTORS, 
-      useClass: HttpInterceptorService, 
-      multi: true 
+    UserService,
+    ProductService,
+    AuthGuardService,
+    DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
     }],
   bootstrap: [AppComponent]
 })

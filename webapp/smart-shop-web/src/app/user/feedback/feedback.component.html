@@ -1,0 +1,57 @@
+<div class="container-fluid">
+    
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Provide Feedback</h4>
+                </div>
+                <div class="card-body">
+            <form [formGroup]="feedbackForm" (click)="onSubmitFeedback()" *ngIf="feedback">
+                <div class="form-group">
+                    <label for="answer1">{{feedback.question1}}</label>
+                    <input type="text" class="form-control" id="answer1" formControlName="answer1" name="answer1">
+                </div>
+                <div class="form-group">
+                    <label for="answer2">{{feedback.question2}}</label>
+                    <input type="text" class="form-control" id="answer2" formControlName="answer2" name="answer2">
+                </div>
+                <div class="form-group">
+                    <label for="answer3">{{feedback.question3}}</label>
+                    <input type="text" class="form-control" id="answer3" formControlName="answer3" name="answer3">
+                </div>
+                <div class="form-group">
+                    <label for="answer4">{{feedback.question4}}</label>
+                    <input type="text" class="form-control" id="answer4" formControlName="answer4" name="answer4">
+                </div>
+                <div class="form-group">
+                    <label for="answer5">{{feedback.question5}}</label>
+                    <input type="text" class="form-control" id="answer5" formControlName="answer5" name="answer5">
+                </div>
+                <div class="form-group">
+                    <label for="answer6">{{feedback.question6}}</label>
+                    <input type="text" class="form-control" id="answer6" formControlName="answer6" name="answer6">
+                </div>
+                <div class="form-group">
+                    <label for="answer7">{{feedback.question7}}</label>
+                    <input type="text" class="form-control" id="answer7" formControlName="answer7" name="answer7">
+                </div>
+                <div class="form-group">
+                    <label for="answer8">{{feedback.question8}}</label>
+                    <input type="text" class="form-control" id="answer8" formControlName="answer8" name="answer8">
+                </div>
+                <div class="form-group">
+                    <label for="answer9">{{feedback.question9}}</label>
+                    <input type="text" class="form-control" id="answer9" formControlName="answer9" name="answer9">
+                </div>
+                <div class="form-group">
+                    <label for="answer10">{{feedback.question10}}</label>
+                    <input type="text" class="form-control" id="answer10" formControlName="answer10" name="answer10">
+                </div>
+                    <button class="btn btn-primary" type="submit">Submit Feedback</button>
+            </form>
+        </div>
+        </div>
+        </div>
+    </div>
+</div>

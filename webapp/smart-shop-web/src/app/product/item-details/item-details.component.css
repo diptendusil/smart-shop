@@ -1,20 +1,18 @@
-.img-side
-{
-    width: 100%;
+.img-side {
+  width: 100%;
 
-    margin-left: 20px;
 }
-.mar
-{
-    margin-top: 50px;
+
+.mar {
+  margin-top: 50px;
 }
-.img-c
-{
-    width: 20px;
-    align-content: center;
+
+.img-c {
+  width: 20px;
+  align-content: center;
 }
-.size
-{
-    font-size: 20px;
-   
+
+.size {
+  font-size: 20px;
+
 }

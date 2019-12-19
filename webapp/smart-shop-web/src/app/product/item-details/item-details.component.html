@@ -1,77 +1,59 @@
-
 <div class="row">
-    <div class="col-6 col-sm-6 col-md-6 col-lg-4 py-5">
-        <img class="img-side" src="https://i.ebayimg.com/images/g/U9wAAOSwZGJccVrc/s-l300.png" alt="">
+  <div class="col-12 col-md-6 col-lg-4">
+    <img class="img-side" src="https://i.ebayimg.com/images/g/U9wAAOSwZGJccVrc/s-l300.png" alt="">
+  </div>
+  <div class="col-12 col-md-6 col-lg-8">
+    <div class="row">
+      <div class="col-12 d-flex align-items-center">
+        <h3 class="text-muted">{{product?.brand}}</h3>
+        <div class="badge badge-info ml-2" title="Product Category">{{product?.category.categoryName}}</div>
+      </div>
     </div>
-    <div class="col-6 col-sm-6 col-md-6 col-lg-8 mar justfy-content-center">
-        <div class="row">
-            <div class="col-12">
-                <h3><span class="text-muted"> {{product.productName}}</span></h3>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <h5><b class="display-4">{{product.rate}}</b> <span
-                        class="text-muted">&nbsp;<s>{{product.rate}}</s></span>&nbsp;&nbsp;<span
-                        class="text-success"><b>10 % Off</b></span></h5>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <b>
-                    Avliable Offer
-                </b>
-            </div>
-        </div>
-        <div class="row py-2">
-            <div class="col-12">
-                <span>
-                    <i class="fas fa-tag"></i>
-                    <b class="text-muted"> Bank Offer</b> 15% Instant Discount on Bank Of Baroda Credit Cards <a
-                        href="">*T&C</a>
-                </span>
-            </div>
-        </div>
-        <div class="row py-2">
-            <div class="col-12">
-                <span>
-                    <i class="fas fa-tag"></i>
-                    <b class="text-muted"> Bank Offer</b> 15% Instant Discount on Bank Of Baroda Credit Cards <a
-                        href="">*T&C</a>
-                </span>
-            </div>
-        </div>
-        <div class="row py-2">
-            <div class="col-12">
-                <span>
-                    <i class="fas fa-tag"></i>
-                    <b class="text-muted"> Bank Offer</b> 15% Instant Discount on Bank Of Baroda Credit Cards <a
-                        href="">*T&C</a>
-                </span>
-            </div>
-        </div>
-        <div class="row py-3">
-            <i class="far fa-clock img-c"></i> Best before 20 Aug 2021
-            <br> Manufactured date 01 Sep 2019
-        </div>
-        <div>
-
-
-        <div class="row">
-            <div class="col-6">
-                <span class="text-muted"><b>Aisle :</b></span>
-                <span class="text-info"> {{product.aisle}}</span>
-
-            </div>
-       
-        
-            <div class="col-6">
-                <span class="text-muted"><b>Shelf :</b></span>
-                <span class="text-info "> {{product.shelf}}</span>
-
-
-        
-            
-        </div>
+    <div class="row">
+      <div class="col">
+        <h4>{{product?.productName}}</h4>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <h5>
+          <b class="display-4" *ngIf="!offer">₹{{product?.rate}}</b>
+          <b class="display-4" *ngIf="offer">₹{{offer?.discountRate}}</b>
+          <span class="text-muted" *ngIf="offer">&nbsp;<s>{{product?.rate}}</s></span>&nbsp;&nbsp;<span
+            class="text-success" *ngIf="offer"><b>{{(product?.rate - offer?.discountRate)*100/product.rate}}%
+              off</b></span>
+        </h5>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <b>
+          Available Offer: {{offer?.offerName?offer.offerName:'No Offers available'}}
+        </b>
+      </div>
+    </div>
+    <div class="row py-3">
+      <div class="col">
+        Date of Manufacture: {{product.dateOfManufacture | date: 'dd MMM, yyyy'}} <br />
+        Date of Expiry: {{product.dateOfExpiry | date: 'dd MMM, yyyy'}}
+      </div>
+    </div>
+    <div>
+      <div class="row font-size-32">
+        <div class="col-3">
+          <span class="text-muted"><b>Aisle :</b></span>
+          <span class="text-info"> {{product?.aisle}}</span>
+        </div>
+        <div class="col-3">
+          <span class="text-muted"><b>Shelf :</b></span>
+          <span class="text-info"> {{product?.shelf}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row my-4" *ngIf="product">
+  <div class="col-12">
+   <app-related-product [category]="product.category"></app-related-product>
+  </div>
 </div>

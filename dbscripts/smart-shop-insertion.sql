@@ -58,8 +58,17 @@ INSERT INTO `smart-shop`.`offer` (`of_id`, `of_date`, `of_discounted_rate`, `of_
 INSERT INTO `smart-shop`.`offer` (`of_id`, `of_date`, `of_discounted_rate`, `of_offer`, `of_pr_code`) VALUES ('6', '2019-12-12', '540', 'offer', 'p1');
 INSERT INTO `smart-shop`.`offer` (`of_id`, `of_date`, `of_discounted_rate`, `of_offer`, `of_pr_code`) VALUES ('7', '2019-12-12', '540', 'offer', 'p2');
 INSERT INTO `smart-shop`.`offer` (`of_id`, `of_date`, `of_discounted_rate`, `of_offer`, `of_pr_code`) VALUES ('8', '2019-12-12', '540', 'offer', 'p3');
+INSERT INTO `smart-shop`.`offer` (`of_id`, `of_date`, `of_discounted_rate`, `of_offer`, `of_pr_code`) VALUES ('9', '2019-12-17', '540', 'offer', 'p3');
 
-
+INSERT INTO `smart-shop`.`feedback` (`fe_id`, `fe_question_1`, `fe_question_2`, `fe_question_3`, `fe_question_4`, `fe_question_5`, `fe_question_6`, `fe_question_7`, `fe_question_8`, `fe_question_9`, `fe_question_10`) 
+VALUES ('1', 'Did you like the quality of our products?', 'How was your experience?', 'Could we fulfill your requirements?', 'Did you face any issues?', 'Was it easy to locate the products?',
+ 'Was it easy to navigate the website?', 'Were the product details accurately provided?', 'Did you like the deals offered?', 'Were the recommendations useful?', 'How can we improve?');
+INSERT INTO `smart-shop`.`feedback` (`fe_id`, `fe_question_1`, `fe_question_2`, `fe_question_3`, `fe_question_4`, `fe_question_5`, `fe_question_6`, `fe_question_7`, `fe_question_8`, `fe_question_9`, `fe_question_10`) 
+VALUES ('2', 'How was your experience?', 'Was it easy to navigate the website?', 'Did you like the quality of our products?', 'Did you face any issues?', 'Was it easy to locate the products?',
+'Were the product details accurately provided?', 'Did you like the deals offered?', 'Could we fulfill your requirements?', 'Were the recommendations useful?', 'How can we improve?');
+INSERT INTO `smart-shop`.`feedback` (`fe_id`, `fe_question_1`, `fe_question_2`, `fe_question_3`, `fe_question_4`, `fe_question_5`, `fe_question_6`, `fe_question_7`, `fe_question_8`, `fe_question_9`, `fe_question_10`) 
+VALUES ('3', 'Was it easy to navigate the website?', 'Did you like the quality of our products?', 'Were the product details accurately provided?', 'Did you like the deals offered?', 'How was your experience?',
+ 'Did you face any issues?', 'Was it easy to locate the products?', 'Were the recommendations useful?', 'Could we fulfill your requirements?', 'How can we improve?');
 
 select * from category;
 select * from user;
@@ -69,3 +78,5 @@ select * from offer;
 INSERT INTO `smart-shop`.`user` (`us_id`, `us_first_name`, `us_last_name`, `us_age`, `us_gender`, `us_contact`, `us_password`, `us_status`, `us_secret_question_1`, `us_secret_answer_1`, `us_secret_question_2`, `us_secret_answer_2`, `us_secret_question_3`, `us_secret_answer_3`, `us_ro_id`)
 VALUES ('sm', 'sg', 'User', '22', 'F', '1234567890', '$2y$10$rtKgYrFaR22GMGtNbmNI8eUwmWzWi/KBNysNA9hDbNB8tHct5eHgm', 'A', '1st letter', 'A', '2nd letter', 'B', '3rd letter', 'C', 'M'); 
  
+select * from feedback;
+select * from user_feedback;
