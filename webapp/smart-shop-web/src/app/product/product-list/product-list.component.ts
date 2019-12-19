@@ -22,9 +22,6 @@ export class ProductListComponent implements OnInit {
       } else if(this.displayString === 'Deals of the Day') {
         this.offerService.getAllOffers().subscribe(offers=> {
           this.offerList = offers
-          console.log(offers);
-          
-          this.productList = this.offerList.map(offer => offer.product);
         });
       } else if(this.displayString === 'All Products') {
         this.productService.getAllProductsInStock().subscribe(products => this.productList = products);

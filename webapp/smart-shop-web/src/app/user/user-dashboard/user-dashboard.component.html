@@ -6,7 +6,7 @@
                 <a  class="btn btn-primary" [routerLink]="['/product-list']" *ngIf="offers && offers?.length>0" [state]="{display: 'Deals of the Day'}">View All</a >
             </div>
             <div class="card-body product-list overflow-auto d-flex" *ngIf="offers">
-                <app-item-info class="product-item" *ngFor="let offer of offers" [product]="offer.product"></app-item-info>
+                <app-item-info class="product-item" *ngFor="let offer of offers" [offer]="offer"></app-item-info>
                 <div class="d-flex justify-content-center align-items-center" *ngIf="!offers || offers?.length===0" style="width: 100%;">
                     <div class="text-muted">No Offers today</div>
                 </div>
@@ -43,8 +43,12 @@
             <div class="card-header">
                 <h5>Categories</h5>
             </div>
-            <div class="card-body d-flex">
-                <a class="category-item" *ngFor="let category of categories" [routerLink]="['/product-list']" [state]="{category: category}" routerLinkActive="router-link-active" >{{category.categoryName}}</a>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <a class="category-item mt-1" *ngFor="let category of categories" [routerLink]="['/product-list']" [state]="{category: category}" routerLinkActive="router-link-active" >{{category.categoryName}}</a>
+                    </div>
+                </div>
                 
             </div>
         </div>

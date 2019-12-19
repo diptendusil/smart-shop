@@ -9,3 +9,9 @@
     </div>
     
 </div>
+<div class="row" *ngIf="offerList">
+    <div class="col-12 col-md-6 col-lg-3 mt-3" *ngFor="let offer of offerList">
+        <app-item-info [offer]="offer"></app-item-info>
+    </div>
+    
+</div>

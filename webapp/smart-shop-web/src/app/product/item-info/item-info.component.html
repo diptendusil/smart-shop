@@ -1,34 +1,39 @@
-<div class="card product-card mx-auto" *ngIf="product" [routerLink]="['/product-list/details', product.productCode]" routerLinkActive="router-link-active" >
-    <img class="card-img-top mx-auto" src="https://i.ebayimg.com/images/g/U9wAAOSwZGJccVrc/s-l300.png">
+<div class="card product-card mx-auto" *ngIf="product" [routerLink]="['/product-list/details', product.productCode]"
+  routerLinkActive="router-link-active">
+  <img class="card-img-top mx-auto" src="https://i.ebayimg.com/images/g/U9wAAOSwZGJccVrc/s-l300.png">
 
-    <div class="card-body text-center">
+  <div class="card-body text-center">
 
-        <span>
-            <div class="card-title text-muted">{{product.productName}} </div>
-        </span>
-
-        <div class="row">
-            <div class="col-12">
-                <span class="font-weight-500">₹{{product.rate}}</span>
-                <span class="text-muted">&nbsp;<s>₹{{product.rate}}</s></span>&nbsp;&nbsp;<span
-                    class="text-success font-weight-500">10%
-                    off</span>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-12">
-                <span class="text-muted"><b>Aisle :</b></span>
-                <span class="text-info"> {{product.aisle}}</span>
-
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <span class="text-muted"><b>Shelf :</b></span>
-                <span class="text-info "> {{product.shelf}}</span>
-
-            </div>
+    <div class="font-size-18 text-muted">{{product.productName}} </div>
+    <div class="row">
+        <div class="col-12 font-size-14 text-muted">
+            {{product.brand}}
         </div>
     </div>
+    <div class="row">
+      <div class="col-12">
+        <span class="font-weight-500" *ngIf="!offer">₹{{product.rate}}</span>
+        <span class="font-weight-500" *ngIf="offer">₹{{offer.discountRate}}</span>
+        <span class="text-muted" *ngIf="offer">&nbsp;<s>₹{{product.rate}}</s></span>&nbsp;&nbsp;<span
+          class="text-success font-weight-500" *ngIf="offer"> {{(product.rate - offer.discountRate)*100/product.rate}}%
+          off</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">
+        <span class="text-muted"><b>Aisle :</b></span>
+        <span class="text-info"> {{product.aisle}}</span>
+
+      </div>
+      <div class="col-6">
+        <span class="text-muted"><b>Shelf :</b></span>
+        <span class="text-info "> {{product.shelf}}</span>
+
+      </div>
+    </div>
+    <div class="row">
+      
+    </div>
+  </div>
 </div>
