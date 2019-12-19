@@ -161,7 +161,7 @@ ENGINE = InnoDB;
 -- Table `smart-shop`.`feedback`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `smart-shop`.`feedback` (
-  `fe_id` INT NOT NULL,
+  `fe_id` INT NOT NULL auto_increment,
   `fe_question_1` VARCHAR(200) NOT NULL,
   `fe_question_2` VARCHAR(200) NOT NULL,
   `fe_question_3` VARCHAR(200) NOT NULL,
@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `smart-shop`.`user_feedback` (
   `uf_rating_10` VARCHAR(200) NOT NULL,
   `uf_fe_id` INT NOT NULL,
   `uf_us_id` VARCHAR(15) NOT NULL,
-  `uf_id` INT NOT NULL,
+  `uf_id` INT NOT NULL auto_increment,
   `uf_date` DATE NOT NULL,
   INDEX `fk_user_feedback_feedback1_idx` (`uf_fe_id` ASC) ,
   INDEX `fk_user_feedback_user1_idx` (`uf_us_id` ASC) ,

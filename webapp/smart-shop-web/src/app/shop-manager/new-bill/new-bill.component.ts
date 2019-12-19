@@ -117,14 +117,14 @@ export class NewBillComponent implements OnInit {
       this.productsService.getProductById(pid).pipe(
         switchMap((product: Product) => {
           this.purchase.get('pname').setValue(product.productName);
+          this.purchase.get('price').clearValidators();
           this.purchase.get('price').setValidators([
-            this.purchase.get('price').validator,
-            Validators.max(product.rate)
+            Validators.required, Validators.min(0), Validators.max(product.rate)
           ])
           this.purchase.get('price').setValue(product.rate);
+          this.purchase.get('quantity').clearValidators();
           this.purchase.get('quantity').setValidators([
-            this.purchase.get('quantity').validator,
-            Validators.max(product.stockCount)
+            Validators.required, Validators.min(0), Validators.max(product.stockCount)
           ])
           return this.offerService.getOfferByProductToday(product.productCode)
         })
@@ -209,12 +209,6 @@ export class NewBillComponent implements OnInit {
       invalid = true;
     }
     else {
-      if (!this.purchase.valid) {
-        if (this.purchase.touched) {
-          invalid = true;
-        }
-      }
-
       if (this.items.length === 0) {
         invalid = true;
       }

@@ -20,8 +20,7 @@ import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboar
 import { PurchaseHistoryComponent } from './user/purchase-history/purchase-history.component';
 import { PurchaseItemComponent } from './user/purchase-history/purchase-item/purchase-item.component';
 import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
-import { ForgotPasswordComponent } from './site/forgot-password/forgot-password.component';
-import { ResetComponent } from './site/reset/reset.component';
+import { FeedbackComponent } from './user/feedback/feedback.component';
 
 
 
@@ -62,6 +61,14 @@ const routes: Routes = [
   {
     path: 'user/purchase-history',
     component: PurchaseHistoryComponent,
+    canActivate: [AuthGuardService],
+    data:{
+      role:RoleName.ROLE_USER
+    }
+  },
+  {
+    path: 'user/feedback',
+    component: FeedbackComponent,
     canActivate: [AuthGuardService],
     data:{
       role:RoleName.ROLE_USER
