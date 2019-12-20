@@ -1,38 +1,46 @@
+<div class="container-fluid mt-2 mb-5">
 
-<div class="col-6">
-
-<div class="card mx-2 " style="width: 300px;"> 
-    <div class="card-header">
-       <h3>BILLING</h3> 
+    <div class="row">
+        <span class="ml-3 mb-2">
+            <h4>Purchase History</h4>
+        </span>
     </div>
-    <div class="card-body">
-        <div class="row">
-            <span class="size">
-                Total Purchesed Per Day: 51
-            </span>
-        </div>
-        <div class="row">
-                <span class="size">
-                    Total Ammount Per Day:5100
-                </span>
+
+    <ul class="list-group">
+        <li *ngFor="let bill of bills" class="list-group-item list-group-item-action">
+            <div class="row mt-1 ml-3">
+                <div class="col-8">
+                    <div><span><strong>Bill ID : </strong></span>
+                        <span>{{bill.billId}}</span></div>
+                    <div>
+                        <span>
+                            <strong>Total Amount : </strong>
+                        </span>
+                        <span>₹ {{bill.total}}</span>
+                    </div>
+                    <div>
+                        <span>
+                            <strong>Purchase Date : </strong>
+                        </span>
+                        <span>{{bill.date | date: 'dd/MM/yyyy'}}</span>
+                    </div>
+                    <div>
+                        <span>
+                            <strong>No. of Items : </strong>
+                        </span>
+                        <span>{{bill.purchaseItems.length}}</span>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <span class="float-right ml-auto">
+                        <button class="btn btn-link float-right mr-2" [routerLink]="['/mgr/purchase-history/purchase-items',bill.billId]">
+                            View Details
+                        </button>
+                    </span>
+                </div>
+
             </div>
-    </div>
-    
-  <div class="card-footer">
-      <div class="row">
-          <div class="col-6">
-                <a href="" class="btn btn-primary ">
-                        New Bill
-                    </a>
-          </div>
-          <div class="col-6 d-flex justify content end">
-                <a href="" class="btn btn-primary  ">
-                        Total Bill
-                    </a>
-          </div>
-      </div>
-    
-     
-  </div>
-</div>
+        </li>
+    </ul>
+
 </div>
