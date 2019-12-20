@@ -89,6 +89,14 @@ const routes: Routes = [
     }
   },
   {
+    path: 'mgr/purchase-history/purchase-items/:id',
+    component: PurchaseItemComponent,
+    canActivate: [AuthGuardService],
+    data:{
+      role:RoleName.ROLE_MANAGER
+    }
+  },
+  {
     path: 'admin/dashboard',
     component: AdminDashboardComponent,
     canActivate: [AuthGuardService],
