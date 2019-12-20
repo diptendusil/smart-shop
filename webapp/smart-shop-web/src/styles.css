@@ -8,6 +8,7 @@ html {
 }
 body {
   height: 100vh;
+  background: #f9f9f9;
 }
 .validation-error {
     color: red;
