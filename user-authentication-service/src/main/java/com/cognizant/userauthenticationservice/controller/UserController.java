@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cognizant.userauthenticationservice.dto.UserSecretAnswerDto;
+import com.cognizant.userauthenticationservice.dto.UserSecretQuestionDto;
 import com.cognizant.userauthenticationservice.entities.Feedback;
 import com.cognizant.userauthenticationservice.entities.PasswordPojo;
 import com.cognizant.userauthenticationservice.entities.ResetPassword;
@@ -43,11 +45,34 @@ public class UserController {
 	public User getUser(@PathVariable String id) throws UserNotFoundException {
 		return appUserDetailsService.getUser(id);
 	}
+
 	@PostMapping("/users")
 	public User signupUser(@RequestBody User user) throws UserAlreadyExistsException {
 		User u = appUserDetailsService.signupUser(user);
 		System.out.println(u.getUserId());
 		return u;
+	}
+
+	@GetMapping("/secret-questions/{username}")
+	public UserSecretQuestionDto getUserSecretQuestion(@PathVariable("username") String username)
+			throws UserNotFoundException {
+		User user = appUserDetailsService.getUser(username);
+		UserSecretQuestionDto userSecretQuestionDto = new UserSecretQuestionDto(user.getUserId(),
+				user.getSecretQuestion1(), user.getSecretQuestion2(), user.getSecretQuestion3());
+		return userSecretQuestionDto;
+	}
+
+	@PostMapping("/secret-questions/verify")
+	public boolean verifySecretAnswer(@RequestBody UserSecretAnswerDto userSecretAnswerDto)
+			throws UserNotFoundException {
+		User user = appUserDetailsService.getUser(userSecretAnswerDto.getUserId());
+		if (userSecretAnswerDto.getSecretAnswer1().equals(user.getSecretAnswer1())
+				&& userSecretAnswerDto.getSecretAnswer2().equals(user.getSecretAnswer2())
+				&& userSecretAnswerDto.getSecretAnswer3().equals(user.getSecretAnswer3())) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@PutMapping("/users")
@@ -80,7 +105,8 @@ public class UserController {
 	}
 
 	@PutMapping("/change/{uid}")
-	public User changePassword(@PathVariable String uid, @RequestBody PasswordPojo passwordObj) throws UserNotFoundException {
+	public User changePassword(@PathVariable String uid, @RequestBody PasswordPojo passwordObj)
+			throws UserNotFoundException {
 		System.out.println(passwordObj.getOldPassword());
 		System.out.println(passwordObj.getNewPassword());
 		User us = appUserDetailsService.getUser(uid);
@@ -93,18 +119,13 @@ public class UserController {
 	}
 
 	@PutMapping("/reset/{uid}")
-	public User resetPassword(@PathVariable String uid, @RequestBody ResetPassword pass ) throws UserNotFoundException
-	{
+	public User resetPassword(@PathVariable String uid, @RequestBody ResetPassword pass) throws UserNotFoundException {
 		User us = appUserDetailsService.getUser(uid);
-		
-			us.setPassword(passwordEncoder.encode(pass.getNewPassword()));
-			return appUserDetailsService.modifyUser(us);
-		
-		
-		
+
+		us.setPassword(passwordEncoder.encode(pass.getNewPassword()));
+		return appUserDetailsService.modifyUser(us);
+
 	}
-	
-	
 
 	@GetMapping("/managers/approved")
 	public List<User> getApprovedManagers() {
@@ -132,12 +153,12 @@ public class UserController {
 	public List<User> modifyStatus(@PathVariable String id) {
 		return appUserDetailsService.modifyStatus(id);
 	}
-	
+
 	@PostMapping("/users/feedback")
 	public void submitFeedback(@RequestBody UserFeedback userFeedback) {
 		userService.submitFeedback(userFeedback);
 	}
-	
+
 	@GetMapping("/users/feedback/{feedbackId}")
 	public Feedback getFeedback(@PathVariable int feedbackId) {
 		return userService.getFeedbackById(feedbackId);
