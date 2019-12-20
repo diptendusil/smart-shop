@@ -12,10 +12,10 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <span class="font-weight-500" *ngIf="!offer">₹{{product.rate}}</span>
-        <span class="font-weight-500" *ngIf="offer">₹{{offer.discountRate}}</span>
-        <span class="text-muted" *ngIf="offer">&nbsp;<s>₹{{product.rate}}</s></span>&nbsp;&nbsp;<span
-          class="text-success font-weight-500" *ngIf="offer"> {{(product.rate - offer.discountRate)*100/product.rate}}%
+        <span class="font-size-14 font-weight-500" *ngIf="!offer">₹{{product.rate}}</span>
+        <span class="font-size-14 font-weight-500" *ngIf="offer">₹{{offer.discountRate}}</span>
+        <span class="font-size-14 text-muted" *ngIf="offer">&nbsp;<s>₹{{product.rate}}</s></span>&nbsp;&nbsp;<span
+          class="font-size-14 text-success font-weight-500" *ngIf="offer"> {{(product.rate - offer.discountRate)*100/product.rate}}%
           off</span>
       </div>
     </div>

@@ -27,6 +27,8 @@ export class ProductService {
   }
 
   getSuggestions(userId:string) {
+    console.log('suggestion');
+    
     return this.http.get<Product[]>(`${this._baseUrl}/products/suggestion/${userId}`);
   }
 
