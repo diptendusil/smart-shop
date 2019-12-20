@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.cognizant.userauthenticationservice.entities.Role;
 import com.cognizant.userauthenticationservice.entities.User;
 import com.cognizant.userauthenticationservice.exception.UserAlreadyExistsException;
+import com.cognizant.userauthenticationservice.exception.UserNotFoundException;
 import com.cognizant.userauthenticationservice.repositories.RoleRepository;
 import com.cognizant.userauthenticationservice.repositories.UserRepository;
 import com.cognizant.userauthenticationservice.security.AppUser;
@@ -137,8 +138,13 @@ public class AppUserDetailsService implements UserDetailsService {
 	}
 	
 	@Transactional
-	public User getUser(String userId) {
-		return userRepository.findById(userId).get();
+	public User getUser(String userId) throws UserNotFoundException {
+		Optional<User> user =userRepository.findById(userId); 
+		if(user.isPresent()) {
+			return user.get();
+		} else {
+			throw new UserNotFoundException("User with user id "+userId+" does not exists");
+		}
 	}
 	
 	@Transactional

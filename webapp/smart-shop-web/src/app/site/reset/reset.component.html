@@ -1,0 +1,56 @@
+<div class="container ">
+
+
+<div class="row justfy-content-center ">
+    <div class="col-6">
+
+   
+    <div class="card-header">
+        <h3>Reset Password</h3>
+    </div>
+    <div class="alert alert-danger" *ngIf="isError">
+        Error While Reseting Password
+
+    </div>
+    <div class="alert alert-success" *ngIf="isSuccess">
+       Successful Reseting Password
+
+    </div>
+    <div class="card-body">
+        <form [formGroup]="resetPass" (submit)="reset()" >
+            <div class="form-group">
+                <label for="password"> Enter Password</label>
+                <input type="password" formControlName="password" class="form-control" placeholder=" Enter password"  >
+                <div class="validation-error">
+
+                </div>
+
+            </div>
+            
+            <div class="form-group">
+                <label for="password"> Enter Confirm Password</label>
+                <input type="password" formControlName="confirmPassword" class="form-control" placeholder="Enter confirm password" >
+                <div class="validation-error">
+
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button class="btn btn-primary" type ="submit"> Reset</button>
+
+                </div>
+                <div class="col-6">
+                    <a [routerLink]="['/login']"> Login</a>
+                </div>
+
+            </div>
+          
+             
+            
+
+        </form>
+    </div>
+</div>
+</div>
+</div>

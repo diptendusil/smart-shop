@@ -66,8 +66,13 @@ import { FeedbackComponent } from './user/feedback/feedback.component';
     PurchaseItemComponent,
     ManageOffersComponent,
     UpdateDetailsComponent,
+<<<<<<< HEAD
+    ForgotPasswordComponent,
+    ResetComponent
+=======
     RelatedProductComponent,
     FeedbackComponent
+>>>>>>> fc983ab067c8fc45d88e12a0215f71ef25f806f6
   ],
   imports: [
     BrowserModule,

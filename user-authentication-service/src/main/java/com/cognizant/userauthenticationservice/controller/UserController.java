@@ -17,10 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cognizant.userauthenticationservice.entities.Feedback;
 import com.cognizant.userauthenticationservice.entities.PasswordPojo;
+import com.cognizant.userauthenticationservice.entities.ResetPassword;
 import com.cognizant.userauthenticationservice.entities.SecretQuestion;
 import com.cognizant.userauthenticationservice.entities.User;
 import com.cognizant.userauthenticationservice.entities.UserFeedback;
 import com.cognizant.userauthenticationservice.exception.UserAlreadyExistsException;
+import com.cognizant.userauthenticationservice.exception.UserNotFoundException;
 import com.cognizant.userauthenticationservice.repositories.SecretQuestionRepository;
 import com.cognizant.userauthenticationservice.service.AppUserDetailsService;
 import com.cognizant.userauthenticationservice.service.UserService;
@@ -38,10 +40,9 @@ public class UserController {
 	private UserService userService;
 
 	@GetMapping("/users/{id}")
-	public User getUser(@PathVariable String id) {
+	public User getUser(@PathVariable String id) throws UserNotFoundException {
 		return appUserDetailsService.getUser(id);
 	}
-
 	@PostMapping("/users")
 	public User signupUser(@RequestBody User user) throws UserAlreadyExistsException {
 		User u = appUserDetailsService.signupUser(user);
@@ -79,7 +80,7 @@ public class UserController {
 	}
 
 	@PutMapping("/change/{uid}")
-	public User changePassword(@PathVariable String uid, @RequestBody PasswordPojo passwordObj) {
+	public User changePassword(@PathVariable String uid, @RequestBody PasswordPojo passwordObj) throws UserNotFoundException {
 		System.out.println(passwordObj.getOldPassword());
 		System.out.println(passwordObj.getNewPassword());
 		User us = appUserDetailsService.getUser(uid);
@@ -90,7 +91,23 @@ public class UserController {
 			return null;
 		}
 	}
+<<<<<<< HEAD
+	@PutMapping("/reset/{uid}")
+	public User resetPassword(@PathVariable String uid, @RequestBody ResetPassword pass ) throws UserNotFoundException
+	{
+		User us = appUserDetailsService.getUser(uid);
+		
+			us.setPassword(passwordEncoder.encode(pass.getNewPassword()));
+			return appUserDetailsService.modifyUser(us);
+		
+		
+		
+	}
+	
+	
+=======
 
+>>>>>>> fc983ab067c8fc45d88e12a0215f71ef25f806f6
 	@GetMapping("/managers/approved")
 	public List<User> getApprovedManagers() {
 		return appUserDetailsService.getApprovedManagers();
