@@ -36,6 +36,8 @@ import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.com
 import { RelatedProductComponent } from './product/related-product/related-product.component';
 
 import { FeedbackComponent } from './user/feedback/feedback.component';
+import { ForgotPasswordComponent } from './site/forgot-password/forgot-password.component';
+import { ResetComponent } from './site/reset/reset.component';
 
 @NgModule({
   declarations: [
@@ -66,13 +68,10 @@ import { FeedbackComponent } from './user/feedback/feedback.component';
     PurchaseItemComponent,
     ManageOffersComponent,
     UpdateDetailsComponent,
-<<<<<<< HEAD
     ForgotPasswordComponent,
-    ResetComponent
-=======
+    ResetComponent,
     RelatedProductComponent,
     FeedbackComponent
->>>>>>> fc983ab067c8fc45d88e12a0215f71ef25f806f6
   ],
   imports: [
     BrowserModule,

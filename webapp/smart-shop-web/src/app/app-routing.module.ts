@@ -21,6 +21,8 @@ import { PurchaseHistoryComponent } from './user/purchase-history/purchase-histo
 import { PurchaseItemComponent } from './user/purchase-history/purchase-item/purchase-item.component';
 import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
 import { FeedbackComponent } from './user/feedback/feedback.component';
+import { ForgotPasswordComponent } from './site/forgot-password/forgot-password.component';
+import { ResetComponent } from './site/reset/reset.component';
 
 
 
