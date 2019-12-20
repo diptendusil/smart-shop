@@ -17,8 +17,12 @@ export class BillingService {
     return this.httpClient.post<Bill>(`${this._baseUrl}/bill`, bill);
   }
 
-  getAllBills() {
+  getAllBills(): Observable<Bill[]> {
+    return this.httpClient.get<Bill[]>(`${this._baseUrl}/bill/all`);
+  }
 
+  getBillsToday(): Observable<Bill[]> {
+    return this.httpClient.get<Bill[]>(`${this._baseUrl}/bill/today`);
   }
 
   getBillsByUser(username: string): Observable<Bill[]> {

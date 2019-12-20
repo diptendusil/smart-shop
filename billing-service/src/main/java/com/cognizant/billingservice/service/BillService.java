@@ -1,5 +1,6 @@
 package com.cognizant.billingservice.service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -60,6 +61,12 @@ public class BillService {
 		this.billRepository.deleteById(id);
 	}
 	
+	@Transactional
+	public List<Bill> getBillsToday() {
+		List<Bill> bills = billRepository.findByDateToday();
+		System.out.println(bills);
+		return bills;
+	}
 	
 	@Transactional
 	public RewardPoint getPointsByUserId(String id) {

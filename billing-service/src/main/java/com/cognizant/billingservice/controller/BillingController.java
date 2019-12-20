@@ -40,7 +40,12 @@ public class BillingController {
 		User user = restTemplate.getForObject("http://user-authentication-service/users/" + username, User.class);
 		return user;
 	}
-
+	
+	@GetMapping("/today")
+	public List<BillDTO> getBillsToday() {
+		return this.billService.getBillsToday().stream().map(bill -> convertBillToBillDTO(bill)).collect(Collectors.toList());
+	}
+	
 	@GetMapping("/all")
 	public List<BillDTO> getAllBills() {
 		return this.billService.getAllBills().stream().map(bill -> convertBillToBillDTO(bill))
