@@ -19,6 +19,7 @@ export class ManageOffersComponent implements OnInit {
   allProducts: Product[];
   allOffers: Offer[];
   filteredOffers: Offer[];
+  selectedProduct: Product;
   constructor(private offerService: OfferService, private formBuilder: FormBuilder, private productService: ProductService) {
     this.offerService.getAllOffersAdmin().subscribe(offers => {
       this.allOffers = offers;
@@ -33,7 +34,7 @@ export class ManageOffersComponent implements OnInit {
         offerName: ['', Validators.required],
         offerDate: ['',Validators.required],
         productCode: ['', [Validators.required, this.checkProduct.bind(this)]],
-        discountRate: ['', Validators.required]
+        discountRate: ['', [Validators.required, this.checkPrice.bind(this)]]
       });
     });
     this.filterBy.valueChanges.subscribe(() => {
@@ -101,8 +102,21 @@ export class ManageOffersComponent implements OnInit {
     return this.addForm.get('discountRate');
   }
   checkProduct(productControl: FormControl): { [s: string]: boolean } {
-    if(!this.allProducts.find(product => product.productCode === productControl.value)) {
+    const filteredProduct = this.allProducts.find(product => product.productCode === productControl.value);
+    if(!filteredProduct) {
       return {'noMatch': true}
+    } else {
+      this.selectedProduct = filteredProduct;
+      return null;
+    }
+  }
+  checkPrice(priceControl: FormControl): { [s: string]: boolean} {
+    if (!this.selectedProduct) {
+      return { 'notSelected': true};
+    } else {
+      if(+priceControl.value >= this.selectedProduct.rate) {
+        return { 'notValid': true}
+      }
     }
   }
   addOffer() {
@@ -116,7 +130,7 @@ export class ManageOffersComponent implements OnInit {
       this.offerService.addOffer(newOffer).subscribe(offer => {
         this.allOffers.push(offer);
         console.log(this.filteredOffers);
-        
+        this.addForm.reset();
       })
     }
   }

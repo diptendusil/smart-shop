@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row bg-white shadow-sm py-3">
   <div class="col-12 col-md-6 col-lg-4">
     <img class="img-side" src="https://i.ebayimg.com/images/g/U9wAAOSwZGJccVrc/s-l300.png" alt="">
   </div>
@@ -34,8 +34,8 @@
     </div>
     <div class="row py-3">
       <div class="col">
-        Date of Manufacture: {{product.dateOfManufacture | date: 'dd MMM, yyyy'}} <br />
-        Date of Expiry: {{product.dateOfExpiry | date: 'dd MMM, yyyy'}}
+        Date of Manufacture: {{product?.dateOfManufacture | date: 'dd MMM, yyyy'}} <br />
+        Date of Expiry: {{product?.dateOfExpiry | date: 'dd MMM, yyyy'}}
       </div>
     </div>
     <div>
