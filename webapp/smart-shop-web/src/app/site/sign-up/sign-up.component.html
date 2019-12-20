@@ -165,7 +165,7 @@
             <div class="col-8">
               <button type="submit" class="btn btn-primary" [disabled]="signUpForm.invalid">Sign Up</button>
             </div>
-            <div class="col-4 text-right">
+            <div class="col-4 text-right" *ngIf="!isAdmin()">
               Already have an account? <a [routerLink]="['/login']" >Login</a>
             </div>
           </div>

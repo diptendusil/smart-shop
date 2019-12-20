@@ -170,4 +170,11 @@ export class SignUpComponent implements OnInit {
       .pipe(
         map(value => value ? new Object({ 'userNameTaken': value }) : null));
   }
+  isAdmin() {
+    if(this.authService.loggedInUser.value) {
+      return this.authService.loggedInUser.value.role.name === RoleName.ROLE_ADMIN || this.authService.loggedInUser.value.role.name === RoleName.ROLE_SUPER_USER;
+    } else {
+      return false;
+    }
+  }
 }

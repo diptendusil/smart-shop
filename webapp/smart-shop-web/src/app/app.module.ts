@@ -38,6 +38,8 @@ import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.com
 
 import { FeedbackComponent } from './user/feedback/feedback.component';
 import { RelatedProductComponent } from './product/related-product/related-product.component';
+import { ManageShopManagerComponent } from './super-admin/manage-shop-manager/manage-shop-manager.component';
+import { ManageAdminComponent } from './super-admin/manage-admin/manage-admin.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,9 @@ import { RelatedProductComponent } from './product/related-product/related-produ
     ForgotPasswordComponent,
     ResetComponent,
     RelatedProductComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    ManageShopManagerComponent,
+    ManageAdminComponent
   ],
   imports: [
     BrowserModule,

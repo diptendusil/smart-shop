@@ -76,7 +76,7 @@ export class UserService {
   getApprovedManagers(): Observable<any> {
     return this.httpClient.get(`${this.baseUrl}/managers/approved`);
   }
-  getApoorvedAdmin():Observable<any>
+  getAprovedAdmin():Observable<any>
   {
     return this.httpClient.get(`${this.baseUrl}/admin/approved`)
   }
