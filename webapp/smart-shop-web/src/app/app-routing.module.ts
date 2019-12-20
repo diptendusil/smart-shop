@@ -27,8 +27,12 @@ import { FeedbackComponent } from './user/feedback/feedback.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'home',
+    component: UserDashboardComponent
   },
   {
     path: 'login',
