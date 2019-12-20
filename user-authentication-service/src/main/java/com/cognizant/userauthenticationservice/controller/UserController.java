@@ -91,6 +91,7 @@ public class UserController {
 			return null;
 		}
 	}
+
 	@PutMapping("/reset/{uid}")
 	public User resetPassword(@PathVariable String uid, @RequestBody ResetPassword pass ) throws UserNotFoundException
 	{

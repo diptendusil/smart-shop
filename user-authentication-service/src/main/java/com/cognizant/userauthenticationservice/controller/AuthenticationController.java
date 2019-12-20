@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cognizant.userauthenticationservice.entities.User;
+import com.cognizant.userauthenticationservice.exception.UserNotFoundException;
 import com.cognizant.userauthenticationservice.service.AppUserDetailsService;
 
 import io.jsonwebtoken.JwtBuilder;
@@ -32,7 +33,7 @@ public class AuthenticationController {
 	private AppUserDetailsService appUserDetailsService;
 	
 	@GetMapping("/authenticate")
-	public Map<String, String> authenticate(@RequestHeader("Authorization") String authHeader) {
+	public Map<String, String> authenticate(@RequestHeader("Authorization") String authHeader) throws UserNotFoundException {
 		
 		String user = getUser(authHeader);
 		String role = SecurityContextHolder.getContext().getAuthentication().getAuthorities().toArray()[0].toString();
