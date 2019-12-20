@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   loginFailed = false;
   unauthorized = false;
   error = false;
+  showPass: boolean = false;
 
 
   constructor(private authService: AuthService, private userService: UserService, private router: Router) { }
@@ -73,5 +74,9 @@ export class LoginComponent implements OnInit {
       )
 
     }
+  }
+
+  showPassword() {
+    this.showPass = !this.showPass;
   }
 }
