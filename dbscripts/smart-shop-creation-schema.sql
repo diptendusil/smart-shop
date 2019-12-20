@@ -99,7 +99,7 @@ ENGINE = InnoDB;
 -- Table `smart-shop`.`offer`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `smart-shop`.`offer` (
-  `of_id` INT NOT NULL,
+  `of_id` INT NOT NULL auto_increment,
   `of_date` DATE NOT NULL,
   `of_discounted_rate` DOUBLE NOT NULL,
   `of_offer` VARCHAR(50) NOT NULL,
