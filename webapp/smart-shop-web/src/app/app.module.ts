@@ -26,16 +26,16 @@ import { UpdateDetailsComponent } from './shop-manager/inventory/update-details/
 import { ManageOffersComponent } from './shop-manager/manage-offers/manage-offers.component';
 import { NewBillComponent } from './shop-manager/new-bill/new-bill.component';
 import { ShopManagerDashboardComponent } from './shop-manager/shop-manager-dashboard/shop-manager-dashboard.component';
+import { ForgotPasswordComponent } from './site/forgot-password/forgot-password.component';
 import { HeaderComponent } from './site/header/header.component';
 import { LoginComponent } from './site/login/login.component';
+import { ResetComponent } from './site/reset/reset.component';
 import { SignUpComponent } from './site/sign-up/sign-up.component';
 import { SuperAdminDashboardComponent } from './super-admin/super-admin-dashboard/super-admin-dashboard.component';
 import { PurchaseHistoryComponent } from './user/purchase-history/purchase-history.component';
 import { PurchaseItemComponent } from './user/purchase-history/purchase-item/purchase-item.component';
 import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.component';
-import { RelatedProductComponent } from './product/related-product/related-product.component';
 
-import { FeedbackComponent } from './user/feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -66,13 +66,13 @@ import { FeedbackComponent } from './user/feedback/feedback.component';
     PurchaseItemComponent,
     ManageOffersComponent,
     UpdateDetailsComponent,
-<<<<<<< HEAD
     ForgotPasswordComponent,
-    ResetComponent
-=======
-    RelatedProductComponent,
-    FeedbackComponent
->>>>>>> fc983ab067c8fc45d88e12a0215f71ef25f806f6
+    ResetComponent,
+    ItemDetailsComponent,  
+   BillingComponent
+   , InventoryComponent, SummaryComponent, ManageProductsComponent, ManageCategoriesComponent,
+  SummaryComponent, ManageProductsComponent, ProductListComponent
+
   ],
   imports: [
     BrowserModule,

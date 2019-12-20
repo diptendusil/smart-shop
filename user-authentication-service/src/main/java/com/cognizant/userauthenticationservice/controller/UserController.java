@@ -91,7 +91,7 @@ public class UserController {
 			return null;
 		}
 	}
-<<<<<<< HEAD
+
 	@PutMapping("/reset/{uid}")
 	public User resetPassword(@PathVariable String uid, @RequestBody ResetPassword pass ) throws UserNotFoundException
 	{
@@ -105,9 +105,7 @@ public class UserController {
 	}
 	
 	
-=======
 
->>>>>>> fc983ab067c8fc45d88e12a0215f71ef25f806f6
 	@GetMapping("/managers/approved")
 	public List<User> getApprovedManagers() {
 		return appUserDetailsService.getApprovedManagers();
