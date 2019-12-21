@@ -54,13 +54,19 @@ export class LoginComponent implements OnInit {
           const statusCode = res.status;
           console.log(statusCode);
           if(statusCode === 401) {
-            this.loginFailed = true
+            this.loginFailed = true;
+            this.unauthorized = false;
+            this.error = false;
           }
           else if(statusCode === 403) {
             this.unauthorized = true;
+            this.loginFailed = false;
+            this.error = false;
           }
           else {
             this.error = true;
+            this.unauthorized = false;
+            this.loginFailed = false;
           }
           
         },

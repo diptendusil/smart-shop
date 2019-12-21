@@ -1,17 +1,20 @@
-<div class="row justify-content-center mt-3 mb-3">
+<div class="row justify-content-center">
   <div class="col-12 col-md-10">
-    <div class="card">
+    <div class="card login-form mt-4 mb-3">
       <div class="card-body">
-        <h3>Sign Up</h3>
+        <div class="d-flex justify-content-center align-items-center mt-1 mb-2">
+          <h3>Sign Up</h3>
+        </div>
         <div class="alert alert-success" *ngIf="signUpSuccess">Signed Up Successfully</div>
         <div class="alert alert-danger" *ngIf="signUpError">Error Signing Up</div>
         <form [formGroup]="signUpForm" (ngSubmit)="submit()" *ngIf="formLoaded">
           <div class="form-row">
             <div class="col-12 col-lg-6">
               <label for="username">Username</label>
-              <input type="text" name="username" id="username" class="form-control" 
-                placeholder="Enter Username" formControlName="username"/>
-              <div class="validation-error" *ngIf="username.touched && username.hasError('required')">Username is required
+              <input type="text" name="username" id="username" class="form-control login-input" placeholder="Enter Username"
+                formControlName="username" />
+              <div class="validation-error" *ngIf="username.touched && username.hasError('required')">Username is
+                required
               </div>
               <div class="validation-error" *ngIf="username.hasError('minlength') || username.hasError('maxlength')">
                 Username must be minimum 2 characters and maximum 20 characters in length</div>
@@ -26,7 +29,8 @@
           <div class="form-row mt-3">
             <div class="col-12 col-md-6">
               <label for="firstName">First Name</label>
-              <input type="text" name="firstName" id="firstName" class="form-control" formControlName="firstName" placeholder="Enter First Name" />
+              <input type="text" name="firstName" id="firstName" class="form-control login-input" formControlName="firstName"
+                placeholder="Enter First Name" />
               <div class="validation-error" *ngIf="firstName.touched && firstName.hasError('required')">First Name is
                 required</div>
               <div class="validation-error" *ngIf="firstName.hasError('minlength') || firstName.hasError('maxlength')">
@@ -36,7 +40,7 @@
             </div>
             <div class="col-12 col-md-6">
               <label for="lastName">Last Name</label>
-              <input type="text" name="lastName" id="lastName" class="form-control" formControlName="lastName"
+              <input type="text" name="lastName" id="lastName" class="form-control login-input" formControlName="lastName"
                 placeholder="Enter Last Name" />
               <div class="validation-error" *ngIf="lastName.hasError('required') && lastName.touched">Last Name is
                 required</div>
@@ -49,7 +53,7 @@
           <div class="form-row mt-3">
             <div class="col-12 col-md-4">
               <label for="age">Age</label>
-              <input class="form-control" type="number" name="age" id="age" placeholder="Age" formControlName="age" />
+              <input class="form-control login-input" type="number" name="age" id="age" placeholder="Age" formControlName="age" />
               <div class="validation-error" *ngIf="age.touched && age.hasError('required')">
                 Age is required
               </div>
@@ -59,12 +63,13 @@
             </div>
             <div class="col-12 col-md-4">
               <label for="contact">Contact</label>
-              <input type="number" formControlName="contact" name="contact" id="contact" class="form-control" placeholder="Contact" />
+              <input type="number login-input" formControlName="contact" name="contact" id="contact" class="form-control login-input"
+                placeholder="Contact" />
               <div class="validation-error" *ngIf="contact.hasError('required') && contact.touched">
                 Contact is required</div>
-                <div class="validation-error" *ngIf="contact.hasError('pattern')">
-                  Invalid Phone number
-                </div>
+              <div class="validation-error" *ngIf="contact.hasError('pattern')">
+                Invalid Phone number
+              </div>
             </div>
             <div class="col-12 col-md-4">
               <div class="form-group">
@@ -73,12 +78,14 @@
                     Gender
                   </div>
                 </div>
-                <div class="form-check form-check-inline">
-                  <input type="radio" formControlName="gender" name="gender" id="gender1" class="form-check-input" value="M" />
+                <div class="form-check form-check-inline mt-2">
+                  <input type="radio" formControlName="gender" name="gender" id="gender1" class="form-check-input"
+                    value="M" />
                   <label for="gender1" class="form-check-label">Male</label>
                 </div>
-                <div class="form-check form-check-inline">
-                  <input type="radio" formControlName="gender" name="gender" id="gender2" class="form-check-input" value="F" />
+                <div class="form-check form-check-inline mt-2">
+                  <input type="radio" formControlName="gender" name="gender" id="gender2" class="form-check-input"
+                    value="F" />
                   <label for="gender2" class="form-check-label">Female</label>
                 </div>
               </div>
@@ -87,16 +94,17 @@
           <div class="form-row mt-3">
             <div class="col-12 col-md-6">
               <label for="password">Password</label>
-              <input type="password" formControlName="password" name="password" id="password" class="form-control" placeholder="Enter Password"
-                formControlName="password" />
-              <div class="validation-error" *ngIf="password.touched && password.hasError('required')">Password is required
+              <input type="password" formControlName="password" name="password" id="password" class="form-control login-input"
+                placeholder="Enter Password" formControlName="password" />
+              <div class="validation-error" *ngIf="password.touched && password.hasError('required')">Password is
+                required
               </div>
               <div class="validation-error" *ngIf="password.hasError('minlength')">Password must be minimum 8 characters
               </div>
             </div>
             <div class="col-12 col-md-6">
               <label for="confirmPassword">Confirm Password</label>
-              <input type="password" name="confirmPassword" id="confirmPassword" class="form-control"
+              <input type="password" name="confirmPassword" id="confirmPassword" class="form-control login-input"
                 placeholder="Confirm Password" formControlName="confirmPassword" />
               <div class="validation-error" *ngIf="confirmPassword.touched && confirmPassword.hasError('required')">
                 Confirm Password is required</div>
@@ -107,9 +115,11 @@
           <div class="form-row mt-3">
             <div class="col-12 col-md-6">
               <label for="secret-question1">Secret Question 1</label>
-              <select formControlName="secretQuestion1" name="secret-question1" id="secret-question1" class="form-control">
-                  <option value="" selected>Select</option>
-                <option *ngFor="let question of secretQuestions" [value]="question['question']">{{question['question']}}</option>
+              <select formControlName="secretQuestion1" name="secret-question1" id="secret-question1"
+                class="form-control login-input">
+                <option value="" selected>Select</option>
+                <option *ngFor="let question of secretQuestions" [value]="question['question']">{{question['question']}}
+                </option>
               </select>
               <div class="validation-error" *ngIf="secretQuestion1.hasError('required') && secretQuestion1.touched">
                 Secret Question is required
@@ -117,7 +127,8 @@
             </div>
             <div class="col-12 col-md-6">
               <label for="secret-answer1">Secret Answer 1</label>
-              <input formControlName="secretAnswer1" type="text" class="form-control" id="secret-answer1" placeholder="Secret answer 1" />
+              <input formControlName="secretAnswer1" type="text" class="form-control login-input" id="secret-answer1"
+                placeholder="Secret answer 1" />
               <div class="validation-error" *ngIf="secretAnswer1.hasError('required') && secretAnswer1.touched">
                 Answer is required
               </div>
@@ -126,9 +137,11 @@
           <div class="form-row mt-3">
             <div class="col-12 col-md-6">
               <label for="secret-question2">Secret Question 2</label>
-              <select formControlName="secretQuestion2" name="secret-question2" id="secret-question2" class="form-control" >
+              <select formControlName="secretQuestion2" name="secret-question2" id="secret-question2"
+                class="form-control login-input">
                 <option value="" selected>Select</option>
-                <option *ngFor="let question of secretQuestions" [value]="question['question']">{{question['question']}}</option>
+                <option *ngFor="let question of secretQuestions" [value]="question['question']">{{question['question']}}
+                </option>
               </select>
               <div class="validation-error" *ngIf="secretQuestion2.hasError('required') && secretQuestion2.touched">
                 Secret Question is required
@@ -136,7 +149,8 @@
             </div>
             <div class="col-12 col-md-6">
               <label for="secret-answer1">Secret Answer 2</label>
-              <input formControlName="secretAnswer2" type="text" class="form-control" id="secret-answer2" placeholder="Secret answer 2" />
+              <input formControlName="secretAnswer2" type="text" class="form-control login-input" id="secret-answer2"
+                placeholder="Secret answer 2" />
               <div class="validation-error" *ngIf="secretAnswer1.hasError('required') && secretAnswer1.touched">
                 Answer is required
               </div>
@@ -145,20 +159,23 @@
           <div class="form-row mt-3">
             <div class="col-12 col-md-6">
               <label for="secret-question3">Secret Question 3</label>
-              <select formControlName="secretQuestion3" name="secret-question3" id="secret-question3" class="form-control" required>
+              <select formControlName="secretQuestion3" name="secret-question3" id="secret-question3"
+                class="form-control login-input" required>
                 <option value="" selected>Select</option>
-                <option *ngFor="let question of secretQuestions" [value]="question['question']">{{question['question']}}</option>
+                <option *ngFor="let question of secretQuestions" [value]="question['question']">{{question['question']}}
+                </option>
               </select>
               <div class="validation-error" *ngIf="secretQuestion3.hasError('required') && secretQuestion3.touched">
-                  Secret Question is required
-                </div>
+                Secret Question is required
+              </div>
             </div>
             <div class="col-12 col-md-6">
               <label for="secret-answer3">Secret Answer 3</label>
-              <input formControlName="secretAnswer3" type="text" class="form-control" id="secret-answer3" placeholder="Secret answer 3" />
+              <input formControlName="secretAnswer3" type="text" class="form-control login-input" id="secret-answer3"
+                placeholder="Secret answer 3" />
               <div class="validation-error" *ngIf="secretAnswer1.hasError('required') && secretAnswer1.touched">
-                  Answer is required
-                </div>
+                Answer is required
+              </div>
             </div>
           </div>
           <div class="form-row mt-3">
@@ -166,7 +183,7 @@
               <button type="submit" class="btn btn-primary" [disabled]="signUpForm.invalid">Sign Up</button>
             </div>
             <div class="col-4 text-right" *ngIf="!isAdmin()">
-              Already have an account? <a [routerLink]="['/login']" >Login</a>
+              Already have an account? <a [routerLink]="['/login']">Login</a>
             </div>
           </div>
         </form>

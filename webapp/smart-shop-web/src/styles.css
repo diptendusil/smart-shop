@@ -73,3 +73,9 @@ body {
     color: white;
     text-decoration: none;
 }
+
+.footer {
+  margin-top: 50px;
+  position: fixed;
+  bottom: 0;
+}
