@@ -37,7 +37,7 @@
                         <div class="input-group">
                             <input class="form-control login-input" [type]="showPass ? 'text' : 'password'"
                                 placeholder="Enter password" name="pwd" formControlName="password">
-                            <button class="btn show-pass" (click)="showPassword()">
+                            <button type="button" class="btn show-pass" (click)="showPassword()">
                                 <i class="far fa-eye" *ngIf="!showPass" title="Show Password"></i>
                                 <i class="far fa-eye-slash" *ngIf="showPass" title="Hide Password"></i>
                             </button>

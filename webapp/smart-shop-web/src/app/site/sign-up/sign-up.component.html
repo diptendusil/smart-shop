@@ -3,7 +3,7 @@
     <div class="card login-form mt-4 mb-3">
       <div class="card-body">
         <div class="d-flex justify-content-center align-items-center mt-1 mb-2">
-          <h3>Sign Up</h3>
+          <h3><i class="fas fa-user-plus"></i> Sign Up</h3>
         </div>
         <div class="alert alert-success" *ngIf="signUpSuccess">Signed Up Successfully</div>
         <div class="alert alert-danger" *ngIf="signUpError">Error Signing Up</div>
@@ -148,7 +148,7 @@
               </div>
             </div>
             <div class="col-12 col-md-6">
-              <label for="secret-answer1">Secret Answer 2</label>
+              <label for="secret-answer2">Secret Answer 2</label>
               <input formControlName="secretAnswer2" type="text" class="form-control login-input" id="secret-answer2"
                 placeholder="Secret answer 2" />
               <div class="validation-error" *ngIf="secretAnswer1.hasError('required') && secretAnswer1.touched">
@@ -178,11 +178,11 @@
               </div>
             </div>
           </div>
-          <div class="form-row mt-3">
-            <div class="col-8">
-              <button type="submit" class="btn btn-primary" [disabled]="signUpForm.invalid">Sign Up</button>
+          <div class="form-row mt-4">
+            <div class="col-7 col-md-6 col-lg-4">
+              <button type="submit" class="btn btn-primary login-btn" [disabled]="signUpForm.invalid">Sign Up</button>
             </div>
-            <div class="col-4 text-right" *ngIf="!isAdmin()">
+            <div class="col-5 col-md-6 col-lg-8 text-right" *ngIf="!isAdmin()">
               Already have an account? <a [routerLink]="['/login']">Login</a>
             </div>
           </div>

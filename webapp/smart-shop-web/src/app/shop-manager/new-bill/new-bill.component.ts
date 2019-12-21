@@ -73,6 +73,11 @@ export class NewBillComponent implements OnInit {
       //console.log(this.allProducts);
     })
   }
+
+  closeDrop() {
+    console.log("Close Dropdown");
+    this.autoComplete = false;
+  }
   loadNewForm() {
     this.formSubmitted = false;
     this.items = [];

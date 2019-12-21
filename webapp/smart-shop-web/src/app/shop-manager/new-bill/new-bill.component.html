@@ -54,12 +54,12 @@
                                     <label [for]="'pid'">Product Code</label>
                                     <input class="form-control" type="text" [id]="'pid'"
                                         placeholder="Enter product code" [formControl]="pid"
-                                        (blur)="loadProduct(purchase.get('pid').value)" (input)="autoCompleteProduct()">
+                                        (clickOutside)="loadProduct(purchase.get('pid').value)" (input)="autoCompleteProduct()">
                                     <div class="autocompletebox" *ngIf="autoComplete" style="background-color: white;">
                                         <div class="autocompletebox"
                                             style="position: absolute; z-index: 2; height: 100px; overflow-y: scroll; background-color: white;">
                                             <div class="autocomplete" *ngFor="let product of allProducts"
-                                                style="display: block;" (click)="loadVal(product.productCode)">
+                                                style="display: block;" (click)="loadVal(product.productCode)" (clickOutside)="closeDrop()">
                                                 {{product.productCode}} :
                                                 {{product.productName}}</div>
                                         </div>

@@ -40,6 +40,7 @@ import { FeedbackComponent } from './user/feedback/feedback.component';
 import { RelatedProductComponent } from './product/related-product/related-product.component';
 import { ManageShopManagerComponent } from './super-admin/manage-shop-manager/manage-shop-manager.component';
 import { ManageAdminComponent } from './super-admin/manage-admin/manage-admin.component';
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,8 @@ import { ManageAdminComponent } from './super-admin/manage-admin/manage-admin.co
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ClickOutsideModule
 
   ],
   providers: [

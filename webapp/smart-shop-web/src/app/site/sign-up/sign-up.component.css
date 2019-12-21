@@ -5,3 +5,8 @@
 .login-input {
     border-radius: 50px;
 }
+
+.login-btn {
+    width: 70%;
+    border-radius: 50px;
+}
