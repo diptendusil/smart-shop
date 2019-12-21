@@ -1,3 +1,18 @@
 .navbar-brand {
     cursor: pointer;
 }
+
+.autocompletebox {
+    border: 1px solid #e6e6e6;
+    width: 100%;
+}
+
+.autocomplete {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.autocomplete:hover {
+    background-color: #e6ffff;
+    cursor: pointer;
+}

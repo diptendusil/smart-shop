@@ -16,12 +16,35 @@
                                     <div class="input-group" style="width: 340px;">
                                         <input type="text" class="form-control" placeholder="Search By Name or brand"
                                             aria-label="Search By Name or brand" aria-describedby="basic-addon2"
-                                            (click)="loadProducts()">
-                                        <div class="input-group-append">
+                                            [formControl]="search" (click)="loadProducts()" (input)="loadDropDown()">
+                                        <div class="input-group-append" style="cursor: pointer;">
                                             <span class="input-group-text" id="basic-addon2"><i
                                                     class="fas fa-search"></i></span>
                                         </div>
-                                        <div></div>
+
+                                        <div class="autocompletebox" style="background-color: white;" *ngIf="autoComplete">
+                                            <div class="autocompletebox"
+                                                style="position: absolute; z-index: 2; height: 500px; overflow-y: scroll; background-color: white;">
+                                                <div class="autocomplete" *ngFor="let product of filteredProducts"
+                                                    style="display: block;"
+                                                    (clickOutside)="closeDrop()"
+                                                    (click)="resetSearch()"
+                                                    [routerLink]="['/product-list/details', product.productCode]">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <h5>{{product.productName}}</h5>
+                                                        </div>
+                                                        <div class="col-6 d-flex justify-content-end">
+                                                            <b>{{product.brand}}</b>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <span class="text-primary">in {{product.category.categoryName}}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="dropdown-divider"></div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </li>
                             </ul>
