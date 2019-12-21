@@ -14,7 +14,7 @@ class AppUserDetailsServiceTest {
 	private AppUserDetailsService appUserDetailsService;
 	
 	@BeforeEach
-	void beforeEach() {
+	void setUp() {
 		
 	}
 	
