@@ -40,6 +40,11 @@ public class ProductController {
 	@Autowired
 	private RestTemplate restTemplate;
 
+	@GetMapping("/search/{text}")
+	public List<ProductDto> getSearch(@PathVariable String text) {
+		return convertProductsToProductDtos(this.productService.getSearch(text));
+	}
+	
 	@GetMapping("/suggestion/{userId}")
 	public List<ProductDto> getRecommendations(@PathVariable String userId) {
 		// @SuppressWarnings("unchecked")

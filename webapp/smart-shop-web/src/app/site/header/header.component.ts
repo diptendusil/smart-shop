@@ -17,9 +17,9 @@ export class HeaderComponent implements OnInit {
   productsLoaded: boolean = false;
   allProducts: Product[];
   filteredProducts: Product[];
-  autoComplete:boolean = false;
+  autoComplete: boolean = false;
 
-  searchHistory: {code: string, name: string}[];
+  searchHistory: string[] = [];
   search: FormControl = new FormControl('');
   constructor(private router: Router, private authService: AuthService, private productService: ProductService) { }
 
@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
   }
 
   loadProducts() {
-    if(!this.productsLoaded) {
+    if (!this.productsLoaded) {
       this.productService.getAllProductsInStock().subscribe((products) => {
         console.log("Loaded");
         this.allProducts = [...products];
@@ -55,7 +55,7 @@ export class HeaderComponent implements OnInit {
   }
 
   loadDropDown() {
-    if(this.search.value.length > 0) {
+    if (this.search.value.length > 0) {
       const filter = this.allProducts.filter((product) => {
         return (product.productName + " " + product.brand).toLowerCase().includes(this.search.value.toLowerCase());
       });
@@ -72,6 +72,16 @@ export class HeaderComponent implements OnInit {
     this.autoComplete = false;
     this.search.setValue('');
     this.filteredProducts = [...this.allProducts];
+  }
+
+  searchProd(text:string) {
+    const txt = this.searchHistory.find(str => text.toLowerCase() === str.toLowerCase());
+    if(txt === undefined) {
+      this.searchHistory.push(text);
+    }
+    this.autoComplete = false;
+    this.search.setValue('');
+    this.router.navigate(['/product-list'], { state: { 'display': 'Search Results', 'text': text } });
   }
 
   closeDrop() {

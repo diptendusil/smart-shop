@@ -17,17 +17,20 @@
                                         <input type="text" class="form-control" placeholder="Search By Name or brand"
                                             aria-label="Search By Name or brand" aria-describedby="basic-addon2"
                                             [formControl]="search" (click)="loadProducts()" (input)="loadDropDown()">
-                                        <div class="input-group-append" style="cursor: pointer;">
+                                        <div class="input-group-append" style="cursor: pointer;" (click)="searchProd(search.value)">
                                             <span class="input-group-text" id="basic-addon2"><i
                                                     class="fas fa-search"></i></span>
                                         </div>
 
                                         <div class="autocompletebox" style="background-color: white;" *ngIf="autoComplete">
-                                            <div class="autocompletebox"
+                                            <div class="autocompletebox" (clickOutside)="closeDrop()"
                                                 style="position: absolute; z-index: 2; height: 500px; overflow-y: scroll; background-color: white;">
+                                                <div class="autocomplete" *ngFor="let his of searchHistory" (click)="searchProd(his)">
+                                                    <i class="fas fa-history"></i>&nbsp;{{his}}
+                                                </div>
+                                                <div class="dropdown-divider" *ngIf="searchHistory.length > 0"></div>
                                                 <div class="autocomplete" *ngFor="let product of filteredProducts"
                                                     style="display: block;"
-                                                    (clickOutside)="closeDrop()"
                                                     (click)="resetSearch()"
                                                     [routerLink]="['/product-list/details', product.productCode]">
                                                     <div class="row">

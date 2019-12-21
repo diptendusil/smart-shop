@@ -77,6 +77,11 @@ public class ProductService {
 
 	}
 
+	@Transactional
+	public List<Product> getSearch(String name) {
+		return this.productRepository.findByProductNameContainingIgnoreCaseOrBrandContainingIgnoreCase(name, name);
+	}
+	
 	public List<Product> getRecommendations(List<BillDTO> bills, String userId, List<Category> categories) {
 		System.out.println(bills);
 		Map<String, Integer> categoryMap = new HashMap<>(); //Category name, index number

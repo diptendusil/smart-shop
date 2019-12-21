@@ -32,6 +32,10 @@ export class ProductService {
     return this.http.get<Product[]>(`${this._baseUrl}/products/suggestion/${userId}`);
   }
 
+  getSearch(text:string) {
+    return this.http.get<Product[]>(`${this._baseUrl}/products/search/${text}`);
+  }
+
   addProduct(product:Product)
   {
     return this.http.post<void>(`${this._baseUrl}/products`,product);
