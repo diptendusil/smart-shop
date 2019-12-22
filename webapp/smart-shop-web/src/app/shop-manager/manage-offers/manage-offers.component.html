@@ -1,10 +1,10 @@
-<div class="row">
+<div class="row mt-3">
   <div class="col d-flex justify-content-between">
     <div class="font-size-24">
       Offers
     </div>
-    <button data-target="#addOffer" class="btn btn-link" data-toggle="collapse" title="Add Offer"><i
-        class="material-icons">add_box</i></button>
+    <button data-target="#addOffer" class="btn btn-info login-btn" data-toggle="collapse" title="Add Offer"><i
+        class="fas fa-plus"></i></button>
   </div>
 </div>
 <div class="row collapse mt-2" id="addOffer">
@@ -12,19 +12,21 @@
     <form *ngIf="allProducts" [formGroup]="addForm" (ngSubmit)="addOffer()">
       <div class="form-row">
         <div class="col-12 col-md-4 col-lg-3">
-          <input type="text" placeholder="Offer Name" class="form-control" formControlName="offerName" />
+          <input type="text" placeholder="Offer Name" class="form-control login-input" formControlName="offerName" />
           <div class="validation-error" *ngIf="offerName.touched && offerName.hasError('required')">
             Offer Name is required
           </div>
         </div>
         <div class="col-12 col-md-4 col-lg-3">
-          <input formControlName="offerDate" type="date" placeholder="Offer Date" class="form-control" [min]="today" />
+          <input formControlName="offerDate" type="date" placeholder="Offer Date" class="form-control login-input"
+            [min]="today" />
           <div class="validation-error" *ngIf="offerDate.touched && offerDate.hasError('required')">
             Offer Date is required
           </div>
         </div>
         <div class="col-12 col-md-4 col-lg-3">
-          <input formControlName="productCode" type="text" placeholder="Product Code" class="form-control" />
+          <input formControlName="productCode" type="text" placeholder="Product Code"
+            class="form-control login-input" />
           <div class="validation-error" *ngIf="productCode.touched && productCode.hasError('required')">
             Product Code is required
           </div>
@@ -33,7 +35,8 @@
           </div>
         </div>
         <div class="col-12 col-md-4 col-lg-3">
-          <input formControlName="discountRate" type="number" placeholder="Discounted Rate" class="form-control" />
+          <input formControlName="discountRate" type="number" placeholder="Discounted Rate"
+            class="form-control login-input" />
           <div class="validation-error" *ngIf="discountRate.touched && discountRate.hasError('required')">
             Discount Rate is required.
           </div>
@@ -47,7 +50,7 @@
       </div>
       <div class="form-row mt-1">
         <div class="col-12 d-flex justify-content-end">
-          <button type="submit" class="btn btn-primary">Add</button>
+          <button type="submit" class="btn btn-primary login-btn">Add</button>
         </div>
       </div>
     </form>
@@ -58,7 +61,7 @@
     <span class="mr-2">Filter</span>
     <div class="row">
       <div class="col-6">
-        <select name="filterBy" id="filterBy" class="form-control" [formControl]="filterBy">
+        <select name="filterBy" id="filterBy" class="form-control login-input" [formControl]="filterBy">
           <option value="">All</option>
           <option value="offerName">Offer Name</option>
           <option value="offerDate">Offer Date</option>
@@ -70,8 +73,8 @@
       <div class="col-6">
         <input (keydown)="checkDate()" [formControl]="filterValue"
           [type]="filterBy.value==='offerDate'? 'date': filterBy.value==='discount'?'number': 'text'"
-          [placeholder]="filterBy.value != 'date'?'Enter value':null" *ngIf="filterBy.value" class="form-control"
-          name="filter" id="filter">
+          [placeholder]="filterBy.value != 'date'?'Enter value':null" *ngIf="filterBy.value"
+          class="form-control login-input" name="filter" id="filter">
       </div>
     </div>
 
@@ -80,7 +83,7 @@
     <span class="mr-2">Sort By</span>
     <div class="row">
       <div class="col-6">
-        <select name="filter" id="filter" class="form-control" [formControl]="sortBy">
+        <select name="filter" id="filter" class="form-control login-input" [formControl]="sortBy">
           <option value="offerId">Offer Id</option>
           <option value="offerDate">Offer Date</option>
           <option value="offerName">Offer Name</option>
@@ -97,8 +100,8 @@
     </div>
   </div>
 </div>
-<div class="row mt-3 justify-content-center">
-  <div class="col-12 offer-body">
+<div class="row mt-3 mb-3 justify-content-center">
+  <div class="col-12 table-responsive">
     <table class="table text-center">
       <thead>
         <tr>

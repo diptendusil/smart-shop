@@ -147,10 +147,10 @@ const routes: Routes = [
   {
     path: 'manager/offers',
     component: ManageOffersComponent,
-    // canActivate: [AuthGuardService],
-    // data: {
-    //   role: RoleName.ROLE_MANAGER
-    // }
+    canActivate: [AuthGuardService],
+    data: {
+      role: RoleName.ROLE_MANAGER
+    }
   },
   {
     path: 'purchase-history',

@@ -1,3 +1,11 @@
-.offer-body {
-    overflow-x: auto;
+.login-form {
+    border-radius: 15px;
+}
+
+.login-input {
+    border-radius: 50px;
+}
+
+.login-btn {
+    border-radius: 50px;
 }
