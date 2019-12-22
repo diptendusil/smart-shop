@@ -34,7 +34,7 @@ export class ManageAdminComponent implements OnInit {
     this.statusAdmin.valueChanges.subscribe((dataAdmin) => {
       //console.log(data);
       if(dataAdmin === 'All') {
-        if(this.adminTemp) {
+        if(this.adminTemp.length === 0) {
           this.emptyAdmin=true;
         }
         else {
@@ -43,7 +43,7 @@ export class ManageAdminComponent implements OnInit {
         }
       }
       else {
-        const res = this.adminTemp.filter(admins => admins.status === dataAdmin);
+        const res = this.adminTemp.filter(admin => admin.status === dataAdmin);
         //console.log(res);
         if(res === null || res === [] || res.length === 0) {
           this.emptyAdmin = true;

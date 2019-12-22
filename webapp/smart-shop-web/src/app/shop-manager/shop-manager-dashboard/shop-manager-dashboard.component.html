@@ -71,7 +71,22 @@
             <div class="card-body">
                 <h5>Todays Offers</h5>
                 <ul *ngIf="offers" class="list-group">
-                    <li *ngFor="let offer of offers" class="list-group-item">{{offer|json}}</li>
+                    <li *ngFor="let offer of offers" class="list-group-item">
+                        <div class="row">
+                            <div class="col-12 col-md-4">
+                                <div><b>Offer Name</b></div>
+                                <div>{{offer.offerName}}</div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div><b>Product</b></div>
+                                <div>{{offer.productName}}</div>
+                            </div>
+                            <div class="col-12 col-md-4">
+                                <div><b>Discounted Rate</b></div>
+                                <div>{{offer.discountRate}}</div>
+                            </div>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </div>

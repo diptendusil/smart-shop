@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { UserService } from 'src/app/services/user.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { dashboardUrl } from '../user-navigation-handler';
 
 @Component({
@@ -19,14 +19,16 @@ export class LoginComponent implements OnInit {
   error = false;
   showPass: boolean = false;
 
+  forbidden: boolean = false;
 
-  constructor(private authService: AuthService, private userService: UserService, private router: Router) { }
+  constructor(private authService: AuthService, private userService: UserService, private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     if(this.authService.loggedInUser.value) {
       const redirectUrl = dashboardUrl(this.authService.loggedInUser.value);
       this.router.navigate(redirectUrl);
     }
+    this.forbidden = this.route.snapshot.queryParams['error'] === 'forbidden';
     this.loginForm = new FormGroup(
       {
         'username': new FormControl(null, [Validators.required, Validators.maxLength(20)]),

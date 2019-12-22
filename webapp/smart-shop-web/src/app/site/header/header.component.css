@@ -16,3 +16,7 @@
     background-color: #e6ffff;
     cursor: pointer;
 }
+
+.login-input {
+    border-radius: 50px;
+}

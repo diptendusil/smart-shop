@@ -188,13 +188,20 @@ const routes: Routes = [
   },
   {
     path:'product/:id/edit',
-    component:ItemEditComponent
+    component:ItemEditComponent,
+    canActivate: [AuthGuardService],
+    data:{
+      role:RoleName.ROLE_MANAGER
+    }
   }
 ,
 {
   path:'product/add',
-  component:AddItemComponent
-
+  component:AddItemComponent,
+  canActivate: [AuthGuardService],
+  data:{
+    role:RoleName.ROLE_MANAGER
+  }
 },
 {
   path: 'super-user/admin-sign-up',

@@ -10,7 +10,8 @@
     </div>
     <div id="accordion">
       <ul class="list-group">
-        <li *ngFor="let product of products" class="list-group-item list-group-item-action">
+        <li *ngFor="let product of products" class="list-group-item list-group-item-action"
+          data-toggle="collapse" [attr.data-target]="'#'+product.productCode">
           <button class="btn btn-link font-weight-500" data-toggle="collapse"
             [attr.data-target]="'#'+product.productCode">{{product.productName}}</button>
           <span class="float-right ml-auto">

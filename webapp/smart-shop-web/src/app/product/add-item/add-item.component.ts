@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
 import { Category, Product } from '../product.model';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-add-item',
@@ -33,9 +34,10 @@ export class AddItemComponent implements OnInit {
   isError = false;
  
 
-  constructor(private formBuilder:FormBuilder,private route:ActivatedRoute,private productService:ProductService) { }
+  constructor(private formBuilder:FormBuilder,private route:ActivatedRoute,private productService:ProductService, private datePipe: DatePipe) { }
    
   ngOnInit() {
+    this.proAddDate.setValue(this.datePipe.transform(new Date(), 'yyyy-MM-dd'));
     this.productService.getAllCategories().subscribe(category => this.category = category);
   }
 

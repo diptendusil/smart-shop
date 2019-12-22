@@ -13,7 +13,7 @@ export class ManageShopManagerComponent implements OnInit {
   mgrDelete:boolean;
   managers: User[];
   managersTmp: User[];
-  status = new FormControl('All');
+  mgrstatus = new FormControl('All');
   empty: boolean;
 
   constructor(private userService: UserService) { }
@@ -32,7 +32,7 @@ export class ManageShopManagerComponent implements OnInit {
       }
       
     });
-    this.status.valueChanges.subscribe((data) => {
+    this.mgrstatus.valueChanges.subscribe((data) => {
       //console.log(data);
       if(data === 'All') {
         if(this.managersTmp === null || this.managersTmp === [] || this.managersTmp.length === 0 ) {

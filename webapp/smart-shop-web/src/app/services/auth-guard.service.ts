@@ -21,7 +21,7 @@ export class AuthGuardService implements CanActivate {
     if (loggedInUser) {
       if (loggedInUser.role.name === role) {
         console.log('here');
-        
+
         return true;
       }
       else {
@@ -30,13 +30,13 @@ export class AuthGuardService implements CanActivate {
         }
         else {
           console.log('here');
-          
+
           this.router.navigate(['/unauthorized']);
         }
       }
     }
     else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login'], { queryParams: { 'error': 'forbidden' } });
     }
     return false;
   }
