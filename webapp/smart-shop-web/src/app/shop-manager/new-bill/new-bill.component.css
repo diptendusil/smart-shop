@@ -21,3 +21,15 @@
     color: white;
     cursor: pointer;
 }
+
+.login-form {
+    border-radius: 15px;
+}
+
+.login-input {
+    border-radius: 50px;
+}
+
+.login-btn {
+    border-radius: 50px;
+}

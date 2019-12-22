@@ -68,7 +68,7 @@ public class ProductService {
 
 	@Transactional
 	public void addProduct(Product product) throws ProductAlreadyExistsException {
-		if (productRepository.findById(product.getProductCode()) == null) {
+		if (!productRepository.findById(product.getProductCode()).isPresent()) {
 			productRepository.save(product);
 		} else {
 			throw new ProductAlreadyExistsException(

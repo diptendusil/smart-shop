@@ -1,14 +1,14 @@
 <div class="row justify-content-center mt-3 mb-3">
     <div class="col-12 col-md-10">
-        <div class="card">
+        <div class="card login-form">
             <div class="card-body" *ngIf="formSubmitted">
                 <div class="alert alert-success">Bill added successfully</div>
                 <div><button class="btn btn-info" (click)="loadNewForm()">Add new form</button></div>
             </div>
             <div class="card-body" *ngIf="!formSubmitted">
                 <div class="row">
-                    <div class="col">
-                        <h3>New Bill</h3>
+                    <div class="col d-flex justify-content-center">
+                        <h3><i class="fas fa-cart-plus"></i> New Bill</h3>
                     </div>
                 </div>
                 <div class="row" *ngIf="wrongUsername">
@@ -20,29 +20,28 @@
                     <div class="form-row">
                         <div class="col-12 col-lg-6">
                             <label for="username">Username</label>
-                            <input type="text" name="username" id="username" class="form-control"
+                            <input type="text" name="username" id="username" class="form-control login-input"
                                 placeholder="Enter Username" formControlName="username" (blur)="loadName()" />
+                            <div class="validation-error" *ngIf="username.touched && username.hasError('required')">
+                                Username is required
+                            </div>
                         </div>
                     </div>
                     <div class="form-row mt-3">
                         <div class="col-12 col-lg-6">
                             <label for="name">Full Name</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder="Full Name"
+                            <input type="text" name="name" id="name" class="form-control login-input" placeholder="Full Name"
                                 formControlName="name" [readOnly]="'true'" />
                         </div>
                         <div class="col-12 col-lg-6">
                             <label for="billDate">Billing Date</label>
-                            <input type="date" name="billDate" id="billDate" class="form-control"
+                            <input type="date" name="billDate" id="billDate" class="form-control login-input"
                                 formControlName="billDate" [readOnly]="'true'">
                         </div>
                     </div>
                     <div class="row mt-3 mb-3 add-item">
-                        <div class="col-6">
-                            <h4>Purchased Items</h4>
-                        </div>
-                        <div class="col-6 d-flex justify-content-end">
-                            <button type="button" class="btn btn-info" title="Add Product" (click)="addPurchaseItem()"
-                                [disabled]="!purchase.valid"><i class="fas fa-plus"></i></button>
+                        <div class="col-12">
+                            <h4>Add Purchased Item</h4>
                         </div>
                     </div>
 
@@ -52,40 +51,66 @@
                             <div class="form-row">
                                 <div class="col-12 col-md-3">
                                     <label [for]="'pid'">Product Code</label>
-                                    <input class="form-control" type="text" [id]="'pid'"
+                                    <input class="form-control login-input" type="text" [id]="'pid'"
                                         placeholder="Enter product code" [formControl]="pid"
-                                        (clickOutside)="loadProduct(purchase.get('pid').value)" (input)="autoCompleteProduct()">
+                                        (clickOutside)="loadProduct(purchase.get('pid').value)"
+                                        (input)="autoCompleteProduct()">
                                     <div class="autocompletebox" *ngIf="autoComplete" style="background-color: white;">
-                                        <div class="autocompletebox"
+                                        <div class="autocompletebox" (clickOutside)="closeDrop()"
                                             style="position: absolute; z-index: 2; height: 100px; overflow-y: scroll; background-color: white;">
                                             <div class="autocomplete" *ngFor="let product of allProducts"
-                                                style="display: block;" (click)="loadVal(product.productCode)" (clickOutside)="closeDrop()">
+                                                style="display: block;" (click)="loadVal(product.productCode)">
                                                 {{product.productCode}} :
                                                 {{product.productName}}</div>
                                         </div>
                                     </div>
+                                    <div class="validation-error" *ngIf="pid.touched && pid.hasError('required')">
+                                        Product Id is required
+                                    </div>
+                                    <div class="validation-error" *ngIf="wrongProduct">
+                                        Invalid Product
+                                    </div>
                                 </div>
                                 <div class="col-12 col-md-3">
                                     <label [for]="'pname'">Product Name</label>
-                                    <input class="form-control" type="text" [id]="'pname'" placeholder="Product Name"
+                                    <input class="form-control login-input" type="text" [id]="'pname'" placeholder="Product Name"
                                         [formControl]="pname" [readOnly]="'true'">
                                 </div>
                                 <div class="col-12 col-md-3">
                                     <label [for]="'quantity'">Quantity</label>
-                                    <input class="form-control" type="number" [id]="'quantity'"
+                                    <input class="form-control login-input" type="number" [id]="'quantity'"
                                         placeholder="Enter quantity" [formControl]="quantity"
                                         (blur)="updateTotalAndPoints()">
+                                    <div class="validation-error"
+                                        *ngIf="quantity.touched && quantity.hasError('required')">
+                                        Quantity is required
+                                    </div>
+                                    <div class="validation-error" *ngIf="quantity.hasError('max')">
+                                        Available {{availableQuantity}}
+                                    </div>
                                 </div>
                                 <div class="col-12 col-md-3">
                                     <label [for]="'price'">Price</label>
-                                    <input class="form-control" type="number" [id]="'price'" placeholder="Enter price"
+                                    <input class="form-control login-input" type="number" [id]="'price'" placeholder="Enter price"
                                         [formControl]="price" [readOnly]="'true'" (blur)="updateTotalAndPoints()">
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <div class="row mt-2">
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="button" class="btn btn-info login-btn" title="Add Product" (click)="addPurchaseItem()"
+                                [disabled]="!purchase.valid"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+
                     <div class="table-responsive mt-3" *ngIf="items.length">
+                        <div class="row">
+                            <div class="col-12">
+                                <b>Added Items : </b>
+                            </div>
+                        </div>
                         <table class="table">
                             <tr>
                                 <th>Product Code</th>
@@ -107,13 +132,14 @@
                         <div class="form-row mt-3 mb-3">
                             <div class="col-12 col-lg-6">
                                 <label for="rew">Reward Points Available</label>
-                                <input type="number" id="rew" class="form-control" placeholder="Reward points available"
+                                <input type="number" id="rew" class="form-control login-input" placeholder="Reward points available"
                                     formControlName="reward" [readOnly]="'true'">
                             </div>
                             <div class="col-12 col-lg-6 d-flex align-items-end">
                                 <div style="width: 50%;">
-                                    <button type="button" class="btn btn-info" (click)="redeem()">Redeem</button>&nbsp;
-                                    <span class="text-light bg-success" style="padding: 10px; border-radius: 10px;" *ngIf="redeemed">
+                                    <button type="button" class="btn btn-info login-btn" (click)="redeem()">Redeem</button>&nbsp;
+                                    <span style="padding: 10px; border-radius: 3px; background-color: #b3ffb3;"
+                                        *ngIf="redeemed">
                                         <i class="fas fa-check"></i> Redeemed
                                     </span>
                                 </div>
@@ -125,19 +151,19 @@
                     <div class="form-row mt-3">
                         <div class="col-12 col-lg-6">
                             <label for="total">Total</label>
-                            <input type="number" name="total" id="total" class="form-control" placeholder="Total"
+                            <input type="number" name="total" id="total" class="form-control login-input" placeholder="Total"
                                 formControlName="total" [readOnly]="'true'">
                         </div>
                         <div class="col-12 col-lg-6">
                             <label for="points">Reward Points Earned</label>
-                            <input type="number" name="points" id="points" class="form-control"
+                            <input type="number" name="points" id="points" class="form-control login-input"
                                 placeholder="Reward Points Earned" formControlName="points" [readOnly]="'true'">
                         </div>
                     </div>
 
                     <div class="row mt-3">
                         <div class="col">
-                            <button type="submit" class="btn btn-primary" [disabled]="checkInvalid()">Submit</button>
+                            <button type="submit" class="btn btn-primary login-btn" [disabled]="checkInvalid()">Submit</button>
                         </div>
                     </div>
                 </form>

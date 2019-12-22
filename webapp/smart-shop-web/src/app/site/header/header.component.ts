@@ -42,7 +42,7 @@ export class HeaderComponent implements OnInit {
   }
 
   loadProducts() {
-    if (!this.productsLoaded) {
+    if (/* !this.productsLoaded */true) {
       this.productService.getAllProductsInStock().subscribe((products) => {
         console.log("Loaded");
         this.allProducts = [...products];
@@ -75,13 +75,15 @@ export class HeaderComponent implements OnInit {
   }
 
   searchProd(text:string) {
-    const txt = this.searchHistory.find(str => text.toLowerCase() === str.toLowerCase());
-    if(txt === undefined) {
-      this.searchHistory.push(text);
+    if(this.search.value !== null && this.search.value.length > 0) {
+      const txt = this.searchHistory.find(str => text.toLowerCase() === str.toLowerCase());
+      if(txt === undefined) {
+        this.searchHistory.push(text);
+      }
+      this.autoComplete = false;
+      this.search.setValue('');
+      this.router.navigate(['/product-list'], { state: { 'display': 'Search Results', 'text': text } });
     }
-    this.autoComplete = false;
-    this.search.setValue('');
-    this.router.navigate(['/product-list'], { state: { 'display': 'Search Results', 'text': text } });
   }
 
   closeDrop() {

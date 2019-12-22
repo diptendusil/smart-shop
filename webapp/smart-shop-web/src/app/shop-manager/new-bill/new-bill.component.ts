@@ -17,6 +17,8 @@ import { RewardPoint } from 'src/app/reward-point.model';
   styleUrls: ['./new-bill.component.css']
 })
 export class NewBillComponent implements OnInit {
+  availableQuantity: number;
+  
   allProducts: Product[];
   filterProducts: Product[];
   formSubmitted: boolean = false;
@@ -26,6 +28,7 @@ export class NewBillComponent implements OnInit {
   redeemed: boolean = false;
 
   wrongUsername: boolean = false;
+  wrongProduct: boolean = false;
   bill: Bill;
   items: PurchaseItem[] = [];
   autoComplete: boolean = false;
@@ -110,7 +113,7 @@ export class NewBillComponent implements OnInit {
         this.reward.setValue('');
         this.wrongUsername = true;
         this.username.setErrors(() => {
-          return { "error": "Wrong username" };
+          return { "invalidUsername": "Wrong username" };
         });
       })
 
@@ -121,6 +124,7 @@ export class NewBillComponent implements OnInit {
     if (pid !== null && pid.length > 0) {
       this.productsService.getProductById(pid).pipe(
         switchMap((product: Product) => {
+          this.wrongProduct = false;
           this.purchase.get('pname').setValue(product.productName);
           this.purchase.get('price').clearValidators();
           this.purchase.get('price').setValidators([
@@ -131,6 +135,7 @@ export class NewBillComponent implements OnInit {
           this.purchase.get('quantity').setValidators([
             Validators.required, Validators.min(0), Validators.max(product.stockCount)
           ])
+          this.availableQuantity = product.stockCount;
           return this.offerService.getOfferByProductToday(product.productCode)
         })
       )
@@ -138,16 +143,17 @@ export class NewBillComponent implements OnInit {
           console.log(offer)
           if (offer !== null) {
             console.log(offer.discountRate);
+            this.purchase.get('price').clearValidators();
             this.purchase.get('price').setValidators([
-              this.purchase.get('price').validator,
-              Validators.max(offer.discountRate)
+              Validators.required, Validators.min(0), Validators.max(offer.discountRate)
             ])
             this.purchase.get('price').setValue(offer.discountRate);
           }
         }, () => {
+          this.wrongProduct = true;
           this.purchase.get('pname').setValue('');
           this.purchase.get('pid').setErrors(() => {
-            return { "error": "Wrong Product Code" };
+            return { "invalidProduct": "Wrong Product Code" };
           })
         })
     }
@@ -160,12 +166,13 @@ export class NewBillComponent implements OnInit {
     })
 
     if (find === undefined) {
+      let tmpPro = this.allProducts.find((product: Product) => {
+        return product.productCode === this.pid.value;
+      });
       this.items.push({
-        product: this.allProducts.find((product: Product) => {
-          return product.productCode === this.pid.value;
-        }),
+        product: tmpPro,
         price: +this.price.value,
-        quantity: this.quantity.value
+        quantity: (this.quantity.value <= tmpPro.stockCount) ? this.quantity.value : tmpPro.stockCount
       })
     }
     else {
