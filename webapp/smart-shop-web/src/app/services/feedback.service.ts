@@ -12,6 +12,10 @@ export class FeedbackService {
   baseUrl = `${environment.baseUrl}/user-authentication-service`;
   constructor(private httpClient:HttpClient) { }
 
+  getAllUserFeedbacks(): Observable<UserFeedback[]> {
+    return this.httpClient.get<UserFeedback[]>(`${this.baseUrl}/users/feedback`);
+  }
+
   getFeedback(feedbackId:number):Observable<Feedback>{
     return this.httpClient.get<Feedback>(`${this.baseUrl}/users/feedback/${feedbackId}`)
   }

@@ -1,6 +1,6 @@
 <div class="card product-card mx-auto" *ngIf="product" [routerLink]="['/product-list/details', product.productCode]"
   routerLinkActive="router-link-active">
-  <img class="card-img-top mx-auto" src="https://i.ebayimg.com/images/g/U9wAAOSwZGJccVrc/s-l300.png">
+  <img class="card-img-top mx-auto" [src]="product.image">
 
   <div class="card-body text-center">
 
@@ -15,7 +15,7 @@
         <span class="font-size-14 font-weight-500" *ngIf="!offer">₹{{product.rate}}</span>
         <span class="font-size-14 font-weight-500" *ngIf="offer">₹{{offer.discountRate}}</span>
         <span class="font-size-14 text-muted" *ngIf="offer">&nbsp;<s>₹{{product.rate}}</s></span>&nbsp;&nbsp;<span
-          class="font-size-14 text-success font-weight-500" *ngIf="offer"> {{(product.rate - offer.discountRate)*100/product.rate}}%
+          class="font-size-14 text-success font-weight-500" *ngIf="offer"> {{(product.rate - offer.discountRate)*100/product.rate | number:'1.0-0'}}%
           off</span>
       </div>
     </div>

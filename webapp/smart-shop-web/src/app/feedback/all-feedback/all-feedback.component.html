@@ -1,0 +1,89 @@
+<div class="container-fluid mt-3 mb-3">
+    <div class="row">
+        <div class="col-12 mb-2">
+            <h3>User Feedbacks</h3>
+            <h4 class="mt-2 text-muted" *ngIf="feedbacks === null || feedbacks.length === 0">No Feedbacks available</h4>
+        </div>
+    </div>
+
+    <div class="row mt-3" *ngIf="feedbacks.length > 0">
+        <div class="col-12">
+            <div class="container-fluid mb-1" *ngFor="let feedback of feedbacks">
+                <!-- {{feedback | json}} -->
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-7">
+                                <div><b>User fullname</b></div>
+                                <div>{{feedback.user.firstName + ' ' + feedback.user.lastName}}</div>
+                            </div>
+                            <div class="col-4">
+                                <div><b>Date</b></div>
+                                <div>{{feedback.date | date: 'dd/MM/yyyy'}}</div>
+                            </div>
+                            <div class="col-1">
+                                <div>
+                                    <a role="button" class="btn btn-info" data-toggle="collapse" [href]="'#uf' + feedback.userFeedbackId"
+                                        aria-expanded="false" [attr.aria-controls]="'uf' + feedback.userFeedbackId">
+                                        Info
+                                    </a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapse" [id]="'uf' + feedback.userFeedbackId">
+                    <div class="card card-body table-responsive">
+                        <table class="table">
+                            <tr>
+                                <th>Question</th>
+                                <th>Answer</th>
+                            </tr>
+                            <tr>
+                                <td>{{feedback.feedback.question1}}</td>
+                                <td>{{feedback.answer1}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{feedback.feedback.question2}}</td>
+                                <td>{{feedback.answer2}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{feedback.feedback.question3}}</td>
+                                <td>{{feedback.answer3}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{feedback.feedback.question4}}</td>
+                                <td>{{feedback.answer4}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{feedback.feedback.question5}}</td>
+                                <td>{{feedback.answer5}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{feedback.feedback.question6}}</td>
+                                <td>{{feedback.answer6}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{feedback.feedback.question7}}</td>
+                                <td>{{feedback.answer7}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{feedback.feedback.question8}}</td>
+                                <td>{{feedback.answer8}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{feedback.feedback.question9}}</td>
+                                <td>{{feedback.answer9}}</td>
+                            </tr>
+                            <tr>
+                                <td>{{feedback.feedback.question10}}</td>
+                                <td>{{feedback.answer10}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

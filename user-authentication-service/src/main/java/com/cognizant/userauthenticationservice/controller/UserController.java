@@ -163,4 +163,9 @@ public class UserController {
 	public Feedback getFeedback(@PathVariable int feedbackId) {
 		return userService.getFeedbackById(feedbackId);
 	}
+	
+	@GetMapping("/users/feedback")
+	public List<UserFeedback> getAllUserFeedbacks() {
+		return userService.getAllUserFeedbacks();
+	}
 }

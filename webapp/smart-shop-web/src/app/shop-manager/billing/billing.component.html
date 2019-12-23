@@ -1,4 +1,4 @@
-<div class="container-fluid mt-2 mb-5">
+<div class="container-fluid mt-3 mb-5">
 
     <div class="row">
         <span class="ml-3 mb-2">
@@ -6,7 +6,13 @@
         </span>
     </div>
 
-    <ul class="list-group">
+    <div class="row" *ngIf="bills === null || bills.length === 0">
+        <div class="col-12">
+            <h2 class="text-muted">You have made no purchase</h2>
+        </div>
+    </div>
+
+    <ul class="list-group" *ngIf="bills.length > 0">
         <li *ngFor="let bill of bills" class="list-group-item list-group-item-action">
             <div class="row mt-1 ml-3">
                 <div class="col-8">

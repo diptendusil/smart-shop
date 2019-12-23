@@ -41,6 +41,7 @@ import { RelatedProductComponent } from './product/related-product/related-produ
 import { ManageShopManagerComponent } from './super-admin/manage-shop-manager/manage-shop-manager.component';
 import { ManageAdminComponent } from './super-admin/manage-admin/manage-admin.component';
 import { ClickOutsideModule } from 'ng-click-outside';
+import { AllFeedbackComponent } from './feedback/all-feedback/all-feedback.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +77,8 @@ import { ClickOutsideModule } from 'ng-click-outside';
     RelatedProductComponent,
     FeedbackComponent,
     ManageShopManagerComponent,
-    ManageAdminComponent
+    ManageAdminComponent,
+    AllFeedbackComponent
   ],
   imports: [
     BrowserModule,

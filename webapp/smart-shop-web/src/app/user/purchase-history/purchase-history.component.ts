@@ -11,7 +11,7 @@ import { User } from 'src/app/site/user';
 })
 export class PurchaseHistoryComponent implements OnInit {
 
-  bills:Bill[];
+  bills:Bill[] = [];
   loggedInUser: User=null;
   constructor(private billService:BillingService, private authService:AuthService) { }
 

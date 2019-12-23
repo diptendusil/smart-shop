@@ -23,6 +23,7 @@ import { UserDashboardComponent } from './user/user-dashboard/user-dashboard.com
 import { FeedbackComponent } from './user/feedback/feedback.component';
 import { ForgotPasswordComponent } from './site/forgot-password/forgot-password.component';
 import { ResetComponent } from './site/reset/reset.component';
+import { AllFeedbackComponent } from './feedback/all-feedback/all-feedback.component';
 
 
 
@@ -79,6 +80,11 @@ const routes: Routes = [
     data:{
       role:RoleName.ROLE_USER
     }
+  },
+  {
+    path: 'all/feedbacks',
+    component: AllFeedbackComponent,
+    canActivate: [AuthGuardService]
   },
   {
     path: 'user/purchase-history/purchase-items/:id',
